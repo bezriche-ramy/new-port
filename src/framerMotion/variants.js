@@ -10,10 +10,11 @@ export const fadeIn = (direction, delay) => {
       x: 0,
       opacity: 1,
       transition: {
-        type: "tween",
-        duration: 0.8,  // reduced from 1.2
+        type: "spring",
+        duration: 0.5,  // Reduced from 0.8
         delay: delay,
-        ease: [0.25, 0.1, 0.25, 0.9],  // adjusted for smoother animation
+        ease: [0.25, 0.1, 0.25, 0.9],
+        when: "beforeChildren",
       },
     },
   };

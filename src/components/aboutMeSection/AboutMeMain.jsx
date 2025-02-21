@@ -13,7 +13,11 @@ const AboutMeMain = () => {
         variants={fadeIn("right", 0)}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ 
+          once: true, 
+          amount: 0.1,  // Reduced from 0.3 to trigger earlier
+          margin: "0px 0px -150px 0px" // Negative margin to trigger before element is fully in view
+        }}
       >
         <AboutMeText />
       </motion.div>
@@ -21,7 +25,11 @@ const AboutMeMain = () => {
         variants={fadeIn("left", 0)}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ 
+          once: true, 
+          amount: 0.1,  // Reduced from 0.3 to trigger earlier
+          margin: "0px 0px -150px 0px" // Negative margin to trigger before element is fully in view
+        }}
       >
         <AboutMeImage />
       </motion.div>
