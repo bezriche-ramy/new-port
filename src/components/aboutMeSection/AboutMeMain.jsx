@@ -13,7 +13,7 @@ const AboutMeMain = () => {
         variants={fadeIn("right", 0)}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: false, amount: 0.7 }}
+        viewport={{ once: true, amount: 0.3 }}
       >
         <AboutMeText />
       </motion.div>
@@ -21,7 +21,7 @@ const AboutMeMain = () => {
         variants={fadeIn("left", 0)}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: false, amount: 0.7 }}
+        viewport={{ once: true, amount: 0.3 }}
       >
         <AboutMeImage />
       </motion.div>
