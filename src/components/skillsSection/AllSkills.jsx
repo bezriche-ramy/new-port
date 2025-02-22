@@ -1,7 +1,7 @@
 import SingleSkill from "./SingleSkill";
 import { FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaPython, FaJava } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io";
-import { SiNextdotjs, SiMysql, SiLinux, SiWireshark, SiMetasploit, SiBurpsuite } from "react-icons/si";
+import { SiNextdotjs, SiMysql, SiLinux, SiWireshark, SiMetasploit, SiBurpsuite, SiDjango, SiExpress, SiGo } from "react-icons/si";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { DiGit } from "react-icons/di";
 import { TbBrandCpp } from "react-icons/tb";
@@ -24,7 +24,10 @@ const skills = [
   { skill: "Git", icon: DiGit },
   { skill: "Wireshark", icon: SiWireshark },
   { skill: "Metasploit", icon: SiMetasploit },
-  { skill: "Burp Suite", icon: SiBurpsuite }
+  { skill: "Burp Suite", icon: SiBurpsuite },
+  { skill: "Django", icon: SiDjango },
+  { skill: "Express.js", icon: SiExpress },
+  { skill: "Golang", icon: SiGo }
 ];
 
 const AllSkills = () => {
