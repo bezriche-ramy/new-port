@@ -1,18 +1,31 @@
 import { motion } from "framer-motion";
+import { TypeAnimation } from 'react-type-animation';
 import { fadeIn } from "../../framerMotion/variants";
 
 const HeroText = () => {
   return (
     <div className="flex flex-col gap-4 h-full justify-center md:text-left sm:text-center">
-      <motion.h2
+      <motion.div
         variants={fadeIn("down", 0.2)}
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0 }}
         className="lg:text-2xl sm:text-xl uppercase text-accent"
       >
-        Front-End Web Developer
-      </motion.h2>
+        <TypeAnimation
+          sequence={[
+            'Front-End Developer',
+            2000,
+            'Back-End Developer',
+            2000,
+            'Full-Stack Developer',
+            2000,
+          ]}
+          wrapper="span"
+          speed={50}
+          repeat={Infinity}
+        />
+      </motion.div>
       <motion.h1
         variants={fadeIn("right", 0.4)}
         initial="hidden"

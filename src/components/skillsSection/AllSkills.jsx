@@ -24,7 +24,10 @@ const skills = [
   { skill: "Git", icon: DiGit },
   { skill: "Wireshark", icon: SiWireshark },
   { skill: "Metasploit", icon: SiMetasploit },
-  { skill: "Burp Suite", icon: SiBurpsuite }
+  { skill: "Burp Suite", icon: SiBurpsuite },
+  { skill: "Django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
+  { skill: "Express", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+  { skill: "Golang", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" }
 ];
 
 const AllSkills = () => {
