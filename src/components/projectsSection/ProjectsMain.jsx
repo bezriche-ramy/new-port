@@ -16,14 +16,14 @@ const projects = [
     technologies: ["React", "Node.js", "MongoDB"]
   },
   {
-    name: "Compiler Project",
-    year: "2023",
+    name: "Simple Chat App",
+    year: "2025",
     align: "left",
-    image: "https://i.ibb.co/GvBXtM4y/project2.png",
-    demoLink: "https://compiler.example.com",
-    githubLink: "https://github.com/user/compiler",
-    description: "Custom programming language compiler implementation",
-    technologies: ["Python", "LLVM", "Flex", "Bison"]
+    image: "https://i.ibb.co/ymmS94Jb/simplechatapp.png",
+    demoLink: "https://simple-chat-app-z4te.onrender.com/",
+    githubLink: "https://github.com/bezriche-ramy/simple-chat-app",
+    description: "Real-time chat application built with Python",
+    technologies: ["Python", "Flask", "WebSocket", "HTML/CSS"]
   },
   {
     name: "Djezzy Internship Project",
