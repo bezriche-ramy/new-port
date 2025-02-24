@@ -26,14 +26,14 @@ const projects = [
     technologies: ["Python", "Flask", "WebSocket", "HTML/CSS"]
   },
   {
-    name: "Djezzy Internship Project",
-    year: "2023",
+    name: "Vamos",
+    year: "2025",
     align: "right",
-    image: "https://i.ibb.co/BVCP3xhM/project3.png",
-    demoLink: "https://djezzy.example.com",
-    githubLink: "https://github.com/user/djezzy",
-    description: "Telecom management system developed during internship",
-    technologies: ["Angular", "Spring Boot", "PostgreSQL"]
+    image: "https://i.ibb.co/QjxH2Lz4/Screenshot-from-2025-02-24-17-39-54.png",
+    demoLink: "https://islam04.pythonanywhere.com/",
+    githubLink: "https://github.com/user/vamos",
+    description: "Vamos application platform",
+    technologies: ["Python", "Django", "React"]
   },
   {
     name: "Python QSM",
@@ -44,6 +44,16 @@ const projects = [
     githubLink: "https://github.com/user/python-qsm",
     description: "Quality Service Management tool in Python",
     technologies: ["Python", "Django", "React", "Docker"]
+  },
+  {
+    name: "Djezzy Internship Project",
+    year: "2023",
+    align: "right",
+    image: "https://i.ibb.co/BVCP3xhM/project3.png",
+    demoLink: "https://djezzy.example.com",
+    githubLink: "https://github.com/user/djezzy",
+    description: "Telecom management system developed during internship",
+    technologies: ["Angular", "Spring Boot", "PostgreSQL"]
   }
 ];
 
