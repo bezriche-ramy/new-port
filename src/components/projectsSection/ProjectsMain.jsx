@@ -6,9 +6,20 @@ import WaitingSection from './WaitingSection';
 
 const projects = [
   {
-    name: "GDG Hack Project",
-    year: "2023",
+    name: "Tawba",
+    year: "2024-2025",
     align: "right",
+    isVideo: true,
+    video: "src/Screencast from 2025-04-05 20-20-51.webm", // Updated with correct path
+    demoLink: "https://tawba-a1af3.web.app/", // Updated with the actual website URL
+    githubLink: "https://github.com/bezriche-ramy/tawba",
+    description: "Islamic application focused on spiritual growth and guidance",
+    technologies: ["React", "TailwindCSS", "Firebase"]
+  },
+  {
+    name: "GDG Hack Project",
+    year: "2024-2025",
+    align: "left",
     image: "https://i.ibb.co/PZ6G8vD0/project1.png",
     demoLink: "https://gdg-hack.example.com",
     githubLink: "https://github.com/user/gdg-hack",
@@ -17,8 +28,8 @@ const projects = [
   },
   {
     name: "Simple Chat App",
-    year: "2025",
-    align: "left",
+    year: "2024-2025",
+    align: "right",
     image: "https://i.ibb.co/ymmS94Jb/simplechatapp.png",
     demoLink: "https://simple-chat-app-z4te.onrender.com/",
     githubLink: "https://github.com/bezriche-ramy/simple-chat-app",
@@ -27,8 +38,8 @@ const projects = [
   },
   {
     name: "Vamos",
-    year: "2025",
-    align: "right",
+    year: "2024-2025",
+    align: "left",
     image: "https://i.ibb.co/QjxH2Lz4/Screenshot-from-2025-02-24-17-39-54.png",
     demoLink: "https://islam04.pythonanywhere.com/",
     githubLink: "https://github.com/user/vamos",
@@ -37,8 +48,8 @@ const projects = [
   },
   {
     name: "Python QSM",
-    year: "2023",
-    align: "left",
+    year: "2024-2025",
+    align: "right",
     image: "https://i.ibb.co/1Gj6v9Vr/project4.png",
     demoLink: "https://qsm.example.com",
     githubLink: "https://github.com/user/python-qsm",
@@ -47,8 +58,8 @@ const projects = [
   },
   {
     name: "Djezzy Internship Project",
-    year: "2023",
-    align: "right",
+    year: "2024-2025",
+    align: "left",
     image: "https://i.ibb.co/BVCP3xhM/project3.png",
     demoLink: "https://djezzy.example.com",
     githubLink: "https://github.com/user/djezzy",

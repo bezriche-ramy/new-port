@@ -2,7 +2,17 @@ import { BsFillArrowUpRightCircleFill, BsGithub } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 
-const SingleProject = ({ name, year, align, image, demoLink, githubLink, isComingSoon }) => {
+const SingleProject = ({ 
+  name, 
+  year, 
+  align, 
+  image, 
+  video, 
+  isVideo, 
+  demoLink, 
+  githubLink, 
+  isComingSoon 
+}) => {
   return (
     <motion.div
       variants={fadeIn("top", 0)}
@@ -55,11 +65,22 @@ const SingleProject = ({ name, year, align, image, demoLink, githubLink, isComin
         )}
       </div>
       <div className="max-h-[220px] max-w-[400px] rounded-xl overflow-hidden border border-white">
-        <img 
-          src={image} 
-          alt={isComingSoon ? "coming soon" : "project screenshot"} 
-          className="w-full h-full object-cover"
-        />
+        {isVideo ? (
+          <video 
+            src={video} 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <img 
+            src={image} 
+            alt={isComingSoon ? "coming soon" : "project screenshot"} 
+            className="w-full h-full object-cover"
+          />
+        )}
       </div>
     </motion.div>
   );
