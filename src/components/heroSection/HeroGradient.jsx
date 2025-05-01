@@ -1,10 +1,24 @@
 const HeroGradient = () => {
   return (
-    <div>
-      <div className="  shadow-cyanMediumShadow absolute top-0 right-[400px] -z-10 animate-pulse"></div>
-      <div className="  shadow-cyanMediumShadow absolute top-[5%] left-0 -z-10 opacity-50"></div>
-      <div className="  shadow-orangeMediumShadow absolute top-0 right-0 -z-10 animate-pulse"></div>
-      <div className="  shadow-orangeMediumShadow absolute top-[10%] left-0 -z-10 opacity-50 "></div>
+    <div className="absolute bottom-0 w-full">
+      {/* Matrix-style gradient base */}
+      <div className="h-[400px] w-full bg-gradient-to-t from-background via-background/95 to-transparent"></div>
+      
+      {/* Cyber grid effect */}
+      <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(0,255,65,0.03)1px,transparent_1px),linear-gradient(90deg,rgba(0,255,65,0.03)1px,transparent_1px)]" 
+           style={{ backgroundSize: '30px 30px' }}>
+      </div>
+      
+      {/* Scanning line effects */}
+      <div className="absolute inset-0">
+        <div className="h-full w-[120%] -ml-[10%] animate-matrix-scan bg-[linear-gradient(90deg,transparent_0%,rgba(0,255,65,0.1)_50%,transparent_100%)]"></div>
+      </div>
+      
+      {/* Binary code rain container */}
+      <div className="absolute inset-0 overflow-hidden opacity-20">
+        <div className="binary-rain" style={{ left: '25%' }}></div>
+        <div className="binary-rain" style={{ left: '75%', animationDelay: '-7s' }}></div>
+      </div>
     </div>
   );
 };

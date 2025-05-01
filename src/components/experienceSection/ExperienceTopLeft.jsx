@@ -2,19 +2,29 @@ import ExperienceInfo from "./ExperienceInfo";
 
 const ExperienceTopLeft = () => {
   return (
-    <div className="flex flex-col gap-6 w-[300px]">
-      <p className="text-orange font-bold uppercase text-3xl font-special text-center">
-        Since 2022
-      </p>
-      <div className="flex justify-center items-center gap-4">
-        <ExperienceInfo number="3" text="Years" />
-        <p className="font-bold text-6xl text-lightBrown">-</p>
-        <ExperienceInfo number="15+" text="Projects" />
+    <div className="flex flex-col gap-6 w-[300px] font-code">
+      <div className="bg-black/30 border border-accent/30 rounded p-4">
+        <p className="text-accent font-bold uppercase text-2xl text-center terminal-text">
+          {"> "}runtime_metrics
+        </p>
+        <div className="flex justify-center items-center gap-4 mt-4">
+          <ExperienceInfo number="3+" text="YEARS_CODING" />
+          <p className="font-bold text-4xl text-accent/30">|</p>
+          <ExperienceInfo number="20+" text="WEB_PROJECTS" />
+        </div>
       </div>
-      <p className="text-center">
-        With 3 years of experience in web development, cybersecurity, and design, I specialise in creating secure, scalable applications and impactful visual experiences.
-      </p>
-      <ExperienceInfo number="$2000+" text="Max Budget" />
+      
+      <div className="bg-black/30 border border-accent/30 rounded p-4">
+        <p className="text-accent/80 text-center mb-4">
+          {"> "}cat developer_stats.log
+        </p>
+        <div className="border-l-2 border-accent/30 pl-4">
+          <p className="text-accent/70 mb-2">Specialized in React ecosystem and modern JavaScript development.</p>
+          <p className="text-accent/70">Building scalable web applications with clean, maintainable code.</p>
+        </div>
+      </div>
+      
+      <ExperienceInfo number="100%" text="CODE_QUALITY" />
     </div>
   );
 };

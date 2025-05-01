@@ -1,24 +1,21 @@
 import { motion } from 'framer-motion';
 
-const CertificateText = ({ title, description }) => {
+const CertificateText = () => {
   return (
-    <div className="p-6">
-      <motion.h3
-        className="text-xl font-semibold mb-4 text-white"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {title}
-      </motion.h3>
-      <motion.p
-        className="text-gray-300 text-base leading-relaxed"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        {description}
-      </motion.p>
+    <div className="flex flex-col items-center mt-[100px]">
+      <h2 className="text-6xl text-accent mb-10 font-code terminal-text glitch" data-text="SECURITY_CREDENTIALS">
+        {"> "}SECURITY_CREDENTIALS
+      </h2>
+      <div className="text-lg text-center max-w-3xl relative">
+        <div className="absolute inset-0 matrix-bg opacity-10"></div>
+        <p className="text-accent/80 font-code bg-black/30 p-6 border border-accent/30 rounded">
+          {"> "}Verified security certifications and achievements in cybersecurity.
+          <br />
+          {"> "}Specialized training in penetration testing, network security,
+          <br />
+          {"> "}and secure application development methodologies.
+        </p>
+      </div>
     </div>
   );
 };

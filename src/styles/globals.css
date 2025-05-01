@@ -1,35 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+:root {
+  --accent: rgb(0, 255, 65);
+  --background: rgb(0, 0, 0);
+}
 
+/* Matrix Rain Effect */
+.binary-rain-intense {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,255,65,0.1) 75%);
+  animation: binaryRain 20s linear infinite;
+  pointer-events: none;
+}
 
+@keyframes binary-fall {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50%); }
+}
 
+@keyframes binaryRain {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
 
+/* Terminal Text Effect */
+.terminal-text {
+  position: relative;
+  font-family: 'Courier New', Courier, monospace;
+}
 
+.terminal-text::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -4px;
+  width: 2px;
+  height: 100%;
+  background: var(--accent);
+  animation: cursor-blink 1s step-end infinite;
+}
 
+@keyframes cursor-blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
 
+/* Matrix Background */
+.matrix-bg {
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.8;
+  background-image: 
+    repeating-linear-gradient(0deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 255, 65, 0.1) 2px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(90deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 255, 65, 0.1) 2px,
+      transparent 3px
+    );
+  background-size: 3px 3px;
+  animation: matrix-shift 20s linear infinite;
+}
 
+@keyframes matrix-shift {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
 
+/* Matrix Glow Effects */
+.shadow-matrix-glow {
+  box-shadow: 0 0 20px rgba(0,255,65,0.5),
+              inset 0 0 20px rgba(0,255,65,0.5);
+}
 
+.shadow-matrix-strong {
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3),
+              0 0 30px rgba(0, 255, 65, 0.2),
+              0 0 45px rgba(0, 255, 65, 0.1);
+}
 
+/* Glitch Text Effect */
+.glitch {
+  position: relative;
+  text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+              -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+              0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  animation: glitch 500ms infinite;
+}
 
+.glitch span:first-child {
+  animation: noise-1 3s linear infinite alternate-reverse;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
 
+.glitch span:last-child {
+  animation: noise-2 3s linear infinite alternate-reverse;
+  clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+}
 
+@keyframes glitch {
+  0% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                   -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                    0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+  14% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                     0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+  15% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                     0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+  49% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                     0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+  50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                     0.05em 0 0 rgba(0, 255, 0, 0.75),
+                     0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+  99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                     0.05em 0 0 rgba(0, 255, 0, 0.75),
+                     0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+  100% { text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75),
+                     -0.025em -0.025em 0 rgba(0, 255, 0, 0.75),
+                     -0.025em -0.05em 0 rgba(0, 0, 255, 0.75); }
+}
 
+/* Terminal Window Styling */
+.terminal-window {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,255,65,0.3);
+}
 
+.terminal-header {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+}
 
+/* Skill animation */
+@keyframes skill-loop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
 
+.animate-skill-loop {
+  animation: skill-loop 30s linear infinite;
+}
 
+/* Matrix text effect */
+.matrix-text {
+  text-shadow: 0 0 8px rgba(0,255,65,0.8);
+  animation: matrixGlow 2s ease-in-out infinite alternate;
+}
 
+@keyframes matrixGlow {
+  from {
+    text-shadow: 0 0 4px rgba(0,255,65,0.8);
+  }
+  to {
+    text-shadow: 0 0 8px rgba(0,255,65,1);
+  }
+}
 
+/* Font for terminal text */
+.font-code {
+  font-family: 'Source Code Pro', monospace;
+  letter-spacing: 0.05em;
+}
 
+/* Terminal cursor effect */
+.terminal-cursor::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+}
 
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
 
+/* Navbar specific animations */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
 
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
 
+/* Matrix nav hover effect */
+.nav-matrix-hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(0, 255, 65, 0.1) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
+.nav-matrix-hover:hover::before {
+  opacity: 1;
+}
 
+/* Mobile menu animation */
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
-
-
-
-
-          '0%': { transform: 'translateX(0)' },        'skill-loop': {      keyframes: {      },        'skill-loop': 'skill-loop 40s linear infinite',      animation: {      },        violetMediumShadow: "10px 10px 2000px 150px rgba(138, 43, 226, 0.5)",        violetBigShadow: "10px 10px 10000px 500px rgba(138, 43, 226, 0.3)",        accentMediumShadow: "10px 10px 200px 150px rgba(0, 255, 255, 0.5)",        accentBigShadow: "10px 10px 1000px 500px rgba(0, 255, 255, 0.3)",        accentShadow: "0px 0px 20px 0px rgba(0, 255, 255, 0.5)",      boxShadow: {    extend: {    },      white: '#FFFFFF',      success: '#00FF41',        // Matrix Green      pink: '#FF007F',           // Neon Pink      violet: '#8A2BE2',         // Electric Violet      accent: '#00FFFF',         // Neon Cyan      secondary: '#1B1F3B',       // Secondary background      background: '#210D3E',      // Primary background    colors: {    },      "2xl": "1536px",      xl: "1280px",      lg: "1024px",      md: "768px",      sm: "350px",    screens: {  theme: {  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],export default {/** @type {import('tailwindcss').Config} */
+.menu-slide-in {
+  animation: slideIn 0.3s ease-out forwards;
+}

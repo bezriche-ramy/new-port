@@ -1,8 +1,13 @@
 const ExperienceInfo = ({ number, text }) => {
   return (
-    <div className="flex flex-col justify-center items-center">
-      <p className="font-bold text-6xl text-cyan">{number}</p>
-      <p className="font-bold text-xl text-lightGrey uppercase -mt-4">{text}</p>
+    <div className="text-center group">
+      <h1 className="text-4xl text-accent font-bold mb-2 font-code terminal-text 
+                    group-hover:shadow-matrix-glow transition-all duration-300">
+        {number}
+      </h1>
+      <p className="text-accent/70 text-sm uppercase tracking-wider font-code">
+        {"> "}{text}
+      </p>
     </div>
   );
 };

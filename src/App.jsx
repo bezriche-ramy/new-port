@@ -13,19 +13,33 @@ import CertificateMain from "./components/certificateSection/CertificateMain";
 
 function App() {
   return (
-    <main className="font-body text-white relative overflow-hidden">
-      <NavbarMain />
-      <HeroMain />
-      <HeroGradient />
-      <SubHeroMain />
-      <AboutMeMain />
-      <SkillsMain />
-      <SubSkills />
-      <ExperienceMain />
-      <ProjectsMain />
-      <CertificateMain />
-      <ContactMeMain />
-      <FooterMain />
+    <main className="font-body text-accent relative overflow-hidden bg-background min-h-screen">
+      {/* Binary rain container */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="binary-rain"></div>
+        <div className="binary-rain" style={{ left: '25%', animationDelay: '-5s' }}></div>
+        <div className="binary-rain" style={{ left: '50%', animationDelay: '-10s' }}></div>
+        <div className="binary-rain" style={{ left: '75%', animationDelay: '-15s' }}></div>
+      </div>
+
+      {/* Matrix scan effect */}
+      <div className="fixed inset-0 pointer-events-none matrix-bg opacity-20"></div>
+
+      {/* Main content */}
+      <div className="relative z-10">
+        <NavbarMain />
+        <HeroMain />
+        <HeroGradient />
+        <SubHeroMain />
+        <AboutMeMain />
+        <SkillsMain />
+        <SubSkills />
+        <ExperienceMain />
+        <ProjectsMain />
+        <CertificateMain />
+        <ContactMeMain />
+        <FooterMain />
+      </div>
     </main>
   );
 }

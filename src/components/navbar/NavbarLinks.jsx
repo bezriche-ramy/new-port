@@ -1,34 +1,58 @@
 import { Link } from "react-scroll";
+import { useDispatch } from "react-redux";
+import { toggleMenu } from "../../state/menuSlice";
 
 const links = [
-  { link: "About Me", section: "about" },
-  { link: "Skills", section: "skills" },
-  { link: "Experience", section: "experience" },
-  { link: "Projects", section: "projects" },
-  { link: "Certificate", section: "certificates" },
-  { link: "Contact", section: "contact" },
+  { link: "About", section: "about", cmd: "cat about.md" },
+  { link: "Skills", section: "skills", cmd: "ls -la skills/" },
+  { link: "Experience", section: "experience", cmd: "history" },
+  { link: "Projects", section: "projects", cmd: "cd projects/" },
+  { link: "Certificate", section: "certificates", cmd: "verify certs/" },
+  { link: "Contact", section: "contact", cmd: "ssh connect" },
 ];
 
 const NavbarLinks = () => {
+  const dispatch = useDispatch();
+
+  const handleLinkClick = () => {
+    dispatch(toggleMenu());
+  };
+
   return (
-    <ul className="flex lg:flex-row sm:flex-col gap-6 text-white font-body lg:relative sm:absolute sm:top-[120%] text-center left-[50%] -translate-x-[50%] lg:text-md sm:text-xl sm:bg-cyan/30 backdrop-blur-lg lg:bg-black sm:w-full py-4">
-      {links.map((link, index) => {
-        return (
-          <li key={index} className="group">
-            <Link
-              spy={true}
-              smooth={true}
-              duration={500}
-              offset={-130}
-              to={link.section}
-              className="cursor-pointer text-white hover:text-cyan transition-all duration-500"
-            >
-              {link.link}
-            </Link>
-            <div className="mx-auto bg-cyan w-0 group-hover:w-full h-[1px] transition-all duration-500"></div>
-          </li>
-        );
-      })}
+    <ul className="lg:flex lg:flex-row lg:items-center lg:gap-6 
+                   sm:flex sm:flex-col sm:items-stretch sm:gap-2 sm:w-full">
+      {links.map((link, index) => (
+        <li key={index} 
+            className="group relative w-full lg:w-auto"
+            onClick={handleLinkClick}>
+          <Link
+            spy={true}
+            smooth={true}
+            duration={500}
+            offset={-100}
+            to={link.section}
+            className="flex items-center gap-2 px-4 py-3 w-full
+                     text-accent/80 hover:text-accent 
+                     transition-colors duration-300 cursor-pointer
+                     sm:border sm:border-accent/10 sm:rounded
+                     sm:hover:border-accent/30 sm:hover:bg-black/50"
+          >
+            <span className="text-accent/50 group-hover:text-accent/70">$</span>
+            {link.cmd}
+          </Link>
+          
+          {/* Hover effect line - only on desktop */}
+          <div className="lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 
+                        lg:w-0 lg:h-[1px] lg:bg-accent/50 
+                        lg:group-hover:w-full lg:transition-all lg:duration-300
+                        sm:hidden" />
+          
+          {/* Matrix scan effect on hover */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-10 
+                        transition-opacity duration-300 pointer-events-none matrix-bg 
+                        rounded" />
+        </li>
+      ))}
     </ul>
   );
 };

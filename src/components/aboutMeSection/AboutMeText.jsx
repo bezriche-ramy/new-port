@@ -3,26 +3,48 @@ import { Link } from "react-scroll";
 const AboutMeText = () => {
   return (
     <div className="flex flex-col md:items-start sm:items-center md:text-left sm:text-center">
-      <h2 className="text-6xl text-cyan mb-10">About Me</h2>
-      <p className="text-blue-900">
-      Hello! I'm Bezriche Ramy, a passionate computer science student specialising in cybersecurity at USTHB. With a strong background in software development, I work extensively with React for front-end development and Next.js for the back end.
-
-Beyond academics, I have hands-on experience in telecommunications from my internship at Djezzy and contribute actively to the tech community as the Communication Manager for GDG Algeria. I'm also part of Shellmatt’s design department, where I merge creativity with technology.
-
-Driven by a deep interest in AI, web, and mobile app development, I strive to build innovative and secure digital solutions. When I'm not coding, you'll likely find me exploring new tech trends or refining my problem-solving skills.
-
-Let’s connect and create something impactful!
-      </p>
-      <button className="border border-orange rounded-full py-2 px-4 text-lg flex gap-2 items-center mt-10 hover:bg-orange transition-all duration-500 cursor-pointer md:self-start sm:self-center">
+      <h2 className="text-6xl text-accent mb-10 font-code terminal-text">{"> "}SYSTEM INFO</h2>
+      <div className="font-code text-accent/90 bg-black/30 p-6 border border-accent/30 rounded">
+        <p className="mb-4">
+          {"> "}whoami
+        </p>
+        <p className="text-accent/80 mb-6 border-l-2 border-accent/30 pl-4">
+          Full-stack web developer and computer science student at USTHB, passionate about creating modern, 
+          efficient web applications. Experienced in React, Node.js, and various modern web technologies 
+          with a strong foundation in secure development practices.
+        </p>
+        
+        <p className="mb-4">
+          {"> "}cat expertise.txt
+        </p>
+        <p className="text-accent/80 mb-6 border-l-2 border-accent/30 pl-4">
+          Specialized in modern JavaScript frameworks and libraries. Currently serving as GDG Algeria's 
+          Communication Manager and working with Shellmatt's development team. Previous experience includes 
+          full-stack development during Djezzy internship.
+        </p>
+        
+        <p className="mb-4">
+          {"> "}cat mission.txt
+        </p>
+        <p className="text-accent/80 mb-6 border-l-2 border-accent/30 pl-4">
+          Dedicated to building innovative web solutions that combine elegant design with robust functionality. 
+          Constantly exploring new web technologies and best practices while maintaining a security-conscious 
+          approach to development.
+        </p>
+      </div>
+      
+      <button className="border border-accent rounded-sm py-2 px-4 text-lg flex gap-2 items-center mt-10 
+                       hover:bg-accent/10 hover:shadow-matrix-glow transition-all duration-500 cursor-pointer 
+                       md:self-start sm:self-center font-code group">
         <Link
           spy={true}
           smooth={true}
           duration={500}
           offset={-120}
           to="projects"
-          className="cursor-pointer text-white hover:text-cyan transition-all duration-500"
+          className="cursor-pointer text-accent group-hover:text-highlight transition-all duration-500 terminal-text"
         >
-          My Projects
+          {"> "}view_projects --secure
         </Link>
       </button>
     </div>

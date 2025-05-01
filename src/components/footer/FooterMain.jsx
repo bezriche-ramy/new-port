@@ -2,49 +2,40 @@ import { Link } from "react-scroll";
 
 const FooterMain = () => {
   const footerLinks = [
-    {
-      name: "About Me",
-      section: "about",
-    },
-    {
-      name: "Skills",
-      section: "skills",
-    },
-    {
-      name: "Experience",
-      section: "experience",
-    },
-    {
-      name: "Projects",
-      section: "projects",
-    },
+    { name: "scan system", section: "about" },
+    { name: "analyze capabilities", section: "skills" },
+    { name: "view logs", section: "experience" },
+    { name: "inspect projects", section: "projects" },
   ];
+
   return (
-    <div className="px-4">
-      <div className="w-full h-[1px] bg-lightGrey mt-24"></div>
+    <div className="px-4 relative">
+      <div className="absolute inset-0 matrix-bg opacity-5"></div>
+      <div className="w-full h-[1px] bg-accent/30 mt-24"></div>
       <div className="md:flex justify-between mt-4 max-w-[1200px] mx-auto sm:hidden">
-        <p className="text-3xl text-lightGrey ">Bezriche Ramy</p>
-        <ul className="flex gap-4 text-lightGrey text-xl">
+        <p className="text-3xl text-accent font-code terminal-text">{">"} BEZRICHE_RAMY</p>
+        <ul className="flex gap-4 text-accent/80 text-xl font-code">
           {footerLinks.map((item, index) => {
             return (
-              <li key={index}>
+              <li key={index} className="group">
                 <Link
                   spy={true}
                   smooth={true}
                   duration={500}
                   offset={-120}
                   to={item.section}
-                  className="hover:text-white transition-all duration-500 cursor-pointer"
+                  className="hover:text-accent transition-all duration-300 cursor-pointer terminal-text flex items-center gap-2"
                 >
-                  {item.name}
+                  <span className="text-accent/50">$</span> {item.name}
                 </Link>
+                <div className="mx-auto bg-accent w-0 group-hover:w-full h-[1px] transition-all duration-300 opacity-30"></div>
               </li>
             );
           })}
         </ul>
       </div>
-      <p className="max-w-[1200px] mx-auto text-right mt-2 mb-12 text-sm text-lightBrown">
-        © 2024 Ramy | All Rights Reserved.
+      <p className="max-w-[1200px] mx-auto text-right mt-2 mb-12 text-sm text-accent/50 font-code">
+        {"// "}© 2024 RAMY | SECURITY PROTOCOLS ACTIVE.
       </p>
     </div>
   );

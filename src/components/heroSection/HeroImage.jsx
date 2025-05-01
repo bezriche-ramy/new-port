@@ -1,27 +1,44 @@
-import { PiHexagonThin } from "react-icons/pi";
+import { motion } from "framer-motion";
+import { fadeIn } from "../../framerMotion/variants";
 
 const HeroImage = () => {
   return (
-    <div className="relative self-end h-full w-full items-center justify-center">
-      <div className=" h-full w-full">
-        <img
-          src="https://i.ibb.co/TBWwqSKw/me.jpg"
-          alt="Bezriche Ramy"
-          className="w-auto h-auto md:max-w-[570px] sm:max-w-[380px] absolute bottom-[0px] z-10 left-[50%] -translate-x-[50%]"
-        />
-        <div className="w-full h-full absolute  bottom-[-20%] -z-10 flex justify-center items-center rotate-90">
-          <PiHexagonThin className=" md:h-[90%] sm:h-[120%] min-h-[600px] w-auto text-orange opacity-70  animate-[spin_20s_linear_infinite] " />
+    <div className="h-full w-full flex items-center justify-center lg:justify-end">
+      <motion.div
+        variants={fadeIn("left", 0)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0.7 }}
+        className="relative w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] rounded-full overflow-hidden"
+      >
+        {/* Matrix-style background */}
+        <div className="absolute inset-0 matrix-bg"></div>
+        
+        {/* Binary rain effect */}
+        <div className="absolute inset-0 binary-rain-intense"></div>
+        
+        {/* Glowing border effect */}
+        <div className="absolute inset-0 border-2 border-accent rounded-full shadow-matrix-glow"></div>
+        
+        {/* Profile image container */}
+        <div className="relative z-10 w-full h-full">
+          <img
+            src="/ICONR.png"
+            alt="Profile"
+            className="w-full h-full object-cover mix-blend-luminosity"
+          />
+          
+          {/* Scan line effect */}
+          <div 
+            className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent"
+            style={{
+              animation: "scanline 2s linear infinite",
+              background: "linear-gradient(to bottom, transparent 50%, rgba(0, 255, 65, 0.1) 50%)",
+              backgroundSize: "100% 4px"
+            }}
+          ></div>
         </div>
-        <div className="w-full h-full absolute  bottom-[-20%] -z-10 flex justify-center items-center rotate-90">
-          <PiHexagonThin className=" md:h-[90%] sm:h-[120%] blur-lg min-h-[600px] w-auto text-orange opacity-70  animate-[spin_20s_linear_infinite] " />
-        </div>
-        <div className="w-full h-full absolute  bottom-[-20%] -z-10 flex justify-center items-center">
-          <PiHexagonThin className=" md:h-[90%] sm:h-[120%] min-h-[600px] w-auto text-cyan opacity-70  animate-[spin_20s_linear_infinite] " />
-        </div>
-        <div className="w-full h-full absolute  bottom-[-20%] -z-10 flex justify-center items-center">
-          <PiHexagonThin className=" md:h-[90%] sm:h-[120%] min-h-[600px] w-auto text-cyan opacity-70 blur-lg  animate-[spin_20s_linear_infinite] " />
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

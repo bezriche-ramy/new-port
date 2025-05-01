@@ -1,51 +1,42 @@
 import { motion } from "framer-motion";
 import { TypeAnimation } from 'react-type-animation';
-import { fadeIn } from "../../framerMotion/variants";
 
 const HeroText = () => {
   return (
-    <div className="flex flex-col gap-4 h-full justify-center md:text-left sm:text-center">
+    <div className="w-full lg:w-1/2 flex flex-col sm:gap-4 md:gap-5 lg:gap-6 terminal-window 
+                    sm:p-3 md:p-4 lg:p-6">
       <motion.div
-        variants={fadeIn("down", 0.2)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0 }}
-        className="lg:text-2xl sm:text-xl uppercase text-accent"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col sm:gap-3 md:gap-4"
       >
+        <span className="text-accent font-code sm:text-xs md:text-sm lg:text-base">$ initiating_sequence...</span>
         <TypeAnimation
           sequence={[
-            'Front-end Developer',
-            2000,
-            'Back-end Developer',
-            2000,
+            'Hello World!',
+            1000,
+            'I am Remy Bezricher',
+            1000,
             'Full Stack Developer',
-            4000,
+            1000,
+            'React Specialist',
+            1000,
+            'Creative Developer',
+            1000
           ]}
-          wrapper="span"
+          wrapper="h1"
           speed={50}
+          className="sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl font-bold text-white matrix-text terminal-cursor"
           repeat={Infinity}
         />
+        <span className="text-accent font-code sm:text-xs md:text-sm lg:text-base">$ loading_portfolio_data...</span>
+        <div className="text-gray-300 font-code sm:text-sm md:text-base lg:text-lg">
+          <p className="mb-2">{"> "}Building modern, responsive web applications</p>
+          <p className="mb-2">{"> "}Crafting seamless user experiences with React</p>
+          <p>{"> "}Turning complex ideas into elegant solutions</p>
+        </div>
       </motion.div>
-      <motion.h1
-        variants={fadeIn("right", 0.4)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0 }}
-        className="md:text-[2.8rem] lg:text-6xl sm:text-4xl text-violet font-bold uppercase"
-      >
-        Bezriche <br className="sm:hidden md:block" />
-        Ramy
-      </motion.h1>
-      <motion.p
-        variants={fadeIn("up", 0.6)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0 }}
-        className="text-lg mt-4 text-pink"
-      >
-        A Passionate Web Developer and Instructor <br /> with 2 years of
-        experience.
-      </motion.p>
     </div>
   );
 };

@@ -1,14 +1,37 @@
 const AboutMeImage = () => {
   return (
-    <div className="h-[500px] w-[300px] relative">
-      <div className="h-[500px] w-[300px] rounded-[100px] absolute overflow-hidden">
-        <img
-          src="https://i.ibb.co/G4swx4wk/about-me.jpg"
-          alt="About Me Image"
-          className="h-full w-auto object-cover"
-        />
+    <div className="relative w-full h-full flex items-center justify-center">
+      {/* Matrix scan effect container */}
+      <div className="absolute inset-0 overflow-hidden rounded-lg">
+        <div className="binary-rain"></div>
+        <div className="binary-rain" style={{ left: '50%', animationDelay: '-5s' }}></div>
+        <div className="matrix-bg opacity-30"></div>
       </div>
-      <div className="h-[500px] w-[250px] bg-orange absolute bottom-[-30px] left-[-30px] rounded-bl-[120px] rounded-tr-[120px] rounded-br-[20px] rounded-tl-[20px] -z-10"></div>
+
+      {/* Main image with security overlay */}
+      <div className="relative z-10 w-full max-w-[500px] aspect-square">
+        <img
+          src="https://i.ibb.co/Dfby7LGy/HexaPic.jpg"
+          alt="security expert"
+          className="w-full h-full object-cover rounded-lg border-2 border-accent 
+                   shadow-matrix-glow hover:shadow-matrix-strong 
+                   transition-all duration-500"
+        />
+        
+        {/* Scanning line effect */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent"
+          style={{
+            animation: 'scan-line 2s linear infinite',
+            backgroundSize: '100% 10px'
+          }}
+        ></div>
+
+        {/* Security grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(0,255,65,0.1)1px,transparent_1px),linear-gradient(90deg,rgba(0,255,65,0.1)1px,transparent_1px)]"
+             style={{ backgroundSize: '20px 20px' }}>
+        </div>
+      </div>
     </div>
   );
 };

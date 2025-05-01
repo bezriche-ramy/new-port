@@ -1,61 +1,63 @@
 import SingleSkill from "./SingleSkill";
-import { FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaPython, FaJava } from "react-icons/fa";
-import { IoLogoJavascript } from "react-icons/io";
-import { SiNextdotjs, SiMysql, SiLinux, SiWireshark, SiMetasploit, SiBurpsuite, SiDjango, SiExpress, SiGo } from "react-icons/si";
-import { RiTailwindCssFill } from "react-icons/ri";
-import { DiGit } from "react-icons/di";
-import { TbBrandCpp } from "react-icons/tb";
+import { FaReact, FaNodeJs, FaHtml5, FaCss3, FaGitAlt, FaDocker, FaNpm, FaDatabase } from "react-icons/fa";
+import { SiJavascript, SiTypescript, SiNextdotjs, SiTailwindcss, SiMongodb, SiFirebase, SiRedux, SiVite } from "react-icons/si";
+import { TbApi } from "react-icons/tb";
+import { BiTestTube } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 
 const skills = [
-  { skill: "HTML", icon: FaHtml5 },
-  { skill: "CSS", icon: FaCss3Alt },
-  { skill: "JavaScript", icon: IoLogoJavascript },
   { skill: "React.js", icon: FaReact },
   { skill: "Next.js", icon: SiNextdotjs },
-  { skill: "Tailwind", icon: RiTailwindCssFill },
+  { skill: "JavaScript", icon: SiJavascript },
+  { skill: "TypeScript", icon: SiTypescript },
   { skill: "Node.js", icon: FaNodeJs },
-  { skill: "C/C++", icon: TbBrandCpp },
-  { skill: "Java", icon: FaJava },
-  { skill: "Python", icon: FaPython },
-  { skill: "MySQL", icon: SiMysql },
-  { skill: "Linux", icon: SiLinux },
-  { skill: "Git", icon: DiGit },
-  { skill: "Wireshark", icon: SiWireshark },
-  { skill: "Metasploit", icon: SiMetasploit },
-  { skill: "Burp Suite", icon: SiBurpsuite },
-  { skill: "Django", icon: SiDjango },
-  { skill: "Express.js", icon: SiExpress },
-  { skill: "Golang", icon: SiGo }
+  { skill: "HTML5", icon: FaHtml5 },
+  { skill: "CSS3", icon: FaCss3 },
+  { skill: "Tailwind CSS", icon: SiTailwindcss },
+  { skill: "Redux", icon: SiRedux },
+  { skill: "Vite", icon: SiVite },
+  { skill: "MongoDB", icon: SiMongodb },
+  { skill: "Firebase", icon: SiFirebase },
+  { skill: "REST APIs", icon: TbApi },
+  { skill: "Git", icon: FaGitAlt },
+  { skill: "Docker", icon: FaDocker },
+  { skill: "NPM", icon: FaNpm },
+  { skill: "SQL", icon: FaDatabase },
+  { skill: "Testing", icon: BiTestTube }
 ];
 
 const AllSkills = () => {
   return (
-    <div className="relative w-full overflow-hidden bg-secondary/5 backdrop-blur-sm py-16">
-      {/* Gradient fade edges */}
-      <div className="absolute inset-y-0 left-0 w-[15%] bg-gradient-to-r from-background to-transparent z-20"></div>
-      <div className="absolute inset-y-0 right-0 w-[15%] bg-gradient-to-l from-background to-transparent z-20"></div>
+    <div className="relative w-full overflow-hidden bg-black/30 backdrop-blur-sm 
+                    sm:py-8 md:py-12 lg:py-16 border-t border-b border-accent/20">
+      <div className="absolute inset-0 binary-rain opacity-20"></div>
       
-      <div className="relative flex overflow-hidden hover:[animation-play-state:paused] px-4">
-        <div className="animate-skill-loop flex gap-8 pl-8 shrink-0">
+      <div className="relative flex overflow-hidden hover:[animation-play-state:paused] 
+                    sm:px-2 md:px-4">
+        <div className="animate-skill-loop flex sm:gap-4 md:gap-6 lg:gap-8 pl-8 shrink-0">
           {skills.map((item, index) => (
             <SingleSkill
               key={index}
               text={item.skill}
-              imgSvg={<item.icon />}
+              imgSvg={<item.icon className="sm:text-xl md:text-2xl" />}
             />
           ))}
         </div>
-        <div className="animate-skill-loop flex gap-8 pl-8 shrink-0">
+        <div className="animate-skill-loop flex sm:gap-4 md:gap-6 lg:gap-8 pl-8 shrink-0">
           {skills.map((item, index) => (
             <SingleSkill
               key={`dup-${index}`}
               text={item.skill}
-              imgSvg={<item.icon />}
+              imgSvg={<item.icon className="sm:text-xl md:text-2xl" />}
             />
           ))}
         </div>
+      </div>
+
+      {/* Mobile touch hint */}
+      <div className="sm:block md:hidden text-center mt-4">
+        <p className="text-accent/50 font-code text-xs">{">"} swipe to explore</p>
       </div>
     </div>
   );
