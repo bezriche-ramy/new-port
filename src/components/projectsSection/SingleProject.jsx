@@ -103,29 +103,16 @@ const SingleProject = ({
                        shadow-matrix-glow hover:shadow-matrix-strong 
                        transition-all duration-300 bg-black/90">
           {isVideo ? (
-            <>
-              <video 
-                src={video} 
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                poster={image}
-                className="w-full aspect-video object-cover transform 
-                         group-hover:scale-105 transition-transform duration-700"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  const img = e.target.parentElement.querySelector('img');
-                  if (img) img.style.display = 'block';
-                }}
-              />
-              <img 
-                src={image || "/fallback-image.jpg"} 
-                alt={name}
-                className="hidden w-full aspect-video object-cover transform 
-                         group-hover:scale-105 transition-transform duration-700"
-              />
-            </>
+            <video 
+              src={video} 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              loading="lazy"
+              className="w-full aspect-video object-cover transform 
+                       group-hover:scale-105 transition-transform duration-700"
+            />
           ) : (
             <img 
               src={image} 

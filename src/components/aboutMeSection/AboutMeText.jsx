@@ -3,9 +3,7 @@ import { Link } from "react-scroll";
 const AboutMeText = () => {
   return (
     <div className="flex flex-col md:items-start sm:items-center md:text-left sm:text-center">
-      <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-accent mb-10 font-code terminal-text tracking-normal sm:tracking-wider">
-        {"> "}SYSTEM INFO
-      </h2>
+      <h2 className="text-6xl text-accent mb-10 font-code terminal-text">{"> "}SYSTEM INFO</h2>
       <div className="font-code text-accent/90 bg-black/30 p-6 border border-accent/30 rounded">
         <p className="mb-4">
           {"> "}whoami

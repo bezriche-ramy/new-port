@@ -1,7 +1,7 @@
 import SingleContactSocial from "./SingleContactSocial";
-import { FaLinkedinIn } from "react-icons/fa";
+import { FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
-import { FaInstagram } from "react-icons/fa";
+import { SiUpwork } from "react-icons/si";
 
 const ContactSocial = () => {
   return (
@@ -18,7 +18,7 @@ const ContactSocial = () => {
         <SingleContactSocial link="https://www.linkedin.com/in/ramy-bezriche" Icon={FaLinkedinIn} tooltip="Access Professional Network" />
         <SingleContactSocial link="https://github.com/bezriche-ramy" Icon={FiGithub} tooltip="View Source Repository" />
         <SingleContactSocial link="https://www.instagram.com/r_a_a_my" Icon={FaInstagram} tooltip="Connect Social Channel" />
-        <SingleContactSocial link="https://www.upwork.com/freelancers/~01940bb9c33250ffae" Icon={FaLinkedinIn} tooltip="Hire on Upwork" />
+        <SingleContactSocial link="https://www.upwork.com/freelancers/~01940bb9c33250ffae" Icon={SiUpwork} tooltip="Hire on Upwork" />
       </div>
       
       <p className="text-accent/60 text-sm mt-4">{"// "}All connections encrypted and verified</p>

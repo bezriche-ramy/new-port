@@ -7,16 +7,3 @@
     animation-play-state: paused;
   }
 }
-
-/* Disable glitch effect on small screens */
-@media (max-width: 640px) {
-  .glitch::before,
-  .glitch::after {
-    display: none !important;
-    content: none !important;
-  }
-  .glitch {
-    text-shadow: none !important;
-    animation: none !important;
-  }
-}

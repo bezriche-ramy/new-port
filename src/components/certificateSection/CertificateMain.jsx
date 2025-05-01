@@ -25,20 +25,20 @@ const CertificateMain = React.memo(() => {
       <div className="absolute inset-0 matrix-bg opacity-5"></div>
       
       <div className="relative z-10">
-        <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-accent font-code mb-4 sm:mb-6 terminal-text text-center px-2">
-          <span className="inline-block">{"> "}SECURITY_CREDENTIALS</span>
+        <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-accent font-code mb-6 terminal-text text-center break-words">
+          {"> "}SECURITY_CREDENTIALS
         </h2>
-        <div className="text-center mb-6 sm:mb-8 md:mb-10 px-2">
-          <p className="text-accent/80 font-code bg-black/30 p-3 sm:p-4 md:p-5 border border-accent/30 rounded inline-block text-xs sm:text-sm md:text-base">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <p className="text-accent/80 font-code bg-black/30 p-4 sm:p-5 md:p-6 border border-accent/30 rounded inline-block text-xs sm:text-sm md:text-base">
             {"> "}Verified security achievements and certifications.
             <br />
             {"> "}Access classified documents by executing pointer interaction.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
           {certificates.map((cert, index) => (
-            <div key={index} className="perspective-1000">
+            <div key={index} className="perspective-1000 w-full aspect-[4/5] sm:aspect-[3/4] md:aspect-[4/3]">
               <SingleCertificate 
                 image={cert.image} 
                 title={cert.title}

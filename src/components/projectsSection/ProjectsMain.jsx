@@ -20,7 +20,7 @@ const projects = [
     year: "2024-2025",
     align: "left",
     isVideo: true,
-    video: "/videos/tawba-demo.webm",
+    video: "src/Screencast from 2025-04-05 20-20-51.webm",
     demoLink: "https://tawba-a1af3.web.app/",
     githubLink: "https://github.com/bezriche-ramy/tawba",
     description: "Islamic application focused on spiritual growth and guidance",
