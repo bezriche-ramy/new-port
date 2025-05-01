@@ -16,7 +16,7 @@ const HeroText = () => {
           sequence={[
             'Hello World!',
             1000,
-            'I am Remy Bezricher',
+            'I am BEZRICHE RAMY',
             1000,
             'Full Stack Developer',
             1000,

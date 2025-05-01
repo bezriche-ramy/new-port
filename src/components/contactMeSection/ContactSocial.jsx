@@ -15,10 +15,10 @@ const ContactSocial = () => {
       <p className="text-accent/80 mb-4">{">"} establish_secure_channels</p>
       
       <div className="flex gap-4 justify-center border-l-2 border-accent/30 pl-4">
-        <SingleContactSocial link="https://www.linkedin.com/in/ramy-bezriche" Icon={FaLinkedinIn} tooltip="Access Professional Network" />
+        <SingleContactSocial link="https://www.linkedin.com/in/bezriche-ramy" Icon={FaLinkedinIn} tooltip="Access Professional Network" />
         <SingleContactSocial link="https://github.com/bezriche-ramy" Icon={FiGithub} tooltip="View Source Repository" />
-        <SingleContactSocial link="https://www.instagram.com/r_a_a_my" Icon={FaInstagram} tooltip="Connect Social Channel" />
-        <SingleContactSocial link="https://www.upwork.com/freelancers/~01940bb9c33250ffae" Icon={SiUpwork} tooltip="Hire on Upwork" />
+        <SingleContactSocial link="https://www.instagram.com/bezriche_ramy" Icon={FaInstagram} tooltip="Connect Social Channel" />
+        <SingleContactSocial link="https://www.upwork.com/freelancers/bezricheramy" Icon={SiUpwork} tooltip="Hire on Upwork" />
       </div>
       
       <p className="text-accent/60 text-sm mt-4">{"// "}All connections encrypted and verified</p>

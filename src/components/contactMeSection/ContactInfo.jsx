@@ -15,7 +15,7 @@ const ContactInfo = () => {
       <p className="text-accent/80 mb-2">{">"} contact_info --decrypt</p>
       
       <div className="border-l-2 border-accent/30 pl-4">
-        <SingleInfo text="ramybezriche@gmail.com" Image={HiOutlineMail} />
+        <SingleInfo text="bezricheramy@gmail.com" Image={HiOutlineMail} />
         <SingleInfo text="Algiers, Algeria" Image={IoLocationOutline} />
       </div>
       
