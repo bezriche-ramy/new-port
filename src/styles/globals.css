@@ -90,9 +90,9 @@
     rgba(0, 0, 0, 0) 100%
   );
   background-size: 100% 200%;
-  animation: matrix-scan 4s linear infinite;
-  will-change: transform;
-  transform: translateZ(0);
+  /* animation: matrix-scan 4s linear infinite; */
+  will-change: auto;
+  transform: none;
 }
 
 @keyframes matrix-scan {

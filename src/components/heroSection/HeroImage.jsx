@@ -14,8 +14,7 @@ const HeroImage = () => {
         {/* Matrix-style background */}
         <div className="absolute inset-0 matrix-bg"></div>
         
-        {/* Binary rain effect */}
-        <div className="absolute inset-0 binary-rain-intense"></div>
+        {/* Removed binary-rain-intense for performance */}
         
         {/* Glowing border effect */}
         <div className="absolute inset-0 border-2 border-accent rounded-full shadow-matrix-glow"></div>
@@ -28,15 +27,7 @@ const HeroImage = () => {
             className="w-full h-full object-cover mix-blend-luminosity"
           />
           
-          {/* Scan line effect */}
-          <div 
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent"
-            style={{
-              animation: "scanline 2s linear infinite",
-              background: "linear-gradient(to bottom, transparent 50%, rgba(0, 255, 65, 0.1) 50%)",
-              backgroundSize: "100% 4px"
-            }}
-          ></div>
+          {/* Scan line effect removed for performance */}
         </div>
       </motion.div>
     </div>

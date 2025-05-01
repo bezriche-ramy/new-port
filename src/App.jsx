@@ -67,16 +67,8 @@ function App() {
 
   return (
     <main className="font-body text-accent relative overflow-hidden bg-background min-h-screen">
-      {/* Reduced number of matrix effects when reduced motion is preferred */}
-      {!isReducedMotion && (
-        <div className="fixed inset-0 pointer-events-none">
-          <div className="binary-rain"></div>
-          <div className="binary-rain" style={{ left: '50%', animationDelay: '-10s' }}></div>
-        </div>
-      )}
-
-      <div className="fixed inset-0 pointer-events-none matrix-bg opacity-10"></div>
-
+      {/* Removed global binary-rain overlays for performance */}
+      <div className="fixed inset-0 pointer-events-none matrix-bg opacity-5" style={{ animation: 'none' }}></div>
       <div className="relative z-10">
         <NavbarMain />
         <HeroMain />

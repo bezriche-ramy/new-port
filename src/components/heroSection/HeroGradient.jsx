@@ -14,11 +14,7 @@ const HeroGradient = () => {
         <div className="h-full w-[120%] -ml-[10%] animate-matrix-scan bg-[linear-gradient(90deg,transparent_0%,rgba(0,255,65,0.1)_50%,transparent_100%)]"></div>
       </div>
       
-      {/* Binary code rain container */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
-        <div className="binary-rain" style={{ left: '25%' }}></div>
-        <div className="binary-rain" style={{ left: '75%', animationDelay: '-7s' }}></div>
-      </div>
+      {/* Binary code rain container removed for performance */}
     </div>
   );
 };

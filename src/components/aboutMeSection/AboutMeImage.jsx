@@ -2,10 +2,9 @@ const AboutMeImage = () => {
   return (
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Matrix scan effect container */}
+      {/* Only keep one binary-rain for performance */}
       <div className="absolute inset-0 overflow-hidden rounded-lg">
         <div className="binary-rain"></div>
-        <div className="binary-rain" style={{ left: '50%', animationDelay: '-5s' }}></div>
-        <div className="matrix-bg opacity-30"></div>
       </div>
 
       {/* Main image with security overlay */}

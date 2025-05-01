@@ -11,10 +11,9 @@ const HeroPic = () => {
       className="relative w-full h-full flex items-center justify-center"
     >
       {/* Binary rain effect container */}
+      {/* Removed extra binary-rain layers for performance */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="binary-rain-fast"></div>
-        <div className="binary-rain-slow" style={{ left: '25%', animationDelay: '-3s' }}></div>
-        <div className="binary-rain-med" style={{ left: '75%', animationDelay: '-7s' }}></div>
       </div>
 
       {/* Profile image container */}
@@ -39,10 +38,7 @@ const HeroPic = () => {
             }}
           ></div>
 
-          {/* Matrix code overlay */}
-          <div className="absolute inset-0 rounded-full overflow-hidden opacity-30">
-            <div className="matrix-code"></div>
-          </div>
+          {/* Matrix code overlay removed for performance */}
         </div>
       </div>
 
