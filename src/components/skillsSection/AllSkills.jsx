@@ -30,33 +30,33 @@ const skills = [
 const AllSkills = () => {
   return (
     <div className="relative w-full overflow-hidden bg-black/30 backdrop-blur-sm 
-                    sm:py-8 md:py-12 lg:py-16 border-t border-b border-accent/20">
-      <div className="absolute inset-0 binary-rain opacity-20"></div>
+                    sm:py-6 md:py-8 lg:py-10 border-t border-b border-accent/20">
+      <div className="absolute inset-0 binary-rain opacity-10"></div>
       
-      <div className="relative flex overflow-hidden hover:[animation-play-state:paused] 
-                    sm:px-2 md:px-4">
-        <div className="animate-skill-loop flex sm:gap-4 md:gap-6 lg:gap-8 pl-8 shrink-0">
+      <div className="relative flex overflow-hidden hover:[animation-play-state:paused]">
+        <div className="animate-skill-loop flex sm:gap-3 md:gap-4 lg:gap-6 pl-6 shrink-0"
+             style={{ willChange: 'transform' }}>
           {skills.map((item, index) => (
             <SingleSkill
               key={index}
               text={item.skill}
-              imgSvg={<item.icon className="sm:text-xl md:text-2xl" />}
+              imgSvg={<item.icon className="sm:text-lg md:text-xl" />}
             />
           ))}
         </div>
-        <div className="animate-skill-loop flex sm:gap-4 md:gap-6 lg:gap-8 pl-8 shrink-0">
+        <div className="animate-skill-loop flex sm:gap-3 md:gap-4 lg:gap-6 pl-6 shrink-0"
+             style={{ willChange: 'transform' }}>
           {skills.map((item, index) => (
             <SingleSkill
               key={`dup-${index}`}
               text={item.skill}
-              imgSvg={<item.icon className="sm:text-xl md:text-2xl" />}
+              imgSvg={<item.icon className="sm:text-lg md:text-xl" />}
             />
           ))}
         </div>
       </div>
 
-      {/* Mobile touch hint */}
-      <div className="sm:block md:hidden text-center mt-4">
+      <div className="sm:block md:hidden text-center mt-3">
         <p className="text-accent/50 font-code text-xs">{">"} swipe to explore</p>
       </div>
     </div>

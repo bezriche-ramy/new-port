@@ -18,11 +18,12 @@
   z-index: -1;
   background: linear-gradient(0deg, 
     transparent 0%,
-    rgba(0, 255, 65, 0.03) 50%,
+    rgba(0, 255, 65, 0.02) 50%,
     transparent 100%
   );
-  animation: matrix-scan 3s linear infinite; /* Slowed down from 2s to 3s */
-  will-change: transform; /* Add hardware acceleration */
+  animation: matrix-scan 4s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* Matrix Rain Effect */
@@ -32,9 +33,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,255,65,0.1) 75%);
-  animation: binaryRain 20s linear infinite;
+  background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,255,65,0.05) 75%);
+  animation: binaryRain 30s linear infinite;
   pointer-events: none;
+  transform: translateZ(0);
 }
 
 @keyframes binary-fall {
@@ -43,12 +45,8 @@
 }
 
 @keyframes binaryRain {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 0% 100%;
-  }
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
 }
 
 /* Terminal Text Effect */
@@ -87,13 +85,14 @@
 /* Matrix Background */
 .matrix-bg {
   background: linear-gradient(180deg, 
-    rgba(0, 255, 65, 0.1) 0%,
-    rgba(0, 255, 65, 0.05) 50%,
+    rgba(0, 255, 65, 0.05) 0%,
+    rgba(0, 255, 65, 0.02) 50%,
     rgba(0, 0, 0, 0) 100%
   );
   background-size: 100% 200%;
-  animation: matrix-scan 3s linear infinite;
+  animation: matrix-scan 4s linear infinite;
   will-change: transform;
+  transform: translateZ(0);
 }
 
 @keyframes matrix-scan {
@@ -178,8 +177,9 @@
 }
 
 .animate-skill-loop {
-  animation: skill-loop 40s linear infinite;
+  animation: skill-loop 60s linear infinite;
   will-change: transform;
+  transform: translateZ(0);
 }
 
 /* Matrix text effect */

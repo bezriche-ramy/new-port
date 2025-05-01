@@ -1,33 +1,82 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import NavbarMain from "./components/navbar/NavbarMain";
 import HeroMain from "./components/heroSection/HeroMain";
 import HeroGradient from "./components/heroSection/HeroGradient";
 import SubHeroMain from "./components/subHeroSection/SubHeroMain";
 import LoadingDots from "./components/LoadingDots";
 
-// Lazy load non-critical components
-const AboutMeMain = lazy(() => import("./components/aboutMeSection/AboutMeMain"));
-const SkillsMain = lazy(() => import("./components/skillsSection/SkillsMain"));
-const SubSkills = lazy(() => import("./components/skillsSection/SubSkills"));
-const ExperienceMain = lazy(() => import("./components/experienceSection/ExperienceMain"));
-const ProjectsMain = lazy(() => import("./components/projectsSection/ProjectsMain"));
-const CertificateMain = lazy(() => import("./components/certificateSection/CertificateMain"));
-const ContactMeMain = lazy(() => import("./components/contactMeSection/ContactMeMain"));
-const FooterMain = lazy(() => import("./components/footer/FooterMain"));
+// Lazy load components in chunks for better performance
+const AboutAndSkills = lazy(() => 
+  Promise.all([
+    import("./components/aboutMeSection/AboutMeMain"),
+    import("./components/skillsSection/SkillsMain"),
+    import("./components/skillsSection/SubSkills")
+  ]).then(([about, skills, subSkills]) => ({
+    default: () => (
+      <>
+        <about.default />
+        <skills.default />
+        <subSkills.default />
+      </>
+    )
+  }))
+);
+
+const ProjectsAndExperience = lazy(() =>
+  Promise.all([
+    import("./components/experienceSection/ExperienceMain"),
+    import("./components/projectsSection/ProjectsMain")
+  ]).then(([exp, proj]) => ({
+    default: () => (
+      <>
+        <exp.default />
+        <proj.default />
+      </>
+    )
+  }))
+);
+
+const CertAndContact = lazy(() =>
+  Promise.all([
+    import("./components/certificateSection/CertificateMain"),
+    import("./components/contactMeSection/ContactMeMain"),
+    import("./components/footer/FooterMain")
+  ]).then(([cert, contact, footer]) => ({
+    default: () => (
+      <>
+        <cert.default />
+        <contact.default />
+        <footer.default />
+      </>
+    )
+  }))
+);
 
 function App() {
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
+
+  useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setIsReducedMotion(mediaQuery.matches);
+
+    const listener = (e) => setIsReducedMotion(e.matches);
+    mediaQuery.addEventListener("change", listener);
+    return () => mediaQuery.removeEventListener("change", listener);
+  }, []);
+
   return (
     <main className="font-body text-accent relative overflow-hidden bg-background min-h-screen">
-      {/* Reduced number of binary rain layers */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="binary-rain"></div>
-        <div className="binary-rain" style={{ left: '50%', animationDelay: '-10s' }}></div>
-      </div>
+      {/* Reduced number of matrix effects when reduced motion is preferred */}
+      {!isReducedMotion && (
+        <div className="fixed inset-0 pointer-events-none">
+          <div className="binary-rain"></div>
+          <div className="binary-rain" style={{ left: '50%', animationDelay: '-10s' }}></div>
+        </div>
+      )}
 
-      {/* Single matrix background effect */}
       <div className="fixed inset-0 pointer-events-none matrix-bg opacity-10"></div>
 
-      {/* Main content */}
       <div className="relative z-10">
         <NavbarMain />
         <HeroMain />
@@ -35,14 +84,9 @@ function App() {
         <SubHeroMain />
         
         <Suspense fallback={<LoadingDots />}>
-          <AboutMeMain />
-          <SkillsMain />
-          <SubSkills />
-          <ExperienceMain />
-          <ProjectsMain />
-          <CertificateMain />
-          <ContactMeMain />
-          <FooterMain />
+          <AboutAndSkills />
+          <ProjectsAndExperience />
+          <CertAndContact />
         </Suspense>
       </div>
     </main>

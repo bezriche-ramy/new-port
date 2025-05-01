@@ -109,15 +109,17 @@ const SingleProject = ({
               loop 
               muted 
               playsInline
+              loading="lazy"
               className="w-full aspect-video object-cover transform 
-                       group-hover:scale-105 transition-transform duration-500"
+                       group-hover:scale-105 transition-transform duration-700"
             />
           ) : (
             <img 
               src={image} 
               alt={isComingSoon ? "coming soon" : "project screenshot"} 
+              loading="lazy"
               className="w-full aspect-video object-cover transform 
-                       group-hover:scale-105 transition-transform duration-500"
+                       group-hover:scale-105 transition-transform duration-700"
             />
           )}
           <div className="absolute inset-0 matrix-bg opacity-10"></div>
