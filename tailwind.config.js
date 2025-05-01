@@ -3,7 +3,8 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     screens: {
-      sm: "320px",      // Adjusted for smaller phones
+      xs: "375px",     // Added for smaller phones
+      sm: "640px",     // Adjusted for better breakpoints
       md: "768px",
       lg: "1024px",
       xl: "1280px",
@@ -21,6 +22,15 @@ export default {
     },
     extend: {
       fontSize: {
+        'xs': ['0.75rem', '1rem'],       // 12px
+        'sm': ['0.875rem', '1.25rem'],   // 14px
+        'base': ['1rem', '1.5rem'],      // 16px
+        'lg': ['1.125rem', '1.75rem'],   // 18px
+        'xl': ['1.25rem', '1.75rem'],    // 20px
+        '2xl': ['1.5rem', '2rem'],       // 24px
+        '3xl': ['1.875rem', '2.25rem'],  // 30px
+        '4xl': ['2.25rem', '2.5rem'],    // 36px
+        '5xl': ['3rem', '1'],            // 48px
         'mobile-h1': ['2rem', '2.5rem'],     // Mobile headings
         'mobile-h2': ['1.75rem', '2.25rem'],
         'mobile-h3': ['1.5rem', '2rem'],

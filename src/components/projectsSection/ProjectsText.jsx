@@ -1,7 +1,7 @@
 const ProjectsText = () => {
   return (
     <div className="flex flex-col items-center mt-[100px]">
-      <h2 className="text-6xl text-accent mb-10 font-code terminal-text glitch" data-text="DEVELOPMENT_PROJECTS">
+      <h2 className="text-4xl lg:text-6xl md:text-5xl sm:text-3xl text-accent font-code mb-6 terminal-text text-center">
         {"> "}DEVELOPMENT_PROJECTS
       </h2>
       <div className="text-lg text-center font-code max-w-3xl relative">
