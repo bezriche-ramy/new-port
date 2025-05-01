@@ -7,6 +7,24 @@
   --background: rgb(0, 0, 0);
 }
 
+/* Matrix rain effect - optimized */
+.binary-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(0deg, 
+    transparent 0%,
+    rgba(0, 255, 65, 0.03) 50%,
+    transparent 100%
+  );
+  animation: matrix-scan 3s linear infinite; /* Slowed down from 2s to 3s */
+  will-change: transform; /* Add hardware acceleration */
+}
+
 /* Matrix Rain Effect */
 .binary-rain-intense {
   position: absolute;
@@ -36,7 +54,6 @@
 /* Terminal Text Effect */
 .terminal-text {
   position: relative;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .terminal-text::before {
@@ -50,40 +67,38 @@
   animation: cursor-blink 1s step-end infinite;
 }
 
+.terminal-text::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 2px;
+  height: 80%;
+  width: 2px;
+  background: #00FF41;
+  animation: cursor-blink 1s step-end infinite;
+  will-change: transform;
+}
+
 @keyframes cursor-blink {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0); }
 }
 
 /* Matrix Background */
 .matrix-bg {
-  background: black;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0.8;
-  background-image: 
-    repeating-linear-gradient(0deg,
-      transparent,
-      transparent 1px,
-      rgba(0, 255, 65, 0.1) 2px,
-      transparent 3px
-    ),
-    repeating-linear-gradient(90deg,
-      transparent,
-      transparent 1px,
-      rgba(0, 255, 65, 0.1) 2px,
-      transparent 3px
-    );
-  background-size: 3px 3px;
-  animation: matrix-shift 20s linear infinite;
+  background: linear-gradient(180deg, 
+    rgba(0, 255, 65, 0.1) 0%,
+    rgba(0, 255, 65, 0.05) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  background-size: 100% 200%;
+  animation: matrix-scan 3s linear infinite;
+  will-change: transform;
 }
 
-@keyframes matrix-shift {
-  0% { background-position: 0 0; }
-  100% { background-position: 50px 50px; }
+@keyframes matrix-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
 }
 
 /* Matrix Glow Effects */
@@ -163,7 +178,8 @@
 }
 
 .animate-skill-loop {
-  animation: skill-loop 30s linear infinite;
+  animation: skill-loop 40s linear infinite;
+  will-change: transform;
 }
 
 /* Matrix text effect */

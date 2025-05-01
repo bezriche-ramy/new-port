@@ -1,6 +1,6 @@
+import React from 'react';
 import SingleCertificate from './SingleCertificate';
 
-const CertificateMain = () => {
 const certificates = [
   { 
     image: 'https://i.ibb.co/MyzFsd4X/cer1.png',
@@ -19,6 +19,7 @@ const certificates = [
   }
 ];
 
+const CertificateMain = React.memo(() => {
   return (
     <section id="certificates" className="max-w-7xl mx-auto px-4 sm:px-3 py-16 sm:py-12 relative">
       <div className="absolute inset-0 matrix-bg opacity-5"></div>
@@ -49,6 +50,6 @@ const certificates = [
       </div>
     </section>
   );
-};
+});
 
 export default CertificateMain;
