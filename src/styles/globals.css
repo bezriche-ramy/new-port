@@ -115,44 +115,51 @@
 /* Glitch Text Effect */
 .glitch {
   position: relative;
-  text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-              -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
-              0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-  animation: glitch 500ms infinite;
+  /* Base style (larger screens) */
+  text-shadow: 0.02em 0 0 rgba(255, 0, 0, 0.5),
+              -0.01em -0.02em 0 rgba(0, 255, 0, 0.5),
+              0.01em 0.02em 0 rgba(0, 0, 255, 0.5);
+  animation: glitch-lg 750ms infinite;
 }
 
-.glitch span:first-child {
-  animation: noise-1 3s linear infinite alternate-reverse;
-  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+/* Media query for medium screens and below (tablets and phones) */
+@media (max-width: 767px) { /* Apply below md breakpoint */
+  .glitch {
+    /* Disable animation completely */
+    animation: none;
+    /* Keep a very subtle static shadow for texture, or remove if preferred */
+    text-shadow: 0.005em 0 0 rgba(255, 0, 0, 0.2),
+                -0.002em -0.005em 0 rgba(0, 255, 0, 0.2),
+                0.002em 0.005em 0 rgba(0, 0, 255, 0.2);
+  }
 }
 
-.glitch span:last-child {
-  animation: noise-2 3s linear infinite alternate-reverse;
-  clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-}
-
-@keyframes glitch {
-  0% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-                   -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
-                    0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
-  14% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
-                     0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
-  15% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
-                     0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
-                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
-  49% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
-                     0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
-                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
-  50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
-                     0.05em 0 0 rgba(0, 255, 0, 0.75),
-                     0 -0.05em 0 rgba(0, 0, 255, 0.75); }
-  99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
-                     0.05em 0 0 rgba(0, 255, 0, 0.75),
-                     0 -0.05em 0 rgba(0, 0, 255, 0.75); }
-  100% { text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75),
-                     -0.025em -0.025em 0 rgba(0, 255, 0, 0.75),
-                     -0.025em -0.05em 0 rgba(0, 0, 255, 0.75); }
+/* Keyframes for larger screens */
+@keyframes glitch-lg {
+  0%, 100% {
+    text-shadow: 0.02em 0 0 rgba(255, 0, 0, 0.5),
+                 -0.02em -0.01em 0 rgba(0, 255, 0, 0.5),
+                  0.01em 0.02em 0 rgba(0, 0, 255, 0.5);
+    transform: translate(0, 0);
+  }
+  25% {
+    text-shadow: -0.02em -0.01em 0 rgba(255, 0, 0, 0.5),
+                  0.01em 0.01em 0 rgba(0, 255, 0, 0.5),
+                 -0.02em -0.02em 0 rgba(0, 0, 255, 0.5);
+    transform: translate(-1px, 1px);
+  }
+  50% {
+    text-shadow: 0.01em 0.02em 0 rgba(255, 0, 0, 0.5),
+                  0.02em 0 0 rgba(0, 255, 0, 0.5),
+                  0 -0.02em 0 rgba(0, 0, 255, 0.5);
+    transform: translate(1px, -1px);
+  }
+  75% {
+    text-shadow: -0.01em 0 0 rgba(255, 0, 0, 0.5),
+                 -0.01em -0.01em 0 rgba(0, 255, 0, 0.5),
+                 -0.01em -0.02em 0 rgba(0, 0, 255, 0.5);
+    transform: translate(1px, 1px);
+  }
 }
 
 /* Terminal Window Styling */

@@ -3,6 +3,7 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     screens: {
+      'xs': {'max': '400px'},  // Added specific breakpoint for iPhone SE and similar small devices
       sm: "320px",      // Adjusted for smaller phones
       md: "768px",
       lg: "1024px",

@@ -16,7 +16,7 @@ const NavbarLogo = () => {
           user@
         </span>
         <span className="group-hover:text-highlight transition-colors duration-300">
-          bezriche-ramy
+          ramy-bezriche
         </span>
         <span className="text-accent/70">:~$</span>
         <span className="w-2 h-5 bg-accent/70 animate-blink"></span>
@@ -28,7 +28,7 @@ const NavbarLogo = () => {
           $
         </span>
         <span className="group-hover:text-highlight transition-colors duration-300">
-          BR_
+          RB_
         </span>
         <span className="w-1.5 h-4 bg-accent/70 animate-blink"></span>
       </h1>

@@ -1,8 +1,11 @@
 const ProjectsText = () => {
   return (
     <div className="flex flex-col items-center mt-[100px]">
-      <h2 className="text-6xl text-accent mb-10 font-code terminal-text glitch" data-text="DEVELOPMENT_PROJECTS">
-        {"> "}DEVELOPMENT_PROJECTS
+      <h2 
+        className="text-accent mb-10 font-code terminal-text glitch text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl break-words px-3 md:px-0"
+        data-text="> DEVELOPMENT_PROJECTS"
+      >
+        &gt; DEVELOPMENT_PROJECTS
       </h2>
       <div className="text-lg text-center font-code max-w-3xl relative">
         <div className="absolute inset-0 matrix-bg opacity-10"></div>

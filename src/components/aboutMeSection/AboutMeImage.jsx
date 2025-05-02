@@ -10,8 +10,8 @@ const AboutMeImage = () => {
       {/* Main image with security overlay */}
       <div className="relative z-10 w-full max-w-[500px] aspect-square">
         <img
-          src="https://i.ibb.co/Dfby7LGy/HexaPic.jpg"
-          alt="security expert"
+          src="https://i.ibb.co/21qXwX3F/IMG-20250502-103125.jpg"
+          alt="bezriche ramy"
           className="w-full h-full object-cover rounded-lg border-2 border-accent 
                    shadow-matrix-glow hover:shadow-matrix-strong 
                    transition-all duration-500"

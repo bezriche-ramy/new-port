@@ -20,7 +20,7 @@ const HeroPic = () => {
       <div className="relative z-10">
         <div className="relative group">
           <img
-            src="https://i.ibb.co/Dfby7LGy/HexaPic.jpg"
+            src="https://i.ibb.co/21qXwX3F/IMG-20250502-103125.jpg"
             alt="bezriche ramy"
             className="h-[350px] w-[350px] rounded-full object-cover 
                      border-2 border-accent shadow-matrix-glow
