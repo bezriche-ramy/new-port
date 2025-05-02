@@ -1,5 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../../state/menuSlice";
+import "../../styles/navToggler.css";
+
+const MenuIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="5" width="20" height="2" className="text-accent"/>
+    <rect x="2" y="11" width="20" height="2" className="text-accent"/>
+    <rect x="2" y="17" width="20" height="2" className="text-accent"/>
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="11" width="16" height="2" transform="rotate(45 12 12)" className="text-accent"/>
+    <rect x="4" y="11" width="16" height="2" transform="rotate(-45 12 12)" className="text-accent"/>
+  </svg>
+);
 
 const NavbarToggler = () => {
   const dispatch = useDispatch();
@@ -8,20 +24,10 @@ const NavbarToggler = () => {
   return (
     <button
       onClick={() => dispatch(toggleMenu())}
-      className="flex flex-col justify-center items-center gap-1.5 w-8 h-8 relative group"
+      className="w-10 h-10 flex items-center justify-center bg-black/80 rounded"
       aria-label="Toggle navigation menu"
     >
-      {/* Hamburger bars with matrix animation */}
-      <span className={`w-6 h-0.5 bg-accent transition-all duration-300 ease-out
-                     ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-      <span className={`w-6 h-0.5 bg-accent transition-all duration-300 ease-out
-                     ${menuOpen ? "opacity-0" : "opacity-100"}`} />
-      <span className={`w-6 h-0.5 bg-accent transition-all duration-300 ease-out
-                     ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-
-      {/* Matrix scan effect on hover */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-10 
-                     transition-opacity duration-300 matrix-bg rounded" />
+      {menuOpen ? <CloseIcon /> : <MenuIcon />}
     </button>
   );
 };

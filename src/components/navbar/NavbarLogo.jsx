@@ -6,8 +6,13 @@ const NavbarLogo = () => {
       to="hero" 
       spy={true} 
       smooth={true} 
-      duration={500} 
-      offset={-100}
+      duration={300} 
+      offset={0}
+      isDynamic={true}
+      ignoreCancelEvents={false}
+      spyThrottle={100}
+      hashSpy={false}
+      style={{ cursor: 'pointer' }}
       className="group cursor-pointer relative"
     >
       {/* Desktop Logo */}

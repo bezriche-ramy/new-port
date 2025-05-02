@@ -5,6 +5,40 @@
 :root {
   --accent: rgb(0, 255, 65);
   --background: rgb(0, 0, 0);
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Base optimization for all transformed elements */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-overflow-scrolling: touch;
+}
+
+[class*="rotate-"],
+[class*="translate-"],
+[class*="scale-"] {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optimize scrolling performance */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
 }
 
 /* Matrix rain effect - optimized */
@@ -131,6 +165,32 @@
     text-shadow: 0.005em 0 0 rgba(255, 0, 0, 0.2),
                 -0.002em -0.005em 0 rgba(0, 255, 0, 0.2),
                 0.002em 0.005em 0 rgba(0, 0, 255, 0.2);
+  }
+}
+
+/* Mobile touch optimization */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  button {
+    touch-action: manipulation;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  .backdrop-blur-sm {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: rgba(0, 0, 0, 0.95);
+  }
+  
+  .fixed {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
   }
 }
 
@@ -264,4 +324,25 @@
 
 .menu-slide-in {
   animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Transform optimizations */
+@layer utilities {
+  .transform-optimize {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+}
+
+/* Button transition optimizations */
+.menu-button-bar {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
 }

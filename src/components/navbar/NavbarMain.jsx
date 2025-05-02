@@ -10,41 +10,37 @@ const NavbarMain = () => {
   const menuOpen = useSelector((state) => state.menu.menuOpen);
   
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 p-4">
-      <div className="max-w-[1200px] mx-auto">
-        {/* Main navbar container */}
-        <div className="flex items-center justify-between bg-black/80 backdrop-blur-sm 
-                      py-3 px-4 border border-accent/30 rounded-lg shadow-matrix-glow">
+    <nav className="fixed top-0 left-0 w-full z-50">
+      <div className="max-w-[1200px] mx-auto p-4">
+        {/* Main navbar */}
+        <div className="flex items-center justify-between bg-black border border-accent/30 rounded-lg p-4">
           <NavbarLogo />
           
-          {/* Desktop menu */}
-          <div className={`lg:flex items-center ${menuOpen ? "flex" : "hidden"} 
-                        lg:relative fixed top-0 left-0 w-full h-screen lg:w-auto lg:h-auto
-                        lg:bg-transparent bg-black/95 backdrop-blur-md lg:backdrop-blur-none
-                        transition-all duration-300 ease-in-out z-50
-                        ${menuOpen ? "opacity-100" : "opacity-0 lg:opacity-100"}
-                        lg:p-0 p-20`}>
+          {/* Desktop Links */}
+          <div className="hidden lg:flex items-center">
             <NavbarLinks />
           </div>
           
-          {/* Mobile menu toggle and connect button */}
+          {/* Mobile Controls */}
           <div className="flex items-center gap-4">
-            <div className={`lg:block ${menuOpen ? "hidden" : "block"}`}>
+            <div className="lg:block hidden">
               <NavbarBtn />
             </div>
-            
-            <div className="lg:hidden flex items-center">
+            <div className="lg:hidden block">
               <NavbarToggler />
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu - Separate from main navbar */}
+        {menuOpen && (
+          <div className="lg:hidden block mt-2">
+            <div className="bg-black border border-accent/30 rounded-lg p-4">
+              <NavbarLinks />
+            </div>
+          </div>
+        )}
       </div>
-      
-      {/* Full screen overlay when mobile menu is open */}
-      {menuOpen && (
-        <div className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40" 
-             onClick={() => dispatch(toggleMenu())} />
-      )}
     </nav>
   );
 };

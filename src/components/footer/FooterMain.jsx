@@ -21,8 +21,10 @@ const FooterMain = () => {
                 <Link
                   spy={true}
                   smooth={true}
-                  duration={500}
-                  offset={-120}
+                  duration={300}
+                  offset={-80}
+                  isDynamic={true}
+                  spyThrottle={100}
                   to={item.section}
                   className="hover:text-accent transition-all duration-300 cursor-pointer terminal-text flex items-center gap-2"
                 >

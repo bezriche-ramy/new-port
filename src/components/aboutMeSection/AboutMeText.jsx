@@ -40,7 +40,12 @@ const AboutMeText = () => {
           spy={true}
           smooth={true}
           duration={500}
-          offset={-120}
+          offset={-80}
+          isDynamic={true}
+          ignoreCancelEvents={false}
+          spyThrottle={50}
+          hashSpy={false}
+          style={{ cursor: 'pointer' }}
           to="projects"
           className="cursor-pointer text-accent group-hover:text-highlight transition-all duration-500 terminal-text"
         >

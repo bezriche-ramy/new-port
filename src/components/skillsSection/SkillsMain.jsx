@@ -11,7 +11,7 @@ const SkillsMain = () => {
       <div className="absolute inset-0 matrix-bg opacity-10"></div>
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background"></div>
       
-      <section id="skills" className="relative max-w-[1200px] mx-auto px-4">
+      <section id="skills" className="relative max-w-[1200px] mx-auto px-4 pt-16">
         <motion.div
           variants={fadeIn("down", 0)}
           initial="hidden"

@@ -1,0 +1,99 @@
+/* Mobile menu button - no transforms or animations */
+.nav-toggler {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-toggler-inner {
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+  position: relative;
+}
+
+/* Basic hamburger menu */
+.toggler-bar {
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent);
+}
+
+.nav-toggler .top-bar {
+  top: 0;
+}
+
+.nav-toggler .middle-bar {
+  top: 50%;
+  margin-top: -1px;
+}
+
+.nav-toggler .bottom-bar {
+  bottom: 0;
+}
+
+/* Simple X icon for active state */
+.nav-toggler.active .nav-toggler-inner {
+  display: none;
+}
+
+.nav-toggler.active::after {
+  content: '×';
+  color: var(--accent);
+  font-size: 24px;
+  line-height: 1;
+}
+
+/* Mobile-specific styles */
+@media (hover: none) and (pointer: coarse) {
+  .nav-toggler.active .top-bar {
+    background-color: transparent;
+  }
+  
+  .nav-toggler.active .bottom-bar {
+    background-color: transparent;
+  }
+  
+  /* Use a simple X character for mobile */
+  .nav-toggler.active::before {
+    content: '×';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 28px;
+    color: var(--accent);
+    line-height: 1;
+  }
+}
+
+/* No animations on mobile */
+@media (hover: none) and (pointer: coarse) {
+  .toggler-bar {
+    transition: none;
+  }
+  
+  .nav-toggler.active .toggler-bar {
+    transition: none;
+  }
+}
+
+/* Desktop-only animations */
+@media (hover: hover) {
+  .toggler-bar {
+    transition: all 0.2s ease-out;
+  }
+}
+
+/* Prevent multiple clicks */
+.button-disabled {
+  pointer-events: none;
+}

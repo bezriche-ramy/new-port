@@ -105,3 +105,116 @@ body {
   clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
   transform: translate(2px, 2px);
 }
+
+/* HeroPic animation styles */
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline-animation {
+  animation: scan 2s linear infinite;
+}
+
+.binary-rain-fast {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(0deg, 
+    transparent 0%, 
+    rgba(0, 255, 65, 0.2) 50%, 
+    transparent 100%
+  );
+  animation: rain 1s linear infinite;
+}
+
+.binary-rain-slow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: linear-gradient(0deg, 
+    transparent 0%, 
+    rgba(0, 255, 65, 0.1) 50%, 
+    transparent 100%
+  );
+  animation: rain 2s linear infinite;
+}
+
+.binary-rain-med {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: linear-gradient(0deg, 
+    transparent 0%, 
+    rgba(0, 255, 65, 0.15) 50%, 
+    transparent 100%
+  );
+  animation: rain 1.5s linear infinite;
+}
+
+@keyframes rain {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.matrix-code {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0%,
+    rgba(0, 255, 65, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 100% 2px;
+  animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+/* Binary animation styles for nav loader */
+.binary-animation {
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+}
+
+.binary-animation div {
+  animation: binary-row 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes binary-row {
+  0% { transform: translateY(-2px); }
+  100% { transform: translateY(2px); }
+}
+
+@keyframes matrixGlow {
+  0% { text-shadow: 0 0 5px rgba(0, 255, 65, 0.7); }
+  100% { text-shadow: 0 0 15px rgba(0, 255, 65, 1); }
+}
+
+/* Animated background for binary loader */
+.binary-background {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 20px,
+    rgba(0, 255, 65, 0.03) 20px,
+    rgba(0, 255, 65, 0.03) 40px
+  );
+  background-size: 100% 100%;
+  animation: binary-scan 2s linear infinite;
+}
+
+@keyframes binary-scan {
+  from { background-position: 0 0; }
+  to { background-position: 0 100px; }
+}
