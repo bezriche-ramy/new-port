@@ -1,6 +1,7 @@
 import { HiOutlineMail } from "react-icons/hi";
 import { FiPhone } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
+import { FaUpwork } from "react-icons/fa";
 import SingleInfo from "./SingleInfo";
 
 const ContactInfo = () => {
@@ -17,6 +18,11 @@ const ContactInfo = () => {
       <div className="border-l-2 border-accent/30 pl-4">
         <SingleInfo text="bezricheramy@gmail.com" Image={HiOutlineMail} />
         <SingleInfo text="Algiers, Algeria" Image={IoLocationOutline} />
+        <SingleInfo 
+          text="Hire me on Upwork" 
+          Image={FaUpwork} 
+          link="https://www.upwork.com/freelancers/~01940bb9c33250ffae"
+        />
       </div>
       
       <p className="text-accent/60 text-sm mt-2">{"// "}Communication channels secured with end-to-end encryption</p>

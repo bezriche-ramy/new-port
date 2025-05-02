@@ -3,20 +3,20 @@ import { fadeIn } from "../../framerMotion/variants";
 
 const specializations = [
   {
-    category: "Frontend Development",
-    skills: ["UI/UX Implementation", "Responsive Design", "State Management", "Performance Optimization"]
+    category: "Cybersecurity",
+    skills: ["Penetration Testing", "Network Security", "Malware Analysis", "Security Auditing"]
   },
   {
-    category: "Backend Development",
-    skills: ["RESTful APIs", "Database Design", "Authentication", "Server Architecture"]
+    category: "Web Security",
+    skills: ["Secure Development", "OWASP Top 10", "Web App Hardening", "Auth Systems"]
   },
   {
-    category: "Development Tools",
-    skills: ["Version Control", "CI/CD", "Build Tools", "Testing Frameworks"]
+    category: "Web Development",
+    skills: ["React Ecosystem", "Node.js", "Modern Frameworks", "API Design"]
   },
   {
-    category: "Modern Practices",
-    skills: ["Clean Code", "Agile Methods", "Code Review", "Documentation"]
+    category: "Security Tools",
+    skills: ["Wireshark", "Metasploit", "Burp Suite", "Nmap"]
   }
 ];
 

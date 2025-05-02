@@ -9,27 +9,27 @@ const AboutMeText = () => {
           {"> "}whoami
         </p>
         <p className="text-accent/80 mb-6 border-l-2 border-accent/30 pl-4">
-          Full-stack web developer and computer science student at USTHB, passionate about creating modern, 
-          efficient web applications. Experienced in React, Node.js, and various modern web technologies 
-          with a strong foundation in secure development practices.
+          Cybersecurity student and full-stack web developer at USTHB, passionate about building secure, 
+          efficient web applications. Specializing in application security, penetration testing, and modern 
+          web development with React and Node.js. Strong foundation in both offensive and defensive security practices.
         </p>
         
         <p className="mb-4">
           {"> "}cat expertise.txt
         </p>
         <p className="text-accent/80 mb-6 border-l-2 border-accent/30 pl-4">
-          Specialized in modern JavaScript frameworks and libraries. Currently serving as GDG Algeria's 
-          Communication Manager and working with Shellmatt's development team. Previous experience includes 
-          full-stack development during Djezzy internship.
+          Dual expertise in cybersecurity and web development. Proficient in security assessment, vulnerability analysis,
+          and secure coding practices. Currently focused on GDG Algeria's security infrastructure while developing 
+          secure web applications at Shellmatt. Previous experience includes security auditing and full-stack development at Djezzy.
         </p>
         
         <p className="mb-4">
           {"> "}cat mission.txt
         </p>
         <p className="text-accent/80 mb-6 border-l-2 border-accent/30 pl-4">
-          Dedicated to building innovative web solutions that combine elegant design with robust functionality. 
-          Constantly exploring new web technologies and best practices while maintaining a security-conscious 
-          approach to development.
+          Committed to bridging the gap between security and development, creating web solutions that are both 
+          innovative and secure. Constantly exploring new attack vectors and security measures while maintaining 
+          modern development practices. Dedicated to building applications with security-first architecture.
         </p>
       </div>
       

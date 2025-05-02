@@ -1,12 +1,15 @@
 import SingleSkill from "./SingleSkill";
-import { FaReact, FaNodeJs, FaHtml5, FaCss3, FaGitAlt, FaDocker, FaNpm, FaDatabase } from "react-icons/fa";
-import { SiJavascript, SiTypescript, SiNextdotjs, SiTailwindcss, SiMongodb, SiFirebase, SiRedux, SiVite } from "react-icons/si";
+import { FaReact, FaNodeJs, FaHtml5, FaCss3, FaGitAlt, FaShieldAlt, FaNetworkWired } from "react-icons/fa";
+import { SiJavascript, SiTypescript, SiNextdotjs, SiTailwindcss, SiWireshark, SiBurpsuite, SiKalilinux, SiMetasploit } from "react-icons/si";
 import { TbApi } from "react-icons/tb";
 import { BiTestTube } from "react-icons/bi";
+import { GrVulnerability } from "react-icons/gr";
+import { AiFillSafetyCertificate } from "react-icons/ai";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 
 const skills = [
+  // Web Development Skills
   { skill: "React.js", icon: FaReact },
   { skill: "Next.js", icon: SiNextdotjs },
   { skill: "JavaScript", icon: SiJavascript },
@@ -15,15 +18,18 @@ const skills = [
   { skill: "HTML5", icon: FaHtml5 },
   { skill: "CSS3", icon: FaCss3 },
   { skill: "Tailwind CSS", icon: SiTailwindcss },
-  { skill: "Redux", icon: SiRedux },
-  { skill: "Vite", icon: SiVite },
-  { skill: "MongoDB", icon: SiMongodb },
-  { skill: "Firebase", icon: SiFirebase },
+  // Cybersecurity Skills
+  { skill: "Penetration Testing", icon: FaShieldAlt },
+  { skill: "Network Security", icon: FaNetworkWired },
+  { skill: "Wireshark", icon: SiWireshark },
+  { skill: "Burp Suite", icon: SiBurpsuite },
+  { skill: "Kali Linux", icon: SiKalilinux },
+  { skill: "Metasploit", icon: SiMetasploit },
+  { skill: "Vulnerability Assessment", icon: GrVulnerability },
+  { skill: "Security Auditing", icon: AiFillSafetyCertificate },
+  // Common Skills
   { skill: "REST APIs", icon: TbApi },
   { skill: "Git", icon: FaGitAlt },
-  { skill: "Docker", icon: FaDocker },
-  { skill: "NPM", icon: FaNpm },
-  { skill: "SQL", icon: FaDatabase },
   { skill: "Testing", icon: BiTestTube }
 ];
 
