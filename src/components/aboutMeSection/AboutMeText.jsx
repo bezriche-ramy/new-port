@@ -3,39 +3,37 @@ import { Link } from "react-scroll";
 const AboutMeText = () => {
   return (
     <div className="flex flex-col md:items-start sm:items-center md:text-left sm:text-center">
-      <h2 className="text-6xl text-accent mb-10 font-code terminal-text">{"> "}SYSTEM INFO</h2>
-      <div className="font-code text-accent/90 bg-black/30 p-6 border border-accent/30 rounded">
-        <p className="mb-4">
-          {"> "}whoami
-        </p>
-        <p className="text-accent/80 mb-6 border-l-2 border-accent/30 pl-4">
-          Cybersecurity student and full-stack web developer at USTHB, passionate about building secure, 
-          efficient web applications. Specializing in application security, penetration testing, and modern 
-          web development with React and Node.js. Strong foundation in both offensive and defensive security practices.
-        </p>
+      <h2 className="section-title text-left mb-10">About Me</h2>
+      <div className="card-elevated p-8 text-black max-w-2xl">
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold text-accent mb-3">Who I Am</h3>
+          <p className="text-muted leading-relaxed">
+            I'm a passionate full-stack developer and Computer Science student at USTHB, specializing in creating 
+            modern, scalable web applications. With expertise in React, Node.js, and contemporary development practices, 
+            I focus on building user-centered solutions that make a real impact.
+          </p>
+        </div>
         
-        <p className="mb-4">
-          {"> "}cat expertise.txt
-        </p>
-        <p className="text-accent/80 mb-6 border-l-2 border-accent/30 pl-4">
-          Dual expertise in cybersecurity and web development. Proficient in security assessment, vulnerability analysis,
-          and secure coding practices. Currently focused on GDG Algeria's security infrastructure while developing 
-          secure web applications at Shellmatt. Previous experience includes security auditing and full-stack development at Djezzy.
-        </p>
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold text-accent mb-3">My Expertise</h3>
+          <p className="text-muted leading-relaxed">
+            I excel in full-stack development with a strong foundation in modern JavaScript frameworks and libraries. 
+            Currently contributing to GDG Algeria's development initiatives while creating innovative web solutions at Shellmatt. 
+            My experience includes diverse projects ranging from real-time applications to complex web platforms.
+          </p>
+        </div>
         
-        <p className="mb-4">
-          {"> "}cat mission.txt
-        </p>
-        <p className="text-accent/80 mb-6 border-l-2 border-accent/30 pl-4">
-          Committed to bridging the gap between security and development, creating web solutions that are both 
-          innovative and secure. Constantly exploring new attack vectors and security measures while maintaining 
-          modern development practices. Dedicated to building applications with security-first architecture.
-        </p>
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold text-accent mb-3">My Mission</h3>
+          <p className="text-muted leading-relaxed">
+            I'm dedicated to crafting exceptional digital experiences through clean, maintainable code and thoughtful design. 
+            My goal is to bridge the gap between technical innovation and user needs, creating applications that are both 
+            powerful and intuitive. I believe in continuous learning and staying at the forefront of web development trends.
+          </p>
+        </div>
       </div>
       
-      <button className="border border-accent rounded-sm py-2 px-4 text-lg flex gap-2 items-center mt-10 
-                       hover:bg-accent/10 hover:shadow-matrix-glow transition-all duration-500 cursor-pointer 
-                       md:self-start sm:self-center font-code group">
+      <div className="mt-8">
         <Link
           spy={true}
           smooth={true}
@@ -47,11 +45,11 @@ const AboutMeText = () => {
           hashSpy={false}
           style={{ cursor: 'pointer' }}
           to="projects"
-          className="cursor-pointer text-accent group-hover:text-highlight transition-all duration-500 terminal-text"
+          className="btn-primary cursor-pointer hover-lift"
         >
-          {"> "}view_projects --secure
+          View My Projects
         </Link>
-      </button>
+      </div>
     </div>
   );
 };

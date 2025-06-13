@@ -80,9 +80,8 @@ const projects = [
 
 const ProjectsMain = () => {
   return (
-    <section className="py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background"></div>
-      <div id="projects" className="max-w-[1200px] mx-auto px-4 relative">
+    <section className="section-background py-20">
+      <div id="projects" className="section-container">
         <motion.div
           variants={fadeIn("top", 0)}
           initial="hidden"
@@ -91,7 +90,7 @@ const ProjectsMain = () => {
         >
           <ProjectsText />
         </motion.div>
-        <div className="grid grid-cols-1 gap-16 md:gap-32 mt-12 md:mt-20">
+        <div className="grid grid-cols-1 gap-16 md:gap-24 mt-16">
           {projects.map((project, index) => (
             <SingleProject
               key={index}

@@ -8,34 +8,23 @@ const SingleExperience = ({ experience }) => {
       initial="hidden"
       whileInView="show"
       viewport={{ once: false, amount: 0.7 }}
-      className="h-full w-full bg-black/80 backdrop-blur-sm border border-accent/50 rounded p-6 group 
-                 hover:shadow-matrix-glow transition-all duration-500 flex flex-col"
+      className="card p-6 group hover-lift h-full flex flex-col"
     >
-      {/* Matrix scan effect */}
-      <div className="absolute inset-0 matrix-bg opacity-10"></div>
-      
-      <div className="terminal-header flex items-center gap-2 mb-4 pb-2 border-b border-accent/30">
-        <div className="w-2 h-2 rounded-full bg-accent/50"></div>
-        <div className="w-2 h-2 rounded-full bg-accent/30"></div>
-        <div className="w-2 h-2 rounded-full bg-accent/20"></div>
-      </div>
-
-      <div className="font-code flex-grow">
-        <h3 className="text-xl text-accent group-hover:text-highlight transition-colors duration-300 mb-2">
-          {"> "}position: {experience.job}
+      <div className="flex-grow">
+        <h3 className="text-xl font-semibold text-gray-900 group-hover:text-accent transition-colors duration-300 mb-2">
+          {experience.job}
         </h3>
-        <p className="text-accent/80 mb-1">
-          {"> "}organization: {experience.company}
+        <p className="text-accent font-medium mb-1">
+          {experience.company}
         </p>
-        <p className="text-accent/60 mb-4">
-          {"> "}timeframe: {experience.date}
+        <p className="text-gray-600 mb-4">
+          {experience.date}
         </p>
         
-        <p className="text-accent/90 mb-3">{"> "}responsibilities:</p>
-        <ul className="list-none space-y-2">
-          {experience.responsibilities.map((resp, index) => (
-            <li key={index} className="text-accent/70 pl-4 relative">
-              <span className="absolute left-0">{"> "}</span>
+        <p className="text-gray-700 mb-3 font-medium">Responsibilities:</p>
+        <ul className="list-disc list-inside space-y-2">
+          {experience.responsibilities && experience.responsibilities.map((resp, index) => (
+            <li key={index} className="text-gray-600">
               {resp}
             </li>
           ))}

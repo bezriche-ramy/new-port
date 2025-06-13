@@ -1,18 +1,18 @@
 const SingleSkill = ({ text, imgSvg }) => {
   return (
-    <div className="group bg-black/50 border border-accent/30 
-                    sm:p-2 md:p-3 lg:p-4 rounded whitespace-nowrap
-                    hover:border-accent hover:shadow-matrix-glow transition-all duration-300">
-      <div className="flex items-center sm:gap-2 md:gap-3">
-        <div className="text-accent/70 group-hover:text-accent transition-colors duration-300">
+    <div className="group bg-white border border-gray-200 rounded-lg
+                    p-4 whitespace-nowrap shadow-card
+                    hover:shadow-elevated hover:border-accent hover-lift
+                    transition-all duration-300">
+      <div className="flex items-center gap-3">
+        <div className="text-accent group-hover:text-highlight transition-colors duration-300">
           {imgSvg}
         </div>
-        <div className="font-code">
-          <p className="text-accent/80 group-hover:text-accent transition-colors duration-300
-                       sm:text-xs md:text-sm lg:text-base">
-            {"> "}{text}
+        <div>
+          <p className="text-black font-medium text-sm group-hover:text-accent transition-colors duration-300">
+            {text}
           </p>
-          <div className="h-[2px] w-0 group-hover:w-full bg-accent/30 transition-all duration-300"></div>
+          <div className="h-[2px] w-0 group-hover:w-full bg-accent/30 transition-all duration-300 mt-1"></div>
         </div>
       </div>
     </div>

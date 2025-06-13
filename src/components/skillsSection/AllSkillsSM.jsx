@@ -1,9 +1,9 @@
 import { FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaPython, FaJava } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io";
-import { SiNextdotjs, SiMysql, SiLinux, SiWireshark, SiMetasploit, SiBurpsuite } from "react-icons/si";
+import { SiNextdotjs, SiMysql, SiLinux, SiTailwindcss, SiTypescript, SiMongodb } from "react-icons/si";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { DiGit } from "react-icons/di";
-import { TbBrandCpp } from "react-icons/tb";
+import { TbBrandCpp, TbApi } from "react-icons/tb";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 
@@ -12,6 +12,7 @@ const skills = [
   { skill: "Java", icon: FaJava },
   { skill: "Python", icon: FaPython },
   { skill: "JavaScript", icon: IoLogoJavascript },
+  { skill: "TypeScript", icon: SiTypescript },
   { skill: "React.js", icon: FaReact },
   { skill: "Next.js", icon: SiNextdotjs },
   { skill: "HTML", icon: FaHtml5 },
@@ -19,11 +20,10 @@ const skills = [
   { skill: "Tailwind", icon: RiTailwindCssFill },
   { skill: "Node.js", icon: FaNodeJs },
   { skill: "MySQL", icon: SiMysql },
+  { skill: "MongoDB", icon: SiMongodb },
+  { skill: "REST APIs", icon: TbApi },
   { skill: "Linux", icon: SiLinux },
-  { skill: "Git", icon: DiGit },
-  { skill: "Wireshark", icon: SiWireshark },
-  { skill: "Metasploit", icon: SiMetasploit },
-  { skill: "Burp Suite", icon: SiBurpsuite }
+  { skill: "Git", icon: DiGit }
 ];
 
 const AllSkillsSM = () => {
@@ -39,8 +39,8 @@ const AllSkillsSM = () => {
             key={index}
             className="flex flex-col items-center"
           >
-            <item.icon className="text-7xl text-orange" />
-            <p className="text-center mt-4">{item.skill}</p>
+            <item.icon className="text-7xl text-accent" />
+            <p className="text-center mt-4 text-gray-700">{item.skill}</p>
           </motion.div>
         );
       })}

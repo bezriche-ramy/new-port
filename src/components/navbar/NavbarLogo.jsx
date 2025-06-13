@@ -13,38 +13,17 @@ const NavbarLogo = () => {
       spyThrottle={100}
       hashSpy={false}
       style={{ cursor: 'pointer' }}
-      className="group cursor-pointer relative"
+      className="group cursor-pointer"
     >
       {/* Desktop Logo */}
-      <h1 className="text-accent lg:flex sm:hidden items-center gap-2 font-code">
-        <span className="text-accent/50 group-hover:text-accent/70 transition-colors duration-300">
-          user@
-        </span>
-        <span className="group-hover:text-highlight transition-colors duration-300">
-          ramy-bezriche
-        </span>
-        <span className="text-accent/70">:~$</span>
-        <span className="w-2 h-5 bg-accent/70 animate-blink"></span>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 lg:flex sm:hidden items-center gap-2 group-hover:text-accent transition-colors duration-300">
+        Ramy Bezriche
       </h1>
 
       {/* Mobile Logo */}
-      <h1 className="text-accent lg:hidden sm:flex items-center gap-1 font-code">
-        <span className="text-accent/50 group-hover:text-accent/70 transition-colors duration-300">
-          $
-        </span>
-        <span className="group-hover:text-highlight transition-colors duration-300">
-          RB_
-        </span>
-        <span className="w-1.5 h-4 bg-accent/70 animate-blink"></span>
+      <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 lg:hidden sm:flex items-center group-hover:text-accent transition-colors duration-300">
+        RB
       </h1>
-
-      {/* Matrix scan effect on hover */}
-      <div className="absolute inset-0 -m-2 opacity-0 group-hover:opacity-10 
-                     transition-opacity duration-300 matrix-bg rounded" />
-
-      {/* Bottom border animation */}
-      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent/30 
-                     group-hover:w-full transition-all duration-300" />
     </Link>
   );
 };

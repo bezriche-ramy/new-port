@@ -1,24 +1,22 @@
 const SubHeroMain = () => {
   return (
-    <div className="w-full border-y border-accent/30 bg-black/50 backdrop-blur-sm text-accent relative
-                    sm:py-4 md:py-6 lg:py-8 sm:px-3 md:px-4">
-      <div className="absolute inset-0 matrix-bg opacity-10"></div>
-      <div className="max-w-[1200px] mx-auto flex md:flex-row sm:flex-col sm:gap-3 md:gap-6 
-                     md:justify-around sm:justify-center items-center">
-        {["Full Stack Developer", "React Specialist", "UI/UX Designer"].map((text, index) => (
-          <div key={index} 
-               className="relative z-10 group sm:w-full md:w-auto">
-            <div className="hover:text-highlight transition-colors duration-300 
-                          sm:text-sm md:text-base lg:text-xl xl:text-2xl
-                          sm:py-3 md:py-2 sm:px-4 md:px-3
-                          sm:border sm:border-accent/10 sm:rounded md:border-0
-                          sm:text-center md:text-left
-                          sm:bg-black/30 md:bg-transparent
-                          font-code">
-              <p className="terminal-text whitespace-nowrap">{"> "}{text}</p>
+    <div className="w-full border-y border-gray-200 bg-secondary py-8 px-4">
+      <div className="max-w-[1200px] mx-auto">
+        {/* Mobile: Stack vertically, Desktop: 3 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {["Full Stack Developer", "React Specialist", "UI/UX Designer"].map((text, index) => (
+            <div key={index} 
+                 className="group w-full">
+              <div className="text-lg md:text-xl font-semibold
+                          py-4 px-4 text-center
+                          bg-white rounded-lg shadow-card
+                          text-black hover:text-accent hover:shadow-elevated
+                          transform hover:-translate-y-1 transition-all duration-300">
+                {text}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

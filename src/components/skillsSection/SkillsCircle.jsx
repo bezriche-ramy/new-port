@@ -2,45 +2,47 @@ import React from "react";
 import { FcSettings } from "react-icons/fc";
 
 const metrics = [
-  { label: "SYSTEM_SECURITY", value: 92 },
-  { label: "NETWORK_ANALYSIS", value: 88 },
-  { label: "THREAT_DETECTION", value: 85 },
-  { label: "EXPLOIT_MITIGATION", value: 90 },
+  { label: "Frontend Development", value: 95 },
+  { label: "Backend Development", value: 88 },
+  { label: "UI/UX Design", value: 85 },
+  { label: "Database Management", value: 90 },
 ];
 
 const SkillsCircle = () => {
   return (
-    <div className="w-full h-full flex items-center justify-center relative">
-      {/* Matrix background effect */}
-      <div className="absolute inset-0 matrix-bg opacity-10"></div>
-      
-      <div className="bg-black/30 p-6 border border-accent/30 rounded-lg relative">
-        <div className="terminal-header flex items-center gap-2 mb-6 pb-2 border-b border-accent/30">
-          <div className="w-2 h-2 rounded-full bg-accent/50"></div>
-          <div className="w-2 h-2 rounded-full bg-accent/30"></div>
-          <div className="w-2 h-2 rounded-full bg-accent/20"></div>
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="card-elevated p-8 max-w-md w-full">
+        <div className="text-center mb-6">
+          <FcSettings className="w-12 h-12 mx-auto mb-3" />
+          <h3 className="text-xl font-semibold text-black mb-2">Expertise Levels</h3>
+          <p className="text-muted text-sm">Professional proficiency across key areas</p>
         </div>
-
-        <p className="text-accent mb-6 font-code">{">"} analyzing_security_metrics</p>
         
         <div className="space-y-6">
           {metrics.map((metric, index) => (
-            <div key={index} className="relative">
+            <div key={index}>
               <div className="flex justify-between mb-2">
-                <span className="text-accent/80 font-code text-sm">{metric.label}</span>
-                <span className="text-accent font-code text-sm">{metric.value}%</span>
+                <span className="text-black font-medium text-sm">{metric.label}</span>
+                <span className="text-accent font-semibold text-sm">{metric.value}%</span>
               </div>
-              <div className="h-2 bg-black/50 rounded-sm overflow-hidden border border-accent/20">
+              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-accent/30 relative"
-                  style={{ 
-                    width: `${metric.value}%`,
-                    animation: `matrix-scan 2s linear infinite`,
-                  }}
-                >
-                  <div className="absolute inset-0 matrix-bg"></div>
-                </div>
+                  className="h-full bg-gradient-to-r from-accent to-highlight rounded-full transition-all duration-1000 ease-out"
+                  style={{ width: `${metric.value}%` }}
+                />
               </div>
-              {/* Scanning line effect */}
-              <div 
-                className="absolute top-0 left-0 w-full h-full opacity-50"
+            </div>
+          ))}
+        </div>
+        
+        <div className="mt-6 pt-6 border-t border-gray-200 text-center">
+          <p className="text-muted text-sm">
+            Continuously improving and learning new technologies
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SkillsCircle;

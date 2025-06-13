@@ -66,9 +66,7 @@ function App() {
   }, []);
 
   return (
-    <main className="font-body text-accent relative overflow-hidden bg-background min-h-screen">
-      {/* Removed global binary-rain overlays for performance */}
-      <div className="fixed inset-0 pointer-events-none matrix-bg opacity-5" style={{ animation: 'none' }}></div>
+    <main className="font-body text-gray-900 relative overflow-hidden bg-white min-h-screen">
       <div className="relative z-10">
         <NavbarMain />
         <HeroMain />

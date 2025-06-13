@@ -5,16 +5,10 @@ import SingleInfo from "./SingleInfo";
 
 const ContactInfo = () => {
   return (
-    <div className="flex flex-col gap-4 font-code bg-black/30 p-4 border border-accent/30 rounded">
-      <div className="terminal-header flex items-center gap-2 mb-4 pb-2 border-b border-accent/30">
-        <div className="w-2 h-2 rounded-full bg-accent/50"></div>
-        <div className="w-2 h-2 rounded-full bg-accent/30"></div>
-        <div className="w-2 h-2 rounded-full bg-accent/20"></div>
-      </div>
+    <div className="flex flex-col gap-4 bg-white p-6 border border-gray-200 rounded-lg shadow-lg">
+      <h3 className="text-xl font-semibold text-black mb-4">Contact Information</h3>
       
-      <p className="text-accent/80 mb-2">{">"} contact_info --decrypt</p>
-      
-      <div className="border-l-2 border-accent/30 pl-4">
+      <div className="space-y-4">
         <SingleInfo text="bezricheramy@gmail.com" Image={HiOutlineMail} />
         <SingleInfo text="Algiers, Algeria" Image={IoLocationOutline} />
         <SingleInfo 
@@ -23,7 +17,9 @@ const ContactInfo = () => {
         />
       </div>
       
-      <p className="text-accent/60 text-sm mt-2">{"// "}Communication channels secured with end-to-end encryption</p>
+      <p className="text-muted text-sm mt-4">
+        Available for freelance projects and full-time opportunities
+      </p>
     </div>
   );
 };

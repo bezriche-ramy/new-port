@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import { toggleMenu } from "../../state/menuSlice";
 
 const links = [
-  { link: "About", section: "about", cmd: "cat about.md" },
-  { link: "Skills", section: "skills", cmd: "ls -la skills/" },
-  { link: "Experience", section: "experience", cmd: "history" },
-  { link: "Projects", section: "projects", cmd: "cd projects/" },
-  { link: "Certificate", section: "certificates", cmd: "verify certs/" },
-  { link: "Contact", section: "contact", cmd: "ssh connect" },
+  { link: "About", section: "about" },
+  { link: "Skills", section: "skills" },
+  { link: "Experience", section: "experience" },
+  { link: "Projects", section: "projects" },
+  { link: "Certificates", section: "certificates" },
+  { link: "Contact", section: "contact" },
 ];
 
 const NavbarLinks = () => {
@@ -33,13 +33,13 @@ const NavbarLinks = () => {
             onClick={handleLinkClick}
             isDynamic={true}
             spyThrottle={100}
-            className="flex items-center gap-2 px-4 py-2 w-full
-                     text-accent/80 hover:text-accent 
-                     lg:border-none sm:border sm:border-accent/30 sm:rounded
-                     sm:bg-black lg:bg-transparent"
+            className="px-4 py-2 w-full text-center lg:text-left
+                     text-muted hover:text-accent font-medium
+                     transition-all duration-300 hover-lift
+                     lg:border-none sm:border sm:border-gray-200 sm:rounded-lg
+                     sm:bg-white lg:bg-transparent hover:bg-gray-50"
           >
-            <span className="text-accent/50">$</span>
-            {link.cmd}
+            {link.link}
           </Link>
         </li>
       ))}

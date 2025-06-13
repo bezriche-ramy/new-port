@@ -1,19 +1,19 @@
 const SingleInfo = ({ text, Image, link }) => {
   return (
     <div className="flex gap-4 items-center justify-start group">
-      {Image && <Image className="text-2xl text-accent/70 group-hover:text-accent transition-colors duration-300" />}
+      {Image && <Image className="text-2xl text-accent group-hover:text-accent/80 transition-colors duration-300" />}
       {link ? (
         <a 
           href={link} 
           target="_blank" 
           rel="noopener noreferrer" 
-          className="text-accent/80 group-hover:text-accent transition-colors duration-300 terminal-text hover:underline"
+          className="text-black group-hover:text-accent transition-colors duration-300 hover:underline font-medium"
         >
-          {"> "}{text}
+          {text}
         </a>
       ) : (
-        <p className="text-accent/80 group-hover:text-accent transition-colors duration-300 terminal-text">
-          {"> "}{text}
+        <p className="text-black group-hover:text-accent transition-colors duration-300">
+          {text}
         </p>
       )}
     </div>

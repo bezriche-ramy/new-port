@@ -1,220 +1,191 @@
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Fira+Code:wght@300..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-background;
-  font-family: 'Share Tech Mono', monospace;
+@layer base {
+  body {
+    @apply bg-white text-gray-900;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
 }
 
-.perspective-1000 {
-  perspective: 1000px;
+@layer components {
+  /* Professional card styling */
+  .card {
+    @apply bg-white rounded-lg shadow-card border border-gray-200 transition-colors duration-300;
+  }
+
+  .card-elevated {
+    @apply bg-white rounded-lg shadow-elevated border border-gray-200 transition-colors duration-300;
+  }
+
+  /* Professional button styles */
+  .btn-primary {
+    @apply bg-accent hover:bg-highlight text-white px-6 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+
+  .btn-secondary {
+    @apply border border-accent text-accent hover:bg-accent hover:text-white px-6 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+
+  /* Section styling */
+  .section-container {
+    @apply max-w-6xl mx-auto px-4 py-16;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 text-center mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-gray-600 text-center max-w-2xl mx-auto mb-12;
+  }
+
+  /* Professional hover effects */
+  .hover-lift {
+    @apply transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-elevated;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent to-highlight bg-clip-text text-transparent;
+  }
+
+  /* Additional utilities */
+  .text-primary {
+    @apply text-gray-900;
+  }
+
+  .text-muted {
+    @apply text-gray-600;
+  }
+
+  .bg-section {
+    @apply bg-gray-50;
+  }
+
+  .skill-badge {
+    @apply bg-accent/10 text-accent border border-accent/20 px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  /* Form styles */
+  .form-input {
+    @apply w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300;
+  }
+
+  .form-textarea {
+    @apply form-input resize-none h-32;
+  }
+
+  /* Enhanced animations */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulseSubtle 2s ease-in-out infinite;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+  }
+
+  .animate-bounce-gentle {
+    animation: bounceGentle 2s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-rotate-slow {
+    animation: rotateSlow 20s linear infinite;
+  }
 }
 
-.backface-hidden {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+/* Enhanced keyframes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
-/* Matrix rain effect */
-.binary-rain {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-  background: linear-gradient(0deg, 
-    transparent 0%,
-    rgba(0, 255, 65, 0.03) 50%,
-    transparent 100%
-  );
-  background-size: 100% 200%;
-  animation: matrix-scan 2s linear infinite;
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 
-.binary-rain::before {
-  content: '01';
-  position: absolute;
-  font-family: 'Fira Code', monospace;
-  font-size: 12px;
-  color: rgba(0, 255, 65, 0.3);
-  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
-  white-space: nowrap;
-  animation: binary-rain 20s linear infinite;
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-/* Terminal text effect */
-.terminal-text {
-  position: relative;
-  display: inline-block;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.terminal-text::after {
-  content: '';
-  position: absolute;
-  right: -2px;
-  top: 2px;
-  height: 80%;
-  width: 2px;
-  background: #00FF41;
-  animation: cursor-blink 1s step-end infinite;
+@keyframes bounceGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
-@keyframes cursor-blink {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(37, 99, 235, 0.6);
+  }
 }
 
-/* Matrix background effect */
-.matrix-bg {
-  background: linear-gradient(180deg, 
-    rgba(0, 255, 65, 0.1) 0%,
-    rgba(0, 255, 65, 0.05) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  background-size: 100% 200%;
-  animation: matrix-scan 2s linear infinite;
+@keyframes rotateSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-/* Glitch effect */
-.glitch {
-  position: relative;
-  animation: matrix-glitch 0.5s ease-in-out infinite;
+@keyframes skillLoop {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
-}
-
-.glitch::before {
-  animation: glitch-top 1s linear infinite;
-  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-  transform: translate(-2px, -2px);
-}
-
-.glitch::after {
-  animation: glitch-bottom 1.5s linear infinite;
-  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
-  transform: translate(2px, 2px);
-}
-
-/* HeroPic animation styles */
-@keyframes scan {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
-}
-
-.scanline-animation {
-  animation: scan 2s linear infinite;
-}
-
-.binary-rain-fast {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(0deg, 
-    transparent 0%, 
-    rgba(0, 255, 65, 0.2) 50%, 
-    transparent 100%
-  );
-  animation: rain 1s linear infinite;
-}
-
-.binary-rain-slow {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  background: linear-gradient(0deg, 
-    transparent 0%, 
-    rgba(0, 255, 65, 0.1) 50%, 
-    transparent 100%
-  );
-  animation: rain 2s linear infinite;
-}
-
-.binary-rain-med {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  background: linear-gradient(0deg, 
-    transparent 0%, 
-    rgba(0, 255, 65, 0.15) 50%, 
-    transparent 100%
-  );
-  animation: rain 1.5s linear infinite;
-}
-
-@keyframes rain {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
-}
-
-.matrix-code {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0%,
-    rgba(0, 255, 65, 0.1) 50%,
-    transparent 100%
-  );
-  background-size: 100% 2px;
-  animation: scroll 20s linear infinite;
-}
-
-@keyframes scroll {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(100%); }
-}
-
-/* Binary animation styles for nav loader */
-.binary-animation {
-  text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
-}
-
-.binary-animation div {
-  animation: binary-row 0.5s ease-in-out infinite alternate;
-}
-
-@keyframes binary-row {
-  0% { transform: translateY(-2px); }
-  100% { transform: translateY(2px); }
-}
-
-@keyframes matrixGlow {
-  0% { text-shadow: 0 0 5px rgba(0, 255, 65, 0.7); }
-  100% { text-shadow: 0 0 15px rgba(0, 255, 65, 1); }
-}
-
-/* Animated background for binary loader */
-.binary-background {
-  background-image: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 20px,
-    rgba(0, 255, 65, 0.03) 20px,
-    rgba(0, 255, 65, 0.03) 40px
-  );
-  background-size: 100% 100%;
-  animation: binary-scan 2s linear infinite;
-}
-
-@keyframes binary-scan {
-  from { background-position: 0 0; }
-  to { background-position: 0 100px; }
+/* Skills animation */
+.animate-skill-loop {
+  animation: skillLoop 30s linear infinite;
 }

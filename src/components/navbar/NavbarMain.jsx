@@ -13,7 +13,7 @@ const NavbarMain = () => {
     <nav className="fixed top-0 left-0 w-full z-50">
       <div className="max-w-[1200px] mx-auto p-4">
         {/* Main navbar */}
-        <div className="flex items-center justify-between bg-black border border-accent/30 rounded-lg p-4">
+        <div className="flex items-center justify-between bg-white border border-gray-200 rounded-lg p-4 shadow-card backdrop-blur-md bg-opacity-95 transition-colors duration-300">
           <NavbarLogo />
           
           {/* Desktop Links */}
@@ -35,7 +35,7 @@ const NavbarMain = () => {
         {/* Mobile Menu - Separate from main navbar */}
         {menuOpen && (
           <div className="lg:hidden block mt-2">
-            <div className="bg-black border border-accent/30 rounded-lg p-4">
+            <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-card backdrop-blur-md bg-opacity-95 transition-colors duration-300">
               <NavbarLinks />
             </div>
           </div>

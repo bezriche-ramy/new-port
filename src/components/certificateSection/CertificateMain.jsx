@@ -4,35 +4,33 @@ import SingleCertificate from './SingleCertificate';
 const certificates = [
   { 
     image: 'https://i.ibb.co/MyzFsd4X/cer1.png',
-    title: 'Security Challenge Achievement'
+    title: 'Professional Development Achievement'
   },
   { 
     image: 'https://i.ibb.co/VYNJ4mnj/cer2.png',
-    title: 'Security Research Lead'
+    title: 'Technical Leadership Recognition'
   },
   { 
     image: 'https://i.ibb.co/PZrchQ2V/cer3.png',
-    title: 'Network Security Certification'
+    title: 'Development Excellence Certification'
   }
 ];
 
 const CertificateMain = React.memo(() => {
   return (
-    <section id="certificates" className="max-w-7xl mx-auto px-4 py-10 sm:py-12 md:py-16 relative">
-      <div className="absolute inset-0 matrix-bg opacity-5"></div>
-      
-      <div className="relative z-10">
-        <h2 className="text-accent font-code mb-10 terminal-text text-center 
-                       xs:text-lg xs:tracking-tighter xs:leading-tight
-                       text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl 
-                       break-words xs:break-all px-3 md:px-0">
-          {"> "}SECURITY_CREDENTIALS
-        </h2>
+    <section id="certificates" className="section-background py-20">
+      <div className="section-container">
+        <div className="text-center mb-16">
+          <h2 className="section-title">Certifications & Achievements</h2>
+          <p className="section-subtitle">
+            Recognition of my professional development and technical expertise in web development and software engineering.
+          </p>
+        </div>
         
         {/* Container for horizontal scroll on mobile */}
         <div className="w-full overflow-x-auto pb-4">
           {/* Fixed width container to ensure proper spacing */}
-          <div className="flex gap-6 min-w-max px-2">
+          <div className="flex gap-6 min-w-max px-2 justify-center">
             {certificates.map((cert, index) => (
               <div key={index} className="w-[300px] h-[200px]">
                 <SingleCertificate 

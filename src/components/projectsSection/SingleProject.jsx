@@ -21,22 +21,17 @@ const SingleProject = ({
       initial="hidden"
       whileInView="show"
       viewport={{ once: false, amount: 0.1 }}
-      className={`flex w-full items-center sm:gap-4 md:gap-6 lg:gap-8 
+      className={`flex w-full items-center gap-8 
                   md:flex-row sm:flex-col 
                   ${align === "left" ? "md:flex-row" : "md:flex-row-reverse"} 
                   group`}
     >
-      <div className={`flex-1 ${align === "left" ? "md:pr-6 lg:pr-8" : "md:pl-6 lg:pl-8"} sm:px-2`}>
-        <div className="terminal-window bg-black/90 border border-accent/50 sm:p-3 md:p-4 rounded">
-          <div className="terminal-header flex items-center gap-2 mb-3 md:mb-4 border-b border-accent/30 pb-2">
-            <div className="w-2 h-2 rounded-full bg-accent/50"></div>
-            <div className="w-2 h-2 rounded-full bg-accent/30"></div>
-            <div className="w-2 h-2 rounded-full bg-accent/20"></div>
-          </div>
-          
-          <h2 className="sm:text-xl md:text-2xl lg:text-3xl text-accent flex items-center gap-2 mb-2 
-                       font-code text-center md:text-left terminal-text">
-            {"> "}{name}
+      <div className="flex-1">
+        <div className="card-elevated p-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-black mb-2 
+                       text-center md:text-left flex items-center 
+                       sm:justify-center md:justify-start gap-2">
+            {name}
             {isComingSoon && (
               <span className="inline-block">
                 <motion.span
@@ -48,50 +43,44 @@ const SingleProject = ({
             )}
           </h2>
           
-          <h3 className="sm:text-sm md:text-base lg:text-lg font-mono text-accent/70 mb-3 
-                       text-center md:text-left">
-            {"$ "}timestamp: {year}
-          </h3>
-          
-          <p className="text-accent/80 mb-4 font-code text-center md:text-left 
-                       sm:text-xs md:text-sm lg:text-base">
-            {"> "}{description}
+          <p className="text-muted font-medium text-sm mb-4 text-center md:text-left">
+            {year}
           </p>
           
-          <div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
+          <p className="text-black mb-6 text-center md:text-left leading-relaxed">
+            {description}
+          </p>
+          
+          <div className="flex flex-wrap gap-2 mb-6 justify-center md:justify-start">
             {technologies?.map((tech, index) => (
               <span key={index} 
-                    className="px-2 md:px-3 py-1 text-xs md:text-sm bg-black/50 text-accent 
-                             rounded-sm border border-accent/20 font-code 
-                             hover:shadow-matrix-glow transition-all duration-300">
+                    className="px-3 py-1 text-sm bg-gray-100 text-accent 
+                             rounded-full border border-gray-200 font-medium 
+                             hover:bg-accent hover:text-white transition-all duration-300">
                 {tech}
               </span>
             ))}
           </div>
           
           {!isComingSoon && (
-            <div className="flex sm:flex-col md:flex-row gap-3 justify-center md:justify-start">
+            <div className="flex sm:flex-col md:flex-row gap-4 justify-center md:justify-start">
               <a
                 href={demoLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm md:text-base flex gap-2 items-center justify-center md:justify-start
-                         text-accent hover:text-highlight transition-all duration-300 
-                         group font-code sm:w-full md:w-auto sm:py-2 md:py-0
-                         sm:border sm:border-accent/10 sm:rounded md:border-0"
+                className="btn-primary flex items-center justify-center gap-2 group
+                         sm:w-full md:w-auto"
               >
-                {"> "}execute_demo <BsFillArrowUpRightCircleFill className="group-hover:rotate-45 transition-transform duration-300" />
+                View Demo <BsFillArrowUpRightCircleFill className="group-hover:rotate-45 transition-transform duration-300" />
               </a>
               <a
                 href={githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm md:text-base flex gap-2 items-center justify-center md:justify-start
-                         text-accent hover:text-highlight transition-all duration-300 
-                         group font-code sm:w-full md:w-auto sm:py-2 md:py-0
-                         sm:border sm:border-accent/10 sm:rounded md:border-0"
+                className="btn-secondary flex items-center justify-center gap-2 group
+                         sm:w-full md:w-auto"
               >
-                {"> "}view_source <BsGithub className="group-hover:scale-110 transition-transform duration-300" />
+                View Code <BsGithub className="group-hover:scale-110 transition-transform duration-300" />
               </a>
             </div>
           )}
@@ -99,9 +88,9 @@ const SingleProject = ({
       </div>
 
       <div className="flex-1 w-full sm:mt-4 md:mt-0">
-        <div className="relative overflow-hidden rounded border border-accent/50 
-                       shadow-matrix-glow hover:shadow-matrix-strong 
-                       transition-all duration-300 bg-black/90">
+        <div className="relative overflow-hidden rounded-lg border border-gray-200 
+                       shadow-card hover:shadow-elevated hover-lift
+                       transition-all duration-300 bg-white">
           {isVideo ? (
             <video 
               src={video} 
@@ -110,19 +99,16 @@ const SingleProject = ({
               muted 
               playsInline
               loading="lazy"
-              className="w-full aspect-video object-cover transform 
-                       group-hover:scale-105 transition-transform duration-700"
+              className="w-full aspect-video object-cover"
             />
           ) : (
             <img 
               src={image} 
               alt={isComingSoon ? "coming soon" : "project screenshot"} 
               loading="lazy"
-              className="w-full aspect-video object-cover transform 
-                       group-hover:scale-105 transition-transform duration-700"
+              className="w-full aspect-video object-cover"
             />
           )}
-          <div className="absolute inset-0 matrix-bg opacity-10"></div>
         </div>
       </div>
     </motion.div>
