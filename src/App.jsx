@@ -66,20 +66,22 @@ function App() {
   }, []);
 
   return (
-    <main className="font-body text-gray-900 relative overflow-hidden bg-white min-h-screen">
-      <div className="relative z-10">
-        <NavbarMain />
-        <HeroMain />
-        <HeroGradient />
-        <SubHeroMain />
-        
-        <Suspense fallback={<LoadingDots />}>
-          <AboutAndSkills />
-          <ProjectsAndExperience />
-          <CertAndContact />
-        </Suspense>
-      </div>
-    </main>
+    <ThemeProvider>
+      <main className="font-body text-gray-900 dark:text-gray-100 relative overflow-hidden bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300">
+        <div className="relative z-10">
+          <NavbarMain />
+          <HeroMain />
+          <HeroGradient />
+          <SubHeroMain />
+          
+          <Suspense fallback={<LoadingDots />}>
+            <AboutAndSkills />
+            <ProjectsAndExperience />
+            <CertAndContact />
+          </Suspense>
+        </div>
+      </main>
+    </ThemeProvider>
   );
 }
 
