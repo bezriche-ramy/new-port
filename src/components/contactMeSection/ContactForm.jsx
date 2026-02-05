@@ -35,7 +35,12 @@ const ContactForm = () => {
   return (
     <div className="w-full relative z-10">
       <h3 className="text-3xl font-bold text-gray-800 mb-2">Envoyez un message</h3>
-      <p className="text-gray-500 mb-8">Je vous répondrai dans les plus brefs délais.</p>
+      <p className="text-gray-500 mb-6 text-sm sm:text-base leading-relaxed">
+        Vous avez une question, une proposition de projet innovant,
+        ou vous souhaitez simplement discuter de cybersécurité et de développement ?
+        N'hésitez pas à m'envoyer un message via le formulaire ci-dessous.
+        Je m'efforce de répondre à toutes les sollicitations dans les plus brefs délais !
+      </p>
 
       <form ref={form} onSubmit={sendEmail} className="space-y-6">
         <div className="group relative">

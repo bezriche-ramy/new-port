@@ -63,20 +63,20 @@ const HeroText = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="flex flex-wrap gap-4 justify-center lg:justify-start mt-2"
+        className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-4 w-full sm:w-auto px-4 lg:px-0"
       >
         <a
           href="https://github.com/bezriche-ramy"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-primary flex items-center gap-2 group shadow-lg shadow-accent/20"
+          className="btn-primary flex items-center justify-center gap-2 group shadow-lg shadow-accent/20 w-full sm:w-auto"
         >
           <BsGithub className="text-xl group-hover:scale-110 transition-transform" />
           <span>GitHub</span>
         </a>
         <a
           href="#projects"
-          className="btn-secondary flex items-center gap-2 group"
+          className="btn-secondary flex items-center justify-center gap-2 group w-full sm:w-auto"
         >
           <span>Mes Projets</span>
           <BsArrowRight className="text-xl group-hover:translate-x-1 transition-transform" />

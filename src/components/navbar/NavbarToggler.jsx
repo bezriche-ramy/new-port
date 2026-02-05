@@ -24,7 +24,7 @@ const NavbarToggler = () => {
   return (
     <button
       onClick={() => dispatch(toggleMenu())}
-      className="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-300"
+      className="w-12 h-12 flex items-center justify-center bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-300"
       aria-label="Toggle navigation menu"
     >
       {menuOpen ? <CloseIcon /> : <MenuIcon />}

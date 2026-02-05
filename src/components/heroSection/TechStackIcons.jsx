@@ -30,7 +30,7 @@ const TechStackIcons = () => {
     };
 
     return (
-        <>
+        <div className="hidden lg:block">
             {/* React - Top Left */}
             <motion.div
                 variants={floatVariant(0, 3.5)}
@@ -104,7 +104,7 @@ const TechStackIcons = () => {
             >
                 <SiSupabase />
             </motion.div>
-        </>
+        </div>
     );
 };
 

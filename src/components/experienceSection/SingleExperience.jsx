@@ -46,7 +46,7 @@ const SingleExperience = ({ experience, index }) => {
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
       viewport={{ once: true }}
-      className="relative mb-12 last:mb-0"
+      className="relative last:mb-0"
     >
       <motion.div
         ref={ref}
@@ -83,14 +83,14 @@ const SingleExperience = ({ experience, index }) => {
         </div>
 
         {/* Invisible Layout Driver */}
-        <div className="p-8 md:p-10 opacity-0 pointer-events-none relative z-0">
-          <div className="flex items-start gap-6 mb-6">
-            <div className="text-5xl p-4 flex-shrink-0">{index === 0 ? <PiBriefcaseFill /> : <PiSuitcaseFill />}</div>
-            <div className="flex-grow">
-              <h3 className="text-2xl font-black mb-2 leading-tight">{experience.job}</h3>
-              <p className="text-lg font-bold mb-2">{experience.company}</p>
-              <div className="inline-block px-4 py-2 rounded-full border-2 mb-4">
-                <p className="text-sm font-bold">{experience.date}</p>
+        <div className="p-4 sm:p-6 md:p-8 lg:p-10 opacity-0 pointer-events-none relative z-0">
+          <div className="flex items-start gap-4 sm:gap-6 mb-6">
+            <div className="text-3xl sm:text-4xl md:text-5xl p-3 sm:p-4 flex-shrink-0">{index === 0 ? <PiBriefcaseFill /> : <PiSuitcaseFill />}</div>
+            <div className="flex-grow min-w-0">
+              <h3 className="text-base sm:text-xl md:text-2xl font-black mb-1 leading-tight break-words">{experience.job}</h3>
+              <p className="text-sm sm:text-lg font-bold mb-2">{experience.company}</p>
+              <div className="inline-block px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 mb-4">
+                <p className="text-[10px] sm:text-sm font-bold">{experience.date}</p>
               </div>
             </div>
           </div>
@@ -106,29 +106,29 @@ const SingleExperience = ({ experience, index }) => {
 
         {/* Visible 3D Content */}
         <div
-          className="absolute inset-0 p-8 md:p-10 flex flex-col backface-hidden z-20"
+          className="absolute inset-0 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col backface-hidden z-20"
           style={{ transform: "translateZ(40px)" }}
         >
           {/* Header with Icon */}
-          <div className="flex items-start gap-6 mb-6">
+          <div className="flex items-start gap-4 sm:gap-6 mb-6">
             {/* Floating Icon */}
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="text-5xl text-accent bg-accent/10 p-4 rounded-2xl shadow-lg backface-hidden flex-shrink-0"
+              className="text-3xl sm:text-4xl md:text-5xl text-accent bg-accent/10 p-3 sm:p-4 rounded-2xl shadow-lg backface-hidden flex-shrink-0"
             >
               {index === 0 ? <PiBriefcaseFill /> : <PiSuitcaseFill />}
             </motion.div>
 
-            <div className="flex-grow">
-              <h3 className="text-2xl font-black text-gray-900 mb-2 group-hover:text-accent transition-colors backface-hidden leading-tight">
+            <div className="flex-grow min-w-0">
+              <h3 className="text-base sm:text-xl md:text-2xl font-black text-gray-900 mb-1 group-hover:text-accent transition-colors backface-hidden leading-tight break-words">
                 {experience.job}
               </h3>
-              <p className="text-lg font-bold text-accent mb-2 backface-hidden">{experience.company}</p>
+              <p className="text-sm sm:text-lg font-bold text-accent mb-2 backface-hidden">{experience.company}</p>
 
               {/* Date Badge */}
-              <div className="inline-block bg-gray-50 group-hover:bg-accent/5 px-4 py-2 rounded-full border-2 border-gray-200 group-hover:border-accent/40 transition-colors shadow-sm">
-                <p className="text-sm font-bold text-gray-800 group-hover:text-accent backface-hidden transition-colors">
+              <div className="inline-block bg-gray-50 group-hover:bg-accent/5 px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 border-gray-200 group-hover:border-accent/40 transition-colors shadow-sm">
+                <p className="text-[10px] sm:text-sm font-bold text-gray-800 group-hover:text-accent backface-hidden transition-colors">
                   {experience.date}
                 </p>
               </div>

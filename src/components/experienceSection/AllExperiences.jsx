@@ -33,7 +33,7 @@ const AllExperiences = () => {
       <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-accent/50 via-accent to-accent/50 hidden md:block transform -translate-x-1/2 rounded-full"></div>
 
       {/* Experience Cards */}
-      <div className="space-y-0">
+      <div className="flex flex-col gap-32 md:block md:space-y-0">
         {experiences.map((experience, index) => (
           <div key={index} className="relative">
             {/* Timeline Dot */}

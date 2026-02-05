@@ -41,7 +41,7 @@ const AboutMeText = () => {
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="section-title mb-12 text-gray-900"
+        className="section-title mb-8 text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 break-words"
       >
         À Propos de Moi
       </motion.h2>
@@ -59,7 +59,7 @@ const AboutMeText = () => {
         className="relative w-full"
       >
         <div
-          className="glass-card p-8 md:p-12 w-full relative overflow-hidden backdrop-blur-xl bg-white/40 border border-white/50 shadow-xl rounded-3xl"
+          className="glass-card p-6 sm:p-8 md:p-12 w-full relative overflow-hidden backdrop-blur-xl bg-white/40 border border-white/50 shadow-xl rounded-3xl"
           style={{ transform: "translateZ(20px)" }}
         >
           {/* Decorative Gradient Overlay - Reduced opacity for better text contrast */}
@@ -76,13 +76,10 @@ const AboutMeText = () => {
               className="text-left group relative"
             >
               {/* Floating Icon */}
-              <motion.div
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-10 left-0 text-4xl text-accent opacity-20 group-hover:opacity-100 transition-opacity duration-300"
-              >
-                <PiUserCircleBold />
-              </motion.div>
+              {/* Icon */}
+              <div className="mb-2">
+                <PiUserCircleBold className="text-4xl text-accent" />
+              </div>
 
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-accent transition-colors">
                 Profil
@@ -99,13 +96,9 @@ const AboutMeText = () => {
               transition={{ delay: 0.2 }}
               className="text-left group relative"
             >
-              <motion.div
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -top-10 left-0 text-4xl text-blue-500 opacity-20 group-hover:opacity-100 transition-opacity duration-300"
-              >
-                <PiStudentBold />
-              </motion.div>
+              <div className="mb-2">
+                <PiStudentBold className="text-4xl text-blue-500" />
+              </div>
 
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-blue-600 transition-colors">
                 Formation
@@ -126,13 +119,9 @@ const AboutMeText = () => {
               transition={{ delay: 0.3 }}
               className="text-left group relative"
             >
-              <motion.div
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                className="absolute -top-10 left-0 text-4xl text-purple-500 opacity-20 group-hover:opacity-100 transition-opacity duration-300"
-              >
-                <PiGlobeHemisphereWestBold />
-              </motion.div>
+              <div className="mb-2">
+                <PiGlobeHemisphereWestBold className="text-4xl text-purple-500" />
+              </div>
 
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-purple-600 transition-colors">
                 Engagement

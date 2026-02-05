@@ -34,7 +34,7 @@ const NavbarLinks = () => {
             onClick={handleLinkClick}
             isDynamic={true}
             spyThrottle={100}
-            className="px-4 py-2 w-full text-center lg:text-left
+            className="px-4 py-4 w-full text-center lg:text-left
                      text-muted hover:text-accent font-medium
                      transition-all duration-300 hover-lift
                      lg:border-none sm:border sm:border-gray-200 sm:rounded-lg
