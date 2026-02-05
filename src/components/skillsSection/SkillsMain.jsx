@@ -2,11 +2,10 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 import SkillsText from "./SkillsText";
 import AllSkills from "./AllSkills";
-import SubSkills from "./SubSkills";
 
 const SkillsMain = () => {
   return (
-    <div className="section-background py-20">
+    <div className="pt-0 pb-20">
       <section id="skills" className="section-container">
         <motion.div
           variants={fadeIn("down", 0)}
@@ -17,11 +16,8 @@ const SkillsMain = () => {
           <SkillsText />
         </motion.div>
 
-        <div className="mt-16">
+        <div className="mt-0">
           <AllSkills />
-          <div className="mt-16">
-            <SubSkills />
-          </div>
         </div>
       </section>
     </div>

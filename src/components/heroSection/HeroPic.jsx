@@ -1,35 +1,28 @@
 import { motion } from "framer-motion";
-import { fadeIn } from "../../framerMotion/variants";
+import { PiHexagonBold, PiCodeBold } from "react-icons/pi";
 
 const HeroPic = () => {
   return (
     <motion.div
-      variants={fadeIn("left", 0.2)}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: false, amount: 0 }}
-      className="relative w-full h-full flex items-center justify-center"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+      className="relative w-[300px] h-[300px] sm:w-[320px] sm:h-[320px] lg:w-[380px] lg:h-[380px]"
     >
-      {/* Profile image container */}
-      <div className="relative z-10">
-        <div className="relative group">
-          <img
-            src="https://iili.io/FqAZ8jp.md.jpg"
-            alt="Professional Web Developer"
-            className="h-[350px] w-[350px] rounded-full object-cover 
-                     border-4 border-white shadow-2xl
-                     group-hover:shadow-accent/20
-                     transition-all duration-500 hover:scale-105"
-          />
-          
-          {/* Professional highlight overlay */}
-          <div 
-            className="absolute inset-0 bg-gradient-to-t from-accent/5 to-transparent 
-                       rounded-full pointer-events-none opacity-0 group-hover:opacity-100
-                       transition-opacity duration-300"
-          ></div>
-        </div>
+      {/* Main Image Container */}
+      <div className="absolute inset-0 rounded-full border-[6px] border-white shadow-2xl overflow-hidden z-10">
+        <img
+          src="https://i.ibb.co/DHCh1hBg/1770208357710.png"
+          alt="Ramy Bezriche"
+          className="w-full h-full object-cover"
+        />
+
+        {/* Professional Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
       </div>
+
+      {/* All decorative elements removed for clean, professional look */}
+
     </motion.div>
   );
 };

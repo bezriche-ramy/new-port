@@ -2,11 +2,11 @@ import { Link } from "react-scroll";
 
 const NavbarLogo = () => {
   return (
-    <Link 
-      to="hero" 
-      spy={true} 
-      smooth={true} 
-      duration={300} 
+    <Link
+      to="hero"
+      spy={true}
+      smooth={true}
+      duration={300}
       offset={0}
       isDynamic={true}
       ignoreCancelEvents={false}

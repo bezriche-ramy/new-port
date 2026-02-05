@@ -1,12 +1,31 @@
 import HeroText from "./HeroText";
 import HeroPic from "./HeroPic";
+import VantaBackground from "./VantaBackground";
+import TechStackIcons from "./TechStackIcons";
 
 const HeroMain = () => {
   return (
-    <div id="hero" className="pt-28 sm:pt-32 md:pt-40 pb-8 sm:pb-12 md:pb-16">
-      <div className="flex flex-col md:flex-row max-w-[1200px] mx-auto justify-between items-center relative px-4 gap-8">
-        <HeroText />
-        <HeroPic />
+    <div id="hero" className="pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-32 overflow-hidden relative min-h-screen flex items-center">
+      {/* Vanta.js Animated Cloud Background */}
+      <VantaBackground />
+
+      {/* Professional Tech Stack Icons */}
+      <TechStackIcons />
+
+      <div className="max-w-[1200px] mx-auto px-4 relative z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+
+          {/* Text Section */}
+          <div className="order-2 lg:order-1 flex justify-center lg:justify-start">
+            <HeroText />
+          </div>
+
+          {/* Image Section */}
+          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
+            <HeroPic />
+          </div>
+
+        </div>
       </div>
     </div>
   );

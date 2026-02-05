@@ -2,10 +2,10 @@ import { Link } from "react-scroll";
 
 const FooterMain = () => {
   const footerLinks = [
-    { name: "About", section: "about" },
-    { name: "Skills", section: "skills" },
-    { name: "Experience", section: "experience" },
-    { name: "Projects", section: "projects" },
+    { name: "À propos", section: "about" },
+    { name: "Compétences", section: "skills" },
+    { name: "Expérience", section: "experience" },
+    { name: "Projets", section: "projects" },
   ];
 
   return (
@@ -36,7 +36,7 @@ const FooterMain = () => {
         </ul>
       </div>
       <p className="max-w-[1200px] mx-auto text-center mt-6 mb-8 text-sm text-gray-600">
-        © 2024 BEZRICHE RAMY | Full Stack Developer
+        © 2025 BEZRICHE RAMY | Tous droits réservés
       </p>
     </div>
   );

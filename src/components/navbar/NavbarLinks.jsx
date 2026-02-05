@@ -2,20 +2,21 @@ import { Link } from "react-scroll";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../../state/menuSlice";
 
-const links = [
-  { link: "About", section: "about" },
-  { link: "Skills", section: "skills" },
-  { link: "Experience", section: "experience" },
-  { link: "Projects", section: "projects" },
-  { link: "Certificates", section: "certificates" },
-  { link: "Contact", section: "contact" },
-];
-
 const NavbarLinks = () => {
   const dispatch = useDispatch();
 
+  const links = [
+    { link: "À propos", section: "about" },
+    { link: "Compétences", section: "skills" },
+    { link: "Expérience", section: "experience" },
+    { link: "Projets", section: "projects" },
+    { link: "Contact", section: "contact" },
+  ];
+
   const handleLinkClick = () => {
-    dispatch(toggleMenu());
+    if (window.innerWidth < 1024) {
+      dispatch(toggleMenu());
+    }
   };
 
   return (
@@ -27,8 +28,8 @@ const NavbarLinks = () => {
           <Link
             spy={true}
             smooth={true}
-            duration={300}
-            offset={-80}
+            duration={500}
+            offset={-130}
             to={link.section}
             onClick={handleLinkClick}
             isDynamic={true}
@@ -41,6 +42,7 @@ const NavbarLinks = () => {
           >
             {link.link}
           </Link>
+          <div className="mx-auto bg-accent w-0 group-hover:w-full h-[1px] transition-all duration-500"></div>
         </li>
       ))}
     </ul>

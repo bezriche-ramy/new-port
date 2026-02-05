@@ -13,7 +13,7 @@ const NavbarBtn = () => {
                sm:whitespace-nowrap flex items-center gap-2
                self-center hover-lift"
     >
-      <span>Hire Me</span>
+      <span>Me Recruter</span>
       <LuArrowDownRight className="w-4 h-4" />
     </a>
   );

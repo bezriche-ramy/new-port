@@ -6,7 +6,7 @@ const ContactForm = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
-  
+
   const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setEmail(e.target.value);
   const handleMessage = (e) => setMessage(e.target.value);
@@ -23,74 +23,95 @@ const ContactForm = () => {
           setEmail("");
           setName("");
           setMessage("");
-          setSuccess("[SUCCESS] Message transmitted successfully");
+          setSuccess("Message envoyé avec succès !");
+          setTimeout(() => setSuccess(""), 5000);
         },
         (error) => {
-          setSuccess("[ERROR] Transmission failed: " + error.text);
+          setSuccess("Échec de l'envoi : " + error.text);
         }
       );
   };
 
   return (
-    <div className="relative sm:px-2 md:px-4">
-      <div className="absolute inset-0 matrix-bg opacity-10"></div>
-      <p className="text-accent font-code mb-4 sm:text-xs md:text-sm lg:text-base">{success}</p>
-      <form ref={form} onSubmit={sendEmail} className="flex flex-col sm:gap-3 md:gap-4">
-        <div className="relative">
-          <span className="absolute sm:left-2 md:left-3 top-1/2 -translate-y-1/2 text-accent/50 font-code sm:text-xs md:text-sm">{">"}</span>
+    <div className="w-full relative z-10">
+      <h3 className="text-3xl font-bold text-gray-800 mb-2">Envoyez un message</h3>
+      <p className="text-gray-500 mb-8">Je vous répondrai dans les plus brefs délais.</p>
+
+      <form ref={form} onSubmit={sendEmail} className="space-y-6">
+        <div className="group relative">
           <input
             type="text"
             name="from_name"
-            placeholder="ENTER_USERNAME"
             required
-            className="w-full sm:h-10 md:h-12 bg-black/50 sm:pl-6 md:pl-8 sm:pr-3 md:pr-4 text-accent font-code 
-                     border border-accent/30 rounded sm:text-xs md:text-sm
-                     focus:border-accent focus:shadow-matrix-glow 
-                     transition-all duration-300 outline-none"
+            className="peer w-full h-12 bg-gray-50 border-b-2 border-gray-200 text-gray-900 font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1"
+            placeholder="Nom"
+            id="nameInput"
             value={name}
             onChange={handleName}
           />
+          <label
+            htmlFor="nameInput"
+            className="absolute left-1 -top-3.5 text-sm text-gray-500 transition-all 
+                     peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 
+                     peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-accent"
+          >
+            VOTRE NOM
+          </label>
         </div>
 
-        <div className="relative">
-          <span className="absolute sm:left-2 md:left-3 top-1/2 -translate-y-1/2 text-accent/50 font-code sm:text-xs md:text-sm">{">"}</span>
+        <div className="group relative">
           <input
             type="email"
             name="from_email"
-            placeholder="ENTER_EMAIL"
             required
-            className="w-full sm:h-10 md:h-12 bg-black/50 sm:pl-6 md:pl-8 sm:pr-3 md:pr-4 text-accent font-code 
-                     border border-accent/30 rounded sm:text-xs md:text-sm
-                     focus:border-accent focus:shadow-matrix-glow 
-                     transition-all duration-300 outline-none"
+            className="peer w-full h-12 bg-gray-50 border-b-2 border-gray-200 text-gray-900 font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1"
+            placeholder="Email"
+            id="emailInput"
             value={email}
             onChange={handleEmail}
           />
+          <label
+            htmlFor="emailInput"
+            className="absolute left-1 -top-3.5 text-sm text-gray-500 transition-all 
+                     peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 
+                     peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-accent"
+          >
+            VOTRE EMAIL
+          </label>
         </div>
 
-        <div className="relative">
-          <span className="absolute sm:left-2 md:left-3 top-4 text-accent/50 font-code sm:text-xs md:text-sm">{">"}</span>
+        <div className="group relative">
           <textarea
             name="message"
-            rows={6}
-            placeholder="COMPOSE_MESSAGE"
+            rows={4}
             required
-            className="w-full bg-black/50 sm:pl-6 md:pl-8 sm:pr-3 md:pr-4 sm:py-2 md:py-3 text-accent font-code 
-                     border border-accent/30 rounded sm:text-xs md:text-sm
-                     focus:border-accent focus:shadow-matrix-glow 
-                     transition-all duration-300 outline-none"
+            className="peer w-full bg-gray-50 border-b-2 border-gray-200 text-gray-900 font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1 resize-none"
+            placeholder="Message"
+            id="messageInput"
             value={message}
             onChange={handleMessage}
           />
+          <label
+            htmlFor="messageInput"
+            className="absolute left-1 -top-3.5 text-sm text-gray-500 transition-all 
+                     peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 
+                     peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-accent"
+          >
+            VOTRE MESSAGE
+          </label>
         </div>
+
+        {success && (
+          <p className="text-green-600 text-sm font-medium animate-pulse">
+            {success}
+          </p>
+        )}
 
         <button
           type="submit"
-          className="w-full sm:h-10 md:h-12 bg-black border border-accent text-accent font-code
-                   hover:bg-accent/10 hover:shadow-matrix-glow sm:text-xs md:text-sm
-                   transition-all duration-300 rounded sm:mt-2 md:mt-3"
+          className="w-full h-14 bg-gradient-to-r from-accent to-cyan-600 text-white font-bold tracking-wide uppercase rounded-lg shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2"
         >
-          {">"} INITIATE_TRANSMISSION
+          ENVOYER MESSAGE
         </button>
       </form>
     </div>

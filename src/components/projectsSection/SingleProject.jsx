@@ -2,18 +2,18 @@ import { BsFillArrowUpRightCircleFill, BsGithub } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 
-const SingleProject = ({ 
-  name, 
-  year, 
-  align, 
-  image, 
-  video, 
-  isVideo, 
-  demoLink, 
-  githubLink, 
+const SingleProject = ({
+  name,
+  year,
+  align,
+  image,
+  video,
+  isVideo,
+  demoLink,
+  githubLink,
   description,
   technologies,
-  isComingSoon 
+  isComingSoon
 }) => {
   return (
     <motion.div
@@ -42,26 +42,26 @@ const SingleProject = ({
               </span>
             )}
           </h2>
-          
+
           <p className="text-muted font-medium text-sm mb-4 text-center md:text-left">
             {year}
           </p>
-          
+
           <p className="text-black mb-6 text-center md:text-left leading-relaxed">
             {description}
           </p>
-          
+
           <div className="flex flex-wrap gap-2 mb-6 justify-center md:justify-start">
             {technologies?.map((tech, index) => (
-              <span key={index} 
-                    className="px-3 py-1 text-sm bg-gray-100 text-accent 
+              <span key={index}
+                className="px-3 py-1 text-sm bg-gray-100 text-accent 
                              rounded-full border border-gray-200 font-medium 
                              hover:bg-accent hover:text-white transition-all duration-300">
                 {tech}
               </span>
             ))}
           </div>
-          
+
           {!isComingSoon && (
             <div className="flex sm:flex-col md:flex-row gap-4 justify-center md:justify-start">
               <a
@@ -71,7 +71,7 @@ const SingleProject = ({
                 className="btn-primary flex items-center justify-center gap-2 group
                          sm:w-full md:w-auto"
               >
-                View Demo <BsFillArrowUpRightCircleFill className="group-hover:rotate-45 transition-transform duration-300" />
+                Voir Démo <BsFillArrowUpRightCircleFill className="group-hover:rotate-45 transition-transform duration-300" />
               </a>
               <a
                 href={githubLink}
@@ -80,7 +80,7 @@ const SingleProject = ({
                 className="btn-secondary flex items-center justify-center gap-2 group
                          sm:w-full md:w-auto"
               >
-                View Code <BsGithub className="group-hover:scale-110 transition-transform duration-300" />
+                Voir Code <BsGithub className="group-hover:scale-110 transition-transform duration-300" />
               </a>
             </div>
           )}
@@ -92,19 +92,19 @@ const SingleProject = ({
                        shadow-card hover:shadow-elevated hover-lift
                        transition-all duration-300 bg-white">
           {isVideo ? (
-            <video 
-              src={video} 
-              autoPlay 
-              loop 
-              muted 
+            <video
+              src={video}
+              autoPlay
+              loop
+              muted
               playsInline
               loading="lazy"
               className="w-full aspect-video object-cover"
             />
           ) : (
-            <img 
-              src={image} 
-              alt={isComingSoon ? "coming soon" : "project screenshot"} 
+            <img
+              src={image}
+              alt={isComingSoon ? "bientôt disponible" : "capture d'écran projet"}
               loading="lazy"
               className="w-full aspect-video object-cover"
             />

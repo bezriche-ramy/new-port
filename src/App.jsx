@@ -2,22 +2,20 @@ import { lazy, Suspense, useState, useEffect } from "react";
 import NavbarMain from "./components/navbar/NavbarMain";
 import HeroMain from "./components/heroSection/HeroMain";
 import HeroGradient from "./components/heroSection/HeroGradient";
-import SubHeroMain from "./components/subHeroSection/SubHeroMain";
+
 import LoadingDots from "./components/LoadingDots";
 import { ThemeProvider } from "./context/ThemeContext";
 
 // Lazy load components in chunks for better performance
-const AboutAndSkills = lazy(() => 
+const AboutAndSkills = lazy(() =>
   Promise.all([
     import("./components/aboutMeSection/AboutMeMain"),
-    import("./components/skillsSection/SkillsMain"),
-    import("./components/skillsSection/SubSkills")
-  ]).then(([about, skills, subSkills]) => ({
+    import("./components/skillsSection/SkillsMain")
+  ]).then(([about, skills]) => ({
     default: () => (
       <>
         <about.default />
         <skills.default />
-        <subSkills.default />
       </>
     )
   }))
@@ -73,12 +71,14 @@ function App() {
           <NavbarMain />
           <HeroMain />
           <HeroGradient />
-          <SubHeroMain />
-          
+
+
           <Suspense fallback={<LoadingDots />}>
-            <AboutAndSkills />
-            <ProjectsAndExperience />
-            <CertAndContact />
+            <div className="section-background">
+              <AboutAndSkills />
+              <ProjectsAndExperience />
+              <CertAndContact />
+            </div>
           </Suspense>
         </div>
       </main>
