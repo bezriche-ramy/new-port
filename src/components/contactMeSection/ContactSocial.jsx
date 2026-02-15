@@ -13,7 +13,7 @@ const ContactSocial = () => {
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
     >
-      <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
+      <h3 className="text-xl font-semibold text-black mb-6 text-center">
         Connect With Me
       </h3>
       
@@ -24,7 +24,7 @@ const ContactSocial = () => {
         <SingleContactSocial link="https://www.upwork.com/freelancers/~01940bb9c33250ffae" Icon={SiUpwork} tooltip="Hire on Upwork" />
       </div>
       
-      <p className="text-gray-600 text-sm mt-6 text-center">
+      <p className="text-black text-sm mt-6 text-center">
         Let's build something amazing together
       </p>
     </motion.div>

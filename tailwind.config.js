@@ -4,21 +4,29 @@ export default {
   darkMode: 'class',
   theme: {
     screens: {
-      'xs': { 'max': '400px' },  // Added specific breakpoint for iPhone SE and similar small devices
-      sm: "320px",      // Adjusted for smaller phones
+      'xs': { 'max': '400px' },
+      sm: "320px",
       md: "768px",
       lg: "1024px",
       xl: "1280px",
       "2xl": "1536px",
     },
     colors: {
-      background: '#FFFFFF',      // Clean white background
-      secondary: '#F8FAFC',       // Light gray for sections
-      accent: '#2563EB',         // Professional blue
-      highlight: '#1D4ED8',      // Darker blue for highlights
-      muted: '#64748B',          // Subtle gray text
+      // Dark Mode Premium Palette
+      void: '#0B0B0C',           // Deep Void Black
+      slate: '#14141F',          // Slate Blue
+      neon: '#00F0FF',           // Neon Cyan
+      electric: '#7000FF',       // Electric Purple
+      glass: 'rgba(255,255,255,0.05)', // Glass border
+
+      background: '#0B0B0C',     // Default dark
+      secondary: '#14141F',
+      accent: '#00F0FF',         // Neon Cyan
+      highlight: '#7000FF',      // Electric Purple
+      muted: 'rgba(255,255,255,0.6)',
       white: '#FFFFFF',
-      black: '#1E293B',          // Dark blue-gray instead of pure black
+      black: '#0B0B0C',
+
       gray: {
         50: '#F8FAFC',
         100: '#F1F5F9',
@@ -30,6 +38,7 @@ export default {
         700: '#334155',
         800: '#1E293B',
         900: '#0F172A',
+        950: '#0B0B0C',
       },
       blue: {
         50: '#EFF6FF',
@@ -47,15 +56,25 @@ export default {
     },
     extend: {
       fontSize: {
-        'mobile-h1': ['2rem', '2.5rem'],     // Mobile headings
+        'mobile-h1': ['2rem', '2.5rem'],
         'mobile-h2': ['1.75rem', '2.25rem'],
         'mobile-h3': ['1.5rem', '2rem'],
         'mobile-text': ['1rem', '1.5rem'],
+        // Award-winning hero sizes
+        'hero': ['8rem', { lineHeight: '1', letterSpacing: '-0.02em' }],
+        '8xl': ['6rem', { lineHeight: '1', letterSpacing: '-0.02em' }],
+        '9xl': ['8rem', { lineHeight: '1', letterSpacing: '-0.02em' }],
       },
       boxShadow: {
         'professional': "0px 4px 12px 0px rgba(0, 0, 0, 0.1)",
         'card': "0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)",
         'elevated': "0px 10px 25px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)",
+        'glow-cyan': '0 0 20px rgba(0, 240, 255, 0.5), 0 0 40px rgba(0, 240, 255, 0.3)',
+        'glow-purple': '0 0 20px rgba(112, 0, 255, 0.5), 0 0 40px rgba(112, 0, 255, 0.3)',
+        'glass': '0 8px 32px 0 rgba(0, 240, 255, 0.1)',
+      },
+      backdropBlur: {
+        'glass': '20px',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

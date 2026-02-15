@@ -56,7 +56,7 @@ const SingleProject = ({
               <span key={index}
                 className="px-3 py-1 text-sm bg-gray-100 text-accent 
                              rounded-full border border-gray-200 font-medium 
-                             hover:bg-accent hover:text-white transition-all duration-300">
+                             hover:bg-accent hover:text-black transition-all duration-300">
                 {tech}
               </span>
             ))}

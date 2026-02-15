@@ -12,8 +12,8 @@ const FooterMain = () => {
     <div className="px-4 relative bg-gray-50">
       <div className="w-full h-[1px] bg-gray-200 mt-24"></div>
       <div className="md:flex justify-between mt-8 max-w-[1200px] mx-auto sm:hidden">
-        <h3 className="text-2xl text-gray-900 font-semibold">RAMY BEZRICHE</h3>
-        <ul className="flex gap-6 text-gray-600 text-lg">
+        <h3 className="text-2xl text-black font-semibold">RAMY BEZRICHE</h3>
+        <ul className="flex gap-6 text-black text-lg">
           {footerLinks.map((item, index) => {
             return (
               <li key={index} className="group">
@@ -35,7 +35,7 @@ const FooterMain = () => {
           })}
         </ul>
       </div>
-      <p className="max-w-[1200px] mx-auto text-center mt-6 mb-8 text-sm text-gray-600">
+      <p className="max-w-[1200px] mx-auto text-center mt-6 mb-8 text-sm text-black">
         © 2025 BEZRICHE RAMY | Tous droits réservés
       </p>
     </div>

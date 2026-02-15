@@ -34,8 +34,8 @@ const ContactForm = () => {
 
   return (
     <div className="w-full relative z-10">
-      <h3 className="text-3xl font-bold text-gray-800 mb-2">Envoyez un message</h3>
-      <p className="text-gray-500 mb-6 text-sm sm:text-base leading-relaxed">
+      <h3 className="text-3xl font-bold text-black mb-2">Envoyez un message</h3>
+      <p className="text-black mb-6 text-sm sm:text-base leading-relaxed">
         Vous avez une question, une proposition de projet innovant,
         ou vous souhaitez simplement discuter de cybersécurité et de développement ?
         N'hésitez pas à m'envoyer un message via le formulaire ci-dessous.
@@ -48,7 +48,7 @@ const ContactForm = () => {
             type="text"
             name="from_name"
             required
-            className="peer w-full h-12 bg-gray-50 border-b-2 border-gray-200 text-gray-900 font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1"
+            className="peer w-full h-12 bg-gray-50 border-b-2 border-gray-200 text-black font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1"
             placeholder="Nom"
             id="nameInput"
             value={name}
@@ -56,8 +56,8 @@ const ContactForm = () => {
           />
           <label
             htmlFor="nameInput"
-            className="absolute left-1 -top-3.5 text-sm text-gray-500 transition-all 
-                     peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 
+            className="absolute left-1 -top-3.5 text-sm text-black transition-all 
+                     peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-3 
                      peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-accent"
           >
             VOTRE NOM
@@ -69,7 +69,7 @@ const ContactForm = () => {
             type="email"
             name="from_email"
             required
-            className="peer w-full h-12 bg-gray-50 border-b-2 border-gray-200 text-gray-900 font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1"
+            className="peer w-full h-12 bg-gray-50 border-b-2 border-gray-200 text-black font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1"
             placeholder="Email"
             id="emailInput"
             value={email}
@@ -77,8 +77,8 @@ const ContactForm = () => {
           />
           <label
             htmlFor="emailInput"
-            className="absolute left-1 -top-3.5 text-sm text-gray-500 transition-all 
-                     peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 
+            className="absolute left-1 -top-3.5 text-sm text-black transition-all 
+                     peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-3 
                      peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-accent"
           >
             VOTRE EMAIL
@@ -90,7 +90,7 @@ const ContactForm = () => {
             name="message"
             rows={4}
             required
-            className="peer w-full bg-gray-50 border-b-2 border-gray-200 text-gray-900 font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1 resize-none"
+            className="peer w-full bg-gray-50 border-b-2 border-gray-200 text-black font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1 resize-none"
             placeholder="Message"
             id="messageInput"
             value={message}
@@ -98,8 +98,8 @@ const ContactForm = () => {
           />
           <label
             htmlFor="messageInput"
-            className="absolute left-1 -top-3.5 text-sm text-gray-500 transition-all 
-                     peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 
+            className="absolute left-1 -top-3.5 text-sm text-black transition-all 
+                     peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-3 
                      peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-accent"
           >
             VOTRE MESSAGE
@@ -114,7 +114,7 @@ const ContactForm = () => {
 
         <button
           type="submit"
-          className="w-full h-14 bg-gradient-to-r from-accent to-cyan-600 text-white font-bold tracking-wide uppercase rounded-lg shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2"
+          className="w-full h-14 bg-gradient-to-r from-accent to-cyan-600 text-black font-bold tracking-wide uppercase rounded-lg shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2"
         >
           ENVOYER MESSAGE
         </button>

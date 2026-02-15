@@ -49,7 +49,7 @@ const TechStackIcons = () => {
                 initial="initial"
                 animate="animate"
                 whileHover={hoverVariant}
-                className="absolute top-[20%] right-[8%] text-4xl sm:text-5xl text-gray-900 opacity-70"
+                className="absolute top-[20%] right-[8%] text-4xl sm:text-5xl text-black opacity-70"
                 style={{ zIndex: 1 }}
             >
                 <SiNextdotjs />

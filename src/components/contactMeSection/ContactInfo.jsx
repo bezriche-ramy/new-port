@@ -40,7 +40,7 @@ const SocialLink = ({ href, icon }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-accent hover:scale-110 transition-all duration-300 backdrop-blur-sm border border-white/10"
+    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-black hover:bg-accent hover:scale-110 transition-all duration-300 backdrop-blur-sm border border-white/10"
   >
     {icon}
   </a>

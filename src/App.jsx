@@ -1,10 +1,13 @@
-import { lazy, Suspense, useState, useEffect } from "react";
+import { lazy, Suspense, useState, useEffect, useRef } from "react";
 import NavbarMain from "./components/navbar/NavbarMain";
 import HeroMain from "./components/heroSection/HeroMain";
 import HeroGradient from "./components/heroSection/HeroGradient";
+import MagneticCursor from "./components/MagneticCursor";
+import PageTransition from "./components/PageTransition";
 
 import LoadingDots from "./components/LoadingDots";
 import { ThemeProvider } from "./context/ThemeContext";
+import Lenis from 'lenis';
 
 // Lazy load components in chunks for better performance
 const AboutAndSkills = lazy(() =>
@@ -53,6 +56,7 @@ const CertAndContact = lazy(() =>
 
 function App() {
   const [isReducedMotion, setIsReducedMotion] = useState(false);
+  const lenisRef = useRef(null);
 
   useEffect(() => {
     // Check for reduced motion preference
@@ -64,14 +68,40 @@ function App() {
     return () => mediaQuery.removeEventListener("change", listener);
   }, []);
 
+  useEffect(() => {
+    // Initialize Lenis smooth scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+    });
+
+    lenisRef.current = lenis;
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
   return (
     <ThemeProvider>
-      <main className="font-body text-gray-900 dark:text-gray-100 relative overflow-hidden bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300">
+      <PageTransition />
+      <MagneticCursor />
+      <main className="font-body text-black relative overflow-hidden bg-void min-h-screen">
         <div className="relative z-10">
           <NavbarMain />
           <HeroMain />
           <HeroGradient />
-
 
           <Suspense fallback={<LoadingDots />}>
             <div className="section-background">

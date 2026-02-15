@@ -9,7 +9,7 @@ const LoadingDots = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+          <h2 className="text-2xl font-semibold text-black mb-6">
             Loading Portfolio
           </h2>
           <div className="flex gap-2 justify-center items-center mb-4">
@@ -29,7 +29,7 @@ const LoadingDots = () => {
               transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
             />
           </div>
-          <p className="text-gray-600">
+          <p className="text-black">
             Preparing your experience...
           </p>
         </motion.div>

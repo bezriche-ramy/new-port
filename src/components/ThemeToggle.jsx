@@ -11,7 +11,7 @@ const ThemeToggle = () => {
       className="fixed top-6 right-6 z-50 p-3 rounded-full 
                  bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700
                  shadow-lg hover:shadow-xl transition-all duration-300
-                 text-gray-700 dark:text-gray-300 hover:text-accent dark:hover:text-accent
+                 text-black dark:text-black hover:text-accent dark:hover:text-accent
                  hover:scale-110"
       aria-label="Toggle theme"
     >

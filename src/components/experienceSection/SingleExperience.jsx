@@ -121,14 +121,14 @@ const SingleExperience = ({ experience, index }) => {
             </motion.div>
 
             <div className="flex-grow min-w-0">
-              <h3 className="text-base sm:text-xl md:text-2xl font-black text-gray-900 mb-1 group-hover:text-accent transition-colors backface-hidden leading-tight break-words">
+              <h3 className="text-base sm:text-xl md:text-2xl font-black text-black mb-1 group-hover:text-accent transition-colors backface-hidden leading-tight break-words">
                 {experience.job}
               </h3>
               <p className="text-sm sm:text-lg font-bold text-accent mb-2 backface-hidden">{experience.company}</p>
 
               {/* Date Badge */}
               <div className="inline-block bg-gray-50 group-hover:bg-accent/5 px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 border-gray-200 group-hover:border-accent/40 transition-colors shadow-sm">
-                <p className="text-[10px] sm:text-sm font-bold text-gray-800 group-hover:text-accent backface-hidden transition-colors">
+                <p className="text-[10px] sm:text-sm font-bold text-black group-hover:text-accent backface-hidden transition-colors">
                   {experience.date}
                 </p>
               </div>
@@ -144,7 +144,7 @@ const SingleExperience = ({ experience, index }) => {
                     <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <p className="text-gray-800 font-medium leading-relaxed group-hover/item:text-gray-900 transition-colors backface-hidden text-base">
+                <p className="text-black font-medium leading-relaxed group-hover/item:text-black transition-colors backface-hidden text-base">
                   {resp}
                 </p>
               </div>

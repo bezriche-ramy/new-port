@@ -6,91 +6,143 @@
 
 @layer base {
   body {
-    @apply bg-white text-gray-900;
+    @apply bg-void text-black;
     font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  * {
+    cursor: none !important;
+    color: #000000 !important;
+  }
+
+  /* Preserve accent/colored text for interactive elements */
+  .text-accent,
+  .gradient-text,
+  .text-electric,
+  [class*="text-accent"],
+  [class*="text-electric"],
+  [class*="text-cyan"],
+  [class*="gradient-text"] {
+    color: unset !important;
+  }
+
+  .gradient-text {
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+  }
+
+  /* Preserve button text on colored backgrounds */
+  .btn-primary,
+  .btn-primary * {
+    color: #0B0B0C !important;
+  }
+
+  /* Selection styling */
+  ::selection {
+    background: rgba(0, 240, 255, 0.3);
+    color: #00F0FF;
+  }
+
+  /* Smooth scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #14141F;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00F0FF 0%, #7000FF 100%);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #7000FF 0%, #00F0FF 100%);
   }
 }
 
 @layer components {
 
-  /* Professional card styling */
+  /* Glassmorphism card styling */
   .card {
-    @apply bg-white rounded-lg shadow-card border border-gray-200 transition-colors duration-300;
+    @apply bg-slate/40 rounded-2xl border border-white/5 backdrop-blur-glass transition-all duration-500;
   }
 
   .card-elevated {
-    @apply bg-white rounded-lg shadow-elevated border border-gray-200 transition-colors duration-300;
+    @apply bg-slate/60 rounded-2xl border border-white/10 backdrop-blur-glass shadow-glass transition-all duration-500;
   }
 
-  /* Professional button styles */
+  /* Premium button styles */
   .btn-primary {
-    @apply bg-accent hover:bg-highlight text-white px-6 py-3 rounded-lg font-medium transition-all duration-300;
+    @apply bg-gradient-to-r from-accent to-electric hover:shadow-glow-cyan text-void px-8 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105;
   }
 
   .btn-secondary {
-    @apply border border-accent text-accent hover:bg-accent hover:text-white px-6 py-3 rounded-lg font-medium transition-all duration-300;
+    @apply border-2 border-accent text-accent hover:bg-accent/10 hover:shadow-glow-cyan px-8 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105;
   }
 
   /* Section styling */
   .section-container {
-    @apply max-w-6xl mx-auto px-4 py-16;
+    @apply max-w-7xl mx-auto px-6 py-24;
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 text-center mb-4;
+    @apply text-5xl md:text-6xl lg:text-7xl font-black text-black text-center mb-6;
+    font-weight: 900;
+    letter-spacing: -0.02em;
   }
 
   .section-subtitle {
-    @apply text-lg text-gray-600 text-center max-w-2xl mx-auto mb-12;
+    @apply text-xl text-black text-center max-w-3xl mx-auto mb-16;
   }
 
-  /* Professional hover effects */
+  /* Premium hover effects */
   .hover-lift {
-    @apply transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-elevated;
+    @apply transition-all duration-500 hover:transform hover:-translate-y-2 hover:shadow-glow-cyan;
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-accent to-highlight bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-accent via-electric to-accent bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: gradientFlow 3s linear infinite;
   }
 
   /* Additional utilities */
   .text-primary {
-    @apply text-gray-900;
+    @apply text-black;
   }
 
   .text-muted {
-    @apply text-gray-600;
+    @apply text-black;
   }
 
   .bg-section {
-    @apply bg-gray-50;
+    @apply bg-slate/20;
   }
 
-  /* Cool Unified Background */
-  /* Cool Unified Background - Cyber Grid */
+  /* Premium Dark Unified Background - Cyber Grid */
   .section-background {
-    @apply bg-blue-50 relative overflow-hidden;
+    @apply bg-void relative overflow-hidden;
     background-image:
-      linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
+      linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
   }
 
   .section-background::before {
     content: "";
     @apply absolute inset-0 pointer-events-none;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 0%, rgba(244, 247, 254, 1) 90%);
+    background: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 30%, rgba(112, 0, 255, 0.1) 0%, transparent 40%);
   }
 
   .section-background::after {
     content: "";
-    @apply absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-white to-transparent pointer-events-none;
-  }
-
-  .section-background::before {
-    content: "";
-    @apply absolute inset-0 pointer-events-none;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 0%, rgba(249, 250, 251, 0.8) 100%);
+    @apply absolute top-0 inset-x-0 h-96 pointer-events-none;
+    background: linear-gradient(180deg, rgba(11, 11, 12, 0.8) 0%, transparent 100%);
   }
 
   .skill-badge {
@@ -137,6 +189,16 @@
 }
 
 /* Enhanced keyframes */
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
 @keyframes float {
 
   0%,
@@ -230,4 +292,128 @@
 /* Skills animation */
 .animate-skill-loop {
   animation: skillLoop 30s linear infinite;
+}
+
+/* New premium animations */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes tiltIn {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(-15deg) translateX(-30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0) translateX(0);
+  }
+}
+
+@keyframes breathe {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 240, 255, 0);
+  }
+
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+  }
+}
+
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wiggle {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-3deg);
+  }
+
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 240, 255, 0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out both;
+}
+
+.animate-tilt-in {
+  animation: tiltIn 0.8s ease-out both;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.animate-slide-up-fade {
+  animation: slideUpFade 0.7s ease-out both;
+}
+
+.animate-wiggle:hover {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+/* Card hover glow effect */
+.card-glow-hover {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-glow-hover:hover {
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.15),
+    0 0 80px rgba(0, 240, 255, 0.05),
+    0 20px 60px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Magnetic hover effect for interactive elements */
+.hover-magnetic {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-magnetic:hover {
+  transform: translateY(-2px);
 }

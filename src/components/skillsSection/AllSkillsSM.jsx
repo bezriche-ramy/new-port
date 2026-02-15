@@ -40,7 +40,7 @@ const AllSkillsSM = () => {
             className="flex flex-col items-center"
           >
             <item.icon className="text-7xl text-accent" />
-            <p className="text-center mt-4 text-gray-700">{item.skill}</p>
+            <p className="text-center mt-4 text-black">{item.skill}</p>
           </motion.div>
         );
       })}

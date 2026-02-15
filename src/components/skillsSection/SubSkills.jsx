@@ -121,7 +121,7 @@ const SubSkillCard = ({ title, skills, index }) => {
         style={{ transform: "translateZ(30px)" }}
       >
         {/* Header - Clean Style */}
-        <h4 className="text-xl font-bold text-gray-900 mb-6 border-b border-gray-100 pb-3 group-hover:text-accent transition-colors backface-hidden">
+        <h4 className="text-xl font-bold text-black mb-6 border-b border-gray-100 pb-3 group-hover:text-accent transition-colors backface-hidden">
           {title}
         </h4>
 
@@ -133,7 +133,7 @@ const SubSkillCard = ({ title, skills, index }) => {
               <div className="text-accent text-[10px] backface-hidden flex-shrink-0 mt-1">
                 <PiCircleFill /> {/* Solid crisp circle */}
               </div>
-              <p className="text-gray-600 font-semibold text-base group-hover/item:text-black transition-colors backface-hidden leading-relaxed">
+              <p className="text-black font-semibold text-base group-hover/item:text-black transition-colors backface-hidden leading-relaxed">
                 {skill}
               </p>
             </div>

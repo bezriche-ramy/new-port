@@ -17,7 +17,7 @@ const SingleCertificate = ({ image, title, index, setSelectedId }) => {
 
       {/* Hover Overlay */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-        <span className="text-white bg-black/50 px-3 py-1 rounded-full text-sm backdrop-blur-sm border border-white/20">
+        <span className="text-black bg-black/50 px-3 py-1 rounded-full text-sm backdrop-blur-sm border border-white/20">
           Voir Détail
         </span>
       </div>

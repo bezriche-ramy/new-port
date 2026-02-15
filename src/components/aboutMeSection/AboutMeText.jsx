@@ -41,7 +41,7 @@ const AboutMeText = () => {
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="section-title mb-8 text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 break-words"
+        className="section-title mb-8 text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-black break-words"
       >
         À Propos de Moi
       </motion.h2>
@@ -81,10 +81,10 @@ const AboutMeText = () => {
                 <PiUserCircleBold className="text-4xl text-accent" />
               </div>
 
-              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-accent transition-colors">
+              <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2 group-hover:text-accent transition-colors">
                 Profil
               </h3>
-              <p className="text-gray-600 leading-relaxed text-sm">
+              <p className="text-black leading-relaxed text-sm">
                 Étudiant en informatique passionné et autonome, spécialisé en cybersécurité et analyse de malwares. Je transforme la théorie en solutions sécurisées concrètes via l'open source et des projets réels.
               </p>
             </motion.div>
@@ -100,11 +100,11 @@ const AboutMeText = () => {
                 <PiStudentBold className="text-4xl text-blue-500" />
               </div>
 
-              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2 group-hover:text-blue-600 transition-colors">
                 Formation
               </h3>
-              <div className="text-gray-600 leading-relaxed text-sm space-y-2">
-                <p className="font-semibold text-gray-900">Ingénieur d'État (2022-2027)</p>
+              <div className="text-black leading-relaxed text-sm space-y-2">
+                <p className="font-semibold text-black">Ingénieur d'État (2022-2027)</p>
                 <p>USTHB, Alger</p>
                 <p className="inline-block bg-blue-50/50 text-blue-700 px-2 py-1 rounded text-xs font-medium border border-blue-100">
                   Spécialisation Cybersécurité
@@ -123,13 +123,13 @@ const AboutMeText = () => {
                 <PiGlobeHemisphereWestBold className="text-4xl text-purple-500" />
               </div>
 
-              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-purple-600 transition-colors">
+              <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2 group-hover:text-purple-600 transition-colors">
                 Engagement
               </h3>
-              <div className="text-gray-600 leading-relaxed text-sm space-y-2">
+              <div className="text-black leading-relaxed text-sm space-y-2">
                 <p>• GDG Algeria (Relations Publiques)</p>
                 <p>• Shellmates (Développement)</p>
-                <p className="italic text-gray-500 text-xs mt-2">Leadership actif & Communauté</p>
+                <p className="italic text-black text-xs mt-2">Leadership actif & Communauté</p>
               </div>
             </motion.div>
           </div>

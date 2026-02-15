@@ -84,14 +84,14 @@ const SingleSkill = ({ text, imgSvg }) => {
 
             {/* Actual Icon Floating Higher */}
             <motion.div
-              className="text-4xl text-gray-700 relative z-20 backface-hidden"
+              className="text-4xl text-black relative z-20 backface-hidden"
               style={{ transform: "translateZ(30px)" }}
             >
               {imgSvg}
             </motion.div>
           </div>
 
-          <p className="font-bold text-gray-800 text-sm tracking-wide backface-hidden" style={{ transform: "translateZ(10px)" }}>
+          <p className="font-bold text-black text-sm tracking-wide backface-hidden" style={{ transform: "translateZ(10px)" }}>
             {text}
           </p>
 
