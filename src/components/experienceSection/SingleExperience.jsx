@@ -1,170 +1,63 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { PiSuitcaseFill, PiBriefcaseFill } from "react-icons/pi";
+﻿/* eslint-disable react/prop-types */
+import { useEffect, useRef } from "react";
+import { PiBriefcaseFill, PiSuitcaseFill } from "react-icons/pi";
+import { gsap } from "../../lib/gsap";
 
 const SingleExperience = ({ experience, index }) => {
-  const ref = useRef(null);
+  const rowRef = useRef(null);
 
-  // Mouse tracking for 3D tilt
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  useEffect(() => {
+    if (!rowRef.current) {
+      return;
+    }
 
-  const handleMouseMove = (e) => {
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPct = (mouseX / width - 0.5) * 2;
-    const yPct = (mouseY / height - 0.5) * 2;
-
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  const rotateX = useTransform(y, [-1, 1], [6, -6]);
-  const rotateY = useTransform(x, [-1, 1], [-6, 6]);
-
-  const springConfig = { stiffness: 400, damping: 30 };
-  const springRotateX = useSpring(rotateX, springConfig);
-  const springRotateY = useSpring(rotateY, springConfig);
-
-  // Dynamic Shine
-  const shineX = useTransform(x, [-1, 1], [0, 100]);
-  const shineY = useTransform(y, [-1, 1], [0, 100]);
+    gsap.fromTo(
+      rowRef.current,
+      { opacity: 0, x: index % 2 === 0 ? -70 : 70 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.75,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: rowRef.current,
+          start: "top 82%",
+        },
+      }
+    );
+  }, [index]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      viewport={{ once: true }}
-      className="relative last:mb-0"
-    >
-      <motion.div
-        ref={ref}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          rotateX: springRotateX,
-          rotateY: springRotateY,
-          transformStyle: "preserve-3d",
-        }}
-        className="relative w-full cursor-pointer perspective-1000 will-change-transform"
-      >
-        {/* 3D Card */}
-        <div
-          className="absolute inset-0 bg-white rounded-3xl shadow-2xl border border-gray-100 backface-hidden group"
-          style={{
-            transform: "translateZ(0)",
-            WebkitFontSmoothing: "antialiased",
-            MozOsxFontSmoothing: "grayscale",
-          }}
-        >
-          {/* Dynamic Glass Shine */}
-          <motion.div
-            className="absolute inset-0 z-10 opacity-20 mix-blend-overlay rounded-3xl pointer-events-none"
-            style={{
-              background: useTransform(
-                [shineX, shineY],
-                ([latestX, latestY]) =>
-                  `radial-gradient(circle at ${latestX}% ${latestY}%, rgba(56, 189, 248, 0.5) 0%, transparent 80%)`
-              ),
-            }}
-          />
-          <div className="absolute inset-0 rounded-3xl border-2 border-white/50 pointer-events-none"></div>
-        </div>
-
-        {/* Invisible Layout Driver */}
-        <div className="p-4 sm:p-6 md:p-8 lg:p-10 opacity-0 pointer-events-none relative z-0">
-          <div className="flex items-start gap-4 sm:gap-6 mb-6">
-            <div className="text-3xl sm:text-4xl md:text-5xl p-3 sm:p-4 flex-shrink-0">{index === 0 ? <PiBriefcaseFill /> : <PiSuitcaseFill />}</div>
-            <div className="flex-grow min-w-0">
-              <h3 className="text-base sm:text-xl md:text-2xl font-black mb-1 leading-tight break-words">{experience.job}</h3>
-              <p className="text-sm sm:text-lg font-bold mb-2">{experience.company}</p>
-              <div className="inline-block px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 mb-4">
-                <p className="text-[10px] sm:text-sm font-bold">{experience.date}</p>
-              </div>
-            </div>
-          </div>
-          <div className="space-y-3">
-            {experience.responsibilities?.map((resp, idx) => (
-              <div key={idx} className="flex items-start gap-3">
-                <span className="text-xl mt-0.5 flex-shrink-0">✓</span>
-                <span className="text-base font-medium leading-relaxed">{resp}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Visible 3D Content */}
-        <div
-          className="absolute inset-0 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col backface-hidden z-20"
-          style={{ transform: "translateZ(40px)" }}
-        >
-          {/* Header with Icon */}
-          <div className="flex items-start gap-4 sm:gap-6 mb-6">
-            {/* Floating Icon */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="text-3xl sm:text-4xl md:text-5xl text-accent bg-accent/10 p-3 sm:p-4 rounded-2xl shadow-lg backface-hidden flex-shrink-0"
-            >
+    <article ref={rowRef} className="relative md:grid md:grid-cols-2 md:gap-10 items-start">
+      <div className={index % 2 === 0 ? "" : "md:col-start-2"}>
+        <div className="glass-panel p-5 md:p-6">
+          <div className="flex items-start gap-4">
+            <div className="w-11 h-11 rounded-xl bg-white/6 border border-white/10 flex items-center justify-center text-accent-1 text-xl">
               {index === 0 ? <PiBriefcaseFill /> : <PiSuitcaseFill />}
-            </motion.div>
+            </div>
 
-            <div className="flex-grow min-w-0">
-              <h3 className="text-base sm:text-xl md:text-2xl font-black text-black mb-1 group-hover:text-accent transition-colors backface-hidden leading-tight break-words">
-                {experience.job}
-              </h3>
-              <p className="text-sm sm:text-lg font-bold text-accent mb-2 backface-hidden">{experience.company}</p>
-
-              {/* Date Badge */}
-              <div className="inline-block bg-gray-50 group-hover:bg-accent/5 px-3 py-1 sm:px-4 sm:py-2 rounded-full border-2 border-gray-200 group-hover:border-accent/40 transition-colors shadow-sm">
-                <p className="text-[10px] sm:text-sm font-bold text-black group-hover:text-accent backface-hidden transition-colors">
-                  {experience.date}
-                </p>
-              </div>
+            <div>
+              <h3 className="text-lg md:text-xl font-semibold text-text-primary">{experience.job}</h3>
+              <p className="text-accent-1 text-sm md:text-base mt-1">{experience.company}</p>
+              <p className="text-xs md:text-sm text-text-secondary mt-2">{experience.date}</p>
             </div>
           </div>
 
-          {/* Responsibilities */}
-          <div className="space-y-3 flex-grow">
-            {experience.responsibilities?.map((resp, idx) => (
-              <div key={idx} className="flex items-start gap-3 group/item">
-                <div className="text-accent text-xl mt-0.5 backface-hidden flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                    <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <p className="text-black font-medium leading-relaxed group-hover/item:text-black transition-colors backface-hidden text-base">
-                  {resp}
-                </p>
-              </div>
+          <ul className="mt-5 space-y-2.5 text-sm md:text-[15px] text-text-secondary leading-relaxed">
+            {experience.responsibilities.map((responsibility) => (
+              <li key={`${experience.job}-${responsibility}`} className="flex gap-2">
+                <span className="text-accent-1">-</span>
+                <span>{responsibility}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
+      </div>
 
-        {/* Deep Shadow */}
-        <motion.div
-          className="absolute inset-0 bg-black/10 blur-xl rounded-3xl -z-10 backface-hidden"
-          style={{
-            transform: "translateZ(-50px)",
-            scale: 0.95,
-            x: useTransform(x, [-1, 1], [15, -15]),
-            y: useTransform(y, [-1, 1], [15, -15]),
-          }}
-        />
-      </motion.div>
-    </motion.div>
+      <span className="hidden md:block absolute top-8 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-accent-1 border-[3px] border-background shadow-[0_0_18px_rgba(41,151,255,0.55)]" />
+    </article>
   );
 };
 
 export default SingleExperience;
+

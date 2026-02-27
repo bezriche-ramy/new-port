@@ -1,30 +1,42 @@
-import { motion } from "framer-motion";
-import { PiHexagonBold, PiCodeBold } from "react-icons/pi";
+﻿import { useEffect, useRef } from "react";
+import { gsap } from "../../lib/gsap";
 
 const HeroPic = () => {
+  const frameRef = useRef(null);
+
+  useEffect(() => {
+    if (!frameRef.current) {
+      return undefined;
+    }
+
+    const tween = gsap.to(frameRef.current, {
+      y: -16,
+      duration: 4.5,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+    });
+
+    return () => {
+      tween.kill();
+    };
+  }, []);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-      className="relative w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] lg:w-[380px] lg:h-[380px]"
-    >
-      {/* Main Image Container */}
-      <div className="absolute inset-0 rounded-full border-[6px] border-white shadow-2xl overflow-hidden z-10">
-        <img
-          src="https://i.ibb.co/DHCh1hBg/1770208357710.png"
-          alt="Ramy Bezriche"
-          loading="lazy"
-          className="w-full h-full object-cover"
-        />
-
-        {/* Professional Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+    <div ref={frameRef} className="relative w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] lg:w-[390px] lg:h-[390px]">
+      <div className="absolute -inset-5 rounded-[34px] bg-gradient-to-br from-accent-1/25 to-accent-2/25 blur-2xl" />
+      <div className="glass-panel absolute inset-0 p-3 rounded-[32px]">
+        <div className="h-full w-full rounded-[24px] overflow-hidden border border-white/15">
+          <img
+            src="https://i.ibb.co/DHCh1hBg/1770208357710.png"
+            alt="Ramy Bezriche"
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+        </div>
       </div>
-
-      {/* All decorative elements removed for clean, professional look */}
-
-    </motion.div>
+    </div>
   );
 };
 

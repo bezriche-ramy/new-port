@@ -1,164 +1,78 @@
+﻿import { useEffect, useRef } from "react";
 import { Link } from "react-scroll";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { PiStudentBold, PiUserCircleBold, PiGlobeHemisphereWestBold } from "react-icons/pi";
-import { useRef } from "react";
+import { PiGlobeHemisphereWestBold, PiStudentBold, PiUserCircleBold } from "react-icons/pi";
+import { gsap } from "../../lib/gsap";
+
+const detailBlocks = [
+  {
+    icon: PiUserCircleBold,
+    title: "Profil",
+    text: "Computer science student focused on cybersecurity, reverse engineering, and practical front-end delivery.",
+  },
+  {
+    icon: PiStudentBold,
+    title: "Formation",
+    text: "State engineering cycle at USTHB (2022-2027), with specialization in security systems and software architecture.",
+  },
+  {
+    icon: PiGlobeHemisphereWestBold,
+    title: "Engagement",
+    text: "Active in GDG Algeria and Shellmates communities, contributing to developer education and project mentorship.",
+  },
+];
 
 const AboutMeText = () => {
-  // 3D Tilt Logic
-  const ref = useRef(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const blockRefs = useRef([]);
 
-  const handleMouseMove = (e) => {
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  const rotateX = useTransform(y, [-0.5, 0.5], [5, -5]); // Subtle tilt
-  const rotateY = useTransform(x, [-0.5, 0.5], [-5, 5]);
-
-  const springConfig = { stiffness: 300, damping: 30, mass: 0.5 };
-  const springRotateX = useSpring(rotateX, springConfig);
-  const springRotateY = useSpring(rotateY, springConfig);
+  useEffect(() => {
+    gsap.fromTo(
+      blockRefs.current,
+      { opacity: 0, y: 24 },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.16,
+        duration: 0.65,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: blockRefs.current[0],
+          start: "top 84%",
+        },
+      }
+    );
+  }, []);
 
   return (
-    <div className="flex flex-col items-center text-center max-w-4xl mx-auto w-full px-4">
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="section-title mb-8 text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-black break-words"
-      >
-        À Propos de Moi
-      </motion.h2>
+    <div>
+      <p className="uppercase tracking-[0.28em] text-xs text-text-secondary mb-4">About Me</p>
+      <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-text-primary leading-tight">
+        Building secure experiences with product-level polish.
+      </h2>
+      <p className="mt-5 text-text-secondary text-base sm:text-lg leading-relaxed max-w-2xl">
+        I combine offensive-security thinking with clean UI engineering to create interfaces that are both dependable and memorable.
+      </p>
 
-      {/* 3D Interactive Card */}
-      <motion.div
-        ref={ref}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          rotateX: springRotateX,
-          rotateY: springRotateY,
-          transformStyle: "preserve-3d",
-        }}
-        className="relative w-full"
-      >
-        <div
-          className="glass-card p-6 sm:p-8 md:p-12 w-full relative overflow-hidden backdrop-blur-xl bg-white/40 border border-white/50 shadow-xl rounded-3xl"
-          style={{ transform: "translateZ(20px)" }}
-        >
-          {/* Decorative Gradient Overlay - Reduced opacity for better text contrast */}
-          <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-br from-accent/10 to-transparent rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-
-          {/* Content Sections with Staggered Animation */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-
-            {/* Profil */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-left group relative"
-            >
-              {/* Floating Icon */}
-              {/* Icon */}
-              <div className="mb-2">
-                <PiUserCircleBold className="text-4xl text-accent" />
-              </div>
-
-              <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2 group-hover:text-accent transition-colors">
-                Profil
-              </h3>
-              <p className="text-black leading-relaxed text-sm">
-                Étudiant en informatique passionné et autonome, spécialisé en cybersécurité et analyse de malwares. Je transforme la théorie en solutions sécurisées concrètes via l'open source et des projets réels.
-              </p>
-            </motion.div>
-
-            {/* Formation */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-left group relative"
-            >
-              <div className="mb-2">
-                <PiStudentBold className="text-4xl text-blue-500" />
-              </div>
-
-              <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2 group-hover:text-blue-600 transition-colors">
-                Formation
-              </h3>
-              <div className="text-black leading-relaxed text-sm space-y-2">
-                <p className="font-semibold text-black">Ingénieur d'État (2022-2027)</p>
-                <p>USTHB, Alger</p>
-                <p className="inline-block bg-blue-50/50 text-blue-700 px-2 py-1 rounded text-xs font-medium border border-blue-100">
-                  Spécialisation Cybersécurité
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Engagement */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-left group relative"
-            >
-              <div className="mb-2">
-                <PiGlobeHemisphereWestBold className="text-4xl text-purple-500" />
-              </div>
-
-              <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2 group-hover:text-purple-600 transition-colors">
-                Engagement
-              </h3>
-              <div className="text-black leading-relaxed text-sm space-y-2">
-                <p>• GDG Algeria (Relations Publiques)</p>
-                <p>• Shellmates (Développement)</p>
-                <p className="italic text-black text-xs mt-2">Leadership actif & Communauté</p>
-              </div>
-            </motion.div>
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+        {detailBlocks.map((block, index) => (
+          <div
+            key={block.title}
+            ref={(node) => {
+              blockRefs.current[index] = node;
+            }}
+            className="rounded-2xl border border-white/10 bg-white/5 p-4"
+          >
+            <block.icon className="text-2xl text-accent-1 mb-3" />
+            <h3 className="font-semibold text-text-primary mb-2">{block.title}</h3>
+            <p className="text-sm text-text-secondary leading-relaxed">{block.text}</p>
           </div>
+        ))}
+      </div>
 
-          <div className="mt-10 border-t border-gray-200 pt-6">
-            <Link
-              spy={true}
-              smooth={true}
-              duration={500}
-              offset={-120}
-              to="projects"
-              className="btn-primary cursor-pointer hover-lift inline-flex items-center gap-2"
-            >
-              Voir Mes Projets
-            </Link>
-          </div>
-        </div>
-
-        {/* Floating 3D Background Elements attached to card for Perspective */}
-        <motion.div
-          className="absolute -right-6 -top-6 w-20 h-20 bg-accent/20 rounded-full blur-xl -z-10"
-          style={{ transform: "translateZ(-50px)" }}
-        />
-        <motion.div
-          className="absolute -left-6 -bottom-6 w-32 h-32 bg-blue-500/20 rounded-full blur-xl -z-10"
-          style={{ transform: "translateZ(-50px)" }}
-        />
-
-      </motion.div>
+      <div className="mt-8">
+        <Link to="projects" smooth duration={500} offset={-110} className="btn-primary cursor-pointer">
+          Voir Mes Projets
+        </Link>
+      </div>
     </div>
   );
 };

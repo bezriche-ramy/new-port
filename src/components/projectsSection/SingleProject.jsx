@@ -1,118 +1,104 @@
+﻿/* eslint-disable react/prop-types */
+import { useEffect, useRef } from "react";
 import { BsFillArrowUpRightCircleFill, BsGithub } from "react-icons/bs";
-import { motion } from "framer-motion";
-import { fadeIn } from "../../framerMotion/variants";
+import { gsap } from "../../lib/gsap";
 
 const SingleProject = ({
   name,
   year,
   align,
   image,
-  video,
-  isVideo,
   demoLink,
   githubLink,
   description,
   technologies,
-  isComingSoon
 }) => {
+  const cardRef = useRef(null);
+  const imageRef = useRef(null);
+
+  useEffect(() => {
+    const cardNode = cardRef.current;
+    const imageNode = imageRef.current;
+
+    if (!cardNode || !imageNode) {
+      return undefined;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        cardNode,
+        { opacity: 0, y: 52 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.75,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: cardNode,
+            start: "top 80%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        imageNode,
+        { clipPath: "inset(0 100% 0 0)", scale: 1.12 },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          scale: 1,
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: cardNode,
+            start: "top 78%",
+          },
+        }
+      );
+    }, cardNode);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <motion.div
-      variants={fadeIn("top", 0)}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: false, amount: 0.1 }}
-      className={`flex w-full items-center gap-8 
-                  md:flex-row sm:flex-col 
-                  ${align === "left" ? "md:flex-row" : "md:flex-row-reverse"} 
-                  group`}
+    <article
+      ref={cardRef}
+      className={`glass-panel p-5 md:p-7 lg:p-8 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch ${
+        align === "left" ? "" : "lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1"
+      }`}
     >
-      <div className="flex-1">
-        <div className="card-elevated p-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-black mb-2 
-                       text-center md:text-left flex items-center 
-                       sm:justify-center md:justify-start gap-2">
-            {name}
-            {isComingSoon && (
-              <span className="inline-block">
-                <motion.span
-                  className="inline-block w-2 h-2 bg-accent rounded-full"
-                  animate={{ opacity: [1, 0.5, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-              </span>
-            )}
-          </h2>
+      <div className="flex flex-col justify-between gap-5">
+        <div>
+          <p className="text-text-secondary text-sm uppercase tracking-[0.18em]">{year}</p>
+          <h3 className="text-2xl md:text-3xl font-heading font-bold text-text-primary mt-2">{name}</h3>
+          <p className="text-text-secondary mt-4 leading-relaxed">{description}</p>
+        </div>
 
-          <p className="text-muted font-medium text-sm mb-4 text-center md:text-left">
-            {year}
-          </p>
+        <div className="flex flex-wrap gap-2">
+          {technologies?.map((tech) => (
+            <span key={`${name}-${tech}`} className="skill-badge">
+              {tech}
+            </span>
+          ))}
+        </div>
 
-          <p className="text-black mb-6 text-center md:text-left leading-relaxed">
-            {description}
-          </p>
-
-          <div className="flex flex-wrap gap-2 mb-6 justify-center md:justify-start">
-            {technologies?.map((tech, index) => (
-              <span key={index}
-                className="px-3 py-1 text-sm bg-gray-100 text-accent 
-                             rounded-full border border-gray-200 font-medium 
-                             hover:bg-accent hover:text-black transition-all duration-300">
-                {tech}
-              </span>
-            ))}
-          </div>
-
-          {!isComingSoon && (
-            <div className="flex sm:flex-col md:flex-row gap-4 justify-center md:justify-start">
-              <a
-                href={demoLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary flex items-center justify-center gap-2 group
-                         sm:w-full md:w-auto"
-              >
-                Voir Démo <BsFillArrowUpRightCircleFill className="group-hover:rotate-45 transition-transform duration-300" />
-              </a>
-              <a
-                href={githubLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary flex items-center justify-center gap-2 group
-                         sm:w-full md:w-auto"
-              >
-                Voir Code <BsGithub className="group-hover:scale-110 transition-transform duration-300" />
-              </a>
-            </div>
-          )}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <a href={demoLink} target="_blank" rel="noopener noreferrer" className="btn-primary">
+            Voir Demo
+            <BsFillArrowUpRightCircleFill className="text-base" />
+          </a>
+          <a href={githubLink} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+            Voir Code
+            <BsGithub className="text-base" />
+          </a>
         </div>
       </div>
 
-      <div className="flex-1 w-full sm:mt-4 md:mt-0">
-        <div className="relative overflow-hidden rounded-lg border border-gray-200 
-                       shadow-card hover:shadow-elevated hover-lift
-                       transition-all duration-300 bg-white">
-          {isVideo ? (
-            <video
-              src={video}
-              autoPlay
-              loop
-              muted
-              playsInline
-              loading="lazy"
-              className="w-full aspect-video object-cover"
-            />
-          ) : (
-            <img
-              src={image}
-              alt={isComingSoon ? "bientôt disponible" : "capture d'écran projet"}
-              loading="lazy"
-              className="w-full aspect-video object-cover"
-            />
-          )}
-        </div>
+      <div className="rounded-[20px] border border-white/10 overflow-hidden bg-black/20">
+        <img ref={imageRef} src={image} alt={`${name} preview`} loading="lazy" className="w-full h-full min-h-[260px] object-cover" />
       </div>
-    </motion.div>
+    </article>
   );
 };
 
 export default SingleProject;
+

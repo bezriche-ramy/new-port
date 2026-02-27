@@ -1,25 +1,34 @@
-import React from 'react';
-import { BsSun, BsMoon } from 'react-icons/bs';
-import { useTheme } from '../context/ThemeContext';
+﻿import { useRef } from "react";
+import { BsMoonStars, BsSun } from "react-icons/bs";
+import { useTheme } from "../context/ThemeContext";
+import { gsap } from "../lib/gsap";
 
 const ThemeToggle = () => {
   const { isDark, toggleTheme } = useTheme();
+  const buttonRef = useRef(null);
+
+  const handleThemeToggle = () => {
+    if (buttonRef.current) {
+      gsap.fromTo(
+        buttonRef.current,
+        { scale: 0.86, rotate: -12 },
+        { scale: 1, rotate: 0, duration: 0.5, ease: "back.out(2.6)" }
+      );
+    }
+
+    toggleTheme();
+  };
 
   return (
     <button
-      onClick={toggleTheme}
-      className="fixed top-6 right-6 z-50 p-3 rounded-full 
-                 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700
-                 shadow-lg hover:shadow-xl transition-all duration-300
-                 text-black dark:text-black hover:text-accent dark:hover:text-accent
-                 hover:scale-110"
+      ref={buttonRef}
+      type="button"
+      onClick={handleThemeToggle}
+      className="theme-toggle-btn"
       aria-label="Toggle theme"
+      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
-      {isDark ? (
-        <BsSun className="w-5 h-5" />
-      ) : (
-        <BsMoon className="w-5 h-5" />
-      )}
+      {isDark ? <BsSun className="w-4 h-4" /> : <BsMoonStars className="w-4 h-4" />}
     </button>
   );
 };

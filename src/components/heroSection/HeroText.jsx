@@ -1,140 +1,132 @@
-import { motion } from "framer-motion";
-import { BsGithub, BsArrowRight } from "react-icons/bs";
-import { TypeAnimation } from "react-type-animation";
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { BsArrowRight, BsGithub } from "react-icons/bs";
+import { gsap } from "../../lib/gsap";
+
+const roles = [
+  "Cybersecurity Student",
+  "Frontend Developer",
+  "Malware Analyst",
+  "React Specialist",
+];
 
 const HeroText = () => {
-  const nameRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const charRefs = useRef([]);
+  const roleRef = useRef(null);
+  const [roleIndex, setRoleIndex] = useState(0);
+  const firstNameChars = useMemo(() => "Ramy".split(""), []);
+  const lastNameChars = useMemo(() => "Bezriche".split(""), []);
 
   useEffect(() => {
-    // GSAP Character-by-character reveal for name
-    if (nameRef.current) {
-      const chars = nameRef.current.innerText.split('');
-      nameRef.current.innerHTML = chars
-        .map((char) => `<span class="inline-block opacity-0" style="transform: translateY(40px)">${char === ' ' ? '&nbsp;' : char}</span>`)
-        .join('');
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        charRefs.current,
+        { y: 48, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "elastic.out(1, 0.8)",
+          stagger: 0.03,
+          delay: 0.18,
+        }
+      );
 
-      gsap.to(nameRef.current.children, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.04,
-        ease: 'power4.out',
-        delay: 0.3,
-      });
-    }
+      gsap.fromTo(
+        ".hero-line",
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power2.out", stagger: 0.12, delay: 0.45 }
+      );
+
+      gsap.fromTo(
+        ".hero-cta",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.55, ease: "power2.out", stagger: 0.09, delay: 0.78 }
+      );
+    }, wrapperRef);
+
+    const interval = window.setInterval(() => {
+      setRoleIndex((current) => (current + 1) % roles.length);
+    }, 2600);
+
+    return () => {
+      window.clearInterval(interval);
+      ctx.revert();
+    };
   }, []);
 
-  // Stagger animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
-  };
+  useEffect(() => {
+    if (!roleRef.current) {
+      return;
+    }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
+    gsap.fromTo(
+      roleRef.current,
+      { y: 18, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+    );
+  }, [roleIndex]);
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="flex flex-col gap-6 sm:gap-8 text-center lg:text-left w-full"
-    >
-      <div className="flex flex-col gap-3 sm:gap-4">
-        <motion.span
-          variants={itemVariants}
-          className="text-xs sm:text-sm md:text-base font-bold text-accent tracking-[0.3em] uppercase"
-        >
-          Digital Alchemist
-        </motion.span>
+    <div ref={wrapperRef} className="text-center lg:text-left">
+      <p className="hero-line uppercase tracking-[0.35em] text-[11px] sm:text-xs text-text-secondary font-semibold mb-4">
+        Digital Alchemist
+      </p>
 
-        <h1
-          ref={nameRef}
-          className="font-black text-black w-full whitespace-nowrap"
-          style={{
-            letterSpacing: '-0.02em',
-            fontWeight: 900,
-            fontSize: 'clamp(2rem, 5.5vw, 5.5rem)',
-          }}
-        >
-          Ramy Bezriche
-        </h1>
+      <h1 className="font-display text-[clamp(2.8rem,8.2vw,6.6rem)] font-extrabold leading-[0.92] text-text-primary mb-4">
+        <span className="block">
+          {firstNameChars.map((char, index) => (
+            <span
+              key={`first-${char}-${index}`}
+              ref={(node) => {
+                charRefs.current[index] = node;
+              }}
+              className="inline-block"
+            >
+              {char}
+            </span>
+          ))}
+        </span>
+        <span className="block">
+          {lastNameChars.map((char, index) => (
+            <span
+              key={`last-${char}-${index}`}
+              ref={(node) => {
+                charRefs.current[firstNameChars.length + index] = node;
+              }}
+              className="inline-block"
+            >
+              {char}
+            </span>
+          ))}
+        </span>
+      </h1>
 
-        {/* Gradient Typing Animation */}
-        <motion.div
-          variants={itemVariants}
-          className="h-[50px] sm:h-[60px] md:h-[70px] flex items-center justify-center lg:justify-start overflow-hidden"
-        >
-          <TypeAnimation
-            sequence={[
-              'Cybersecurity Student',
-              2000,
-              'Frontend Developer',
-              2000,
-              'Malware Analyst',
-              2000,
-              'Next.js Expert',
-              2000
-            ]}
-            speed={50}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold gradient-text"
-            repeat={Infinity}
-          />
-        </motion.div>
-      </div>
+      <p ref={roleRef} className="hero-line gradient-text text-2xl sm:text-3xl md:text-4xl font-bold min-h-[2.4rem] sm:min-h-[3rem]">
+        {roles[roleIndex]}
+      </p>
 
-      <motion.p
-        variants={itemVariants}
-        className="text-black text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0"
-      >
-        Crafting <span className="text-accent font-semibold">secure digital experiences</span> with cutting-edge web technologies and <span className="text-electric font-semibold">offensive security</span> expertise.
-      </motion.p>
+      <p className="hero-line mt-6 text-base sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+        Crafting secure digital experiences with modern front-end engineering, performance-first execution, and practical security depth.
+      </p>
 
-      <motion.div
-        variants={itemVariants}
-        className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start mt-2 sm:mt-4 w-full sm:w-auto px-4 lg:px-0"
-      >
-        <motion.a
+      <div className="mt-9 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+        <a
+          className="hero-cta btn-primary"
           href="https://github.com/bezriche-ramy"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-primary flex items-center justify-center gap-3 group hover-magnetic w-full sm:w-auto"
-          whileHover={{ scale: 1.05, y: -2 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          <BsGithub className="text-xl sm:text-2xl group-hover:rotate-12 transition-transform duration-300" />
-          <span className="font-black text-sm sm:text-base">Explore GitHub</span>
-        </motion.a>
-        <motion.a
-          href="#projects"
-          className="btn-secondary flex items-center justify-center gap-3 group hover-magnetic w-full sm:w-auto"
-          whileHover={{ scale: 1.05, y: -2 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-        >
-          <span className="font-black text-sm sm:text-base">View Projects</span>
-          <BsArrowRight className="text-xl sm:text-2xl group-hover:translate-x-2 transition-transform duration-300" />
-        </motion.a>
-      </motion.div>
-    </motion.div>
+          <BsGithub className="text-lg" />
+          Explore GitHub
+        </a>
+
+        <a className="hero-cta btn-secondary" href="#projects">
+          View Projects
+          <BsArrowRight className="text-lg" />
+        </a>
+      </div>
+    </div>
   );
 };
 

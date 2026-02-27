@@ -1,92 +1,94 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+﻿import { useEffect, useRef } from "react";
+import { gsap } from "../lib/gsap";
 
 const MagneticCursor = () => {
-  const cursorRef = useRef(null);
-  const cursorDotRef = useRef(null);
-  const mousePos = useRef({ x: 0, y: 0 });
+  const ringRef = useRef(null);
+  const dotRef = useRef(null);
 
   useEffect(() => {
-    const cursor = cursorRef.current;
-    const cursorDot = cursorDotRef.current;
+    if (window.matchMedia("(hover: none), (pointer: coarse)").matches) {
+      return undefined;
+    }
 
-    if (!cursor || !cursorDot) return;
+    const ring = ringRef.current;
+    const dot = dotRef.current;
 
-    const onMouseMove = (e) => {
-      mousePos.current = { x: e.clientX, y: e.clientY };
+    if (!ring || !dot) {
+      return undefined;
+    }
 
-      gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.5,
-        ease: 'power2.out',
+    const onMove = (event) => {
+      gsap.to(ring, {
+        x: event.clientX,
+        y: event.clientY,
+        duration: 0.35,
+        ease: "power2.out",
       });
 
-      gsap.to(cursorDot, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.1,
-      });
-    };
-
-    const onMouseEnter = () => {
-      gsap.to(cursor, {
-        scale: 3,
-        backgroundColor: 'rgba(0, 240, 255, 0.1)',
-        border: '2px solid rgba(0, 240, 255, 0.5)',
-        duration: 0.3,
+      gsap.to(dot, {
+        x: event.clientX,
+        y: event.clientY,
+        duration: 0.08,
       });
     };
 
-    const onMouseLeave = () => {
-      gsap.to(cursor, {
+    const interactive = document.querySelectorAll("a, button, [data-cursor='magnetic']");
+    const enter = () => {
+      gsap.to(ring, {
+        scale: 1.8,
+        borderColor: "rgba(41, 151, 255, 0.75)",
+        backgroundColor: "rgba(255,255,255,0.08)",
+        duration: 0.2,
+      });
+    };
+
+    const leave = () => {
+      gsap.to(ring, {
         scale: 1,
-        backgroundColor: 'transparent',
-        border: '2px solid rgba(0, 240, 255, 0.3)',
-        duration: 0.3,
+        borderColor: "rgba(255,255,255,0.35)",
+        backgroundColor: "rgba(255,255,255,0.02)",
+        duration: 0.22,
       });
     };
 
-    // Add event listeners
-    window.addEventListener('mousemove', onMouseMove);
-
-    // Add magnetic effect to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .hover-magnetic');
-    interactiveElements.forEach((el) => {
-      el.addEventListener('mouseenter', onMouseEnter);
-      el.addEventListener('mouseleave', onMouseLeave);
+    window.addEventListener("mousemove", onMove);
+    interactive.forEach((element) => {
+      element.addEventListener("mouseenter", enter);
+      element.addEventListener("mouseleave", leave);
     });
 
     return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      interactiveElements.forEach((el) => {
-        el.removeEventListener('mouseenter', onMouseEnter);
-        el.removeEventListener('mouseleave', onMouseLeave);
+      window.removeEventListener("mousemove", onMove);
+      interactive.forEach((element) => {
+        element.removeEventListener("mouseenter", enter);
+        element.removeEventListener("mouseleave", leave);
       });
     };
   }, []);
 
+  if (window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches) {
+    return null;
+  }
+
   return (
     <>
-      {/* Main cursor circle */}
       <div
-        ref={cursorRef}
-        className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9999]"
+        ref={ringRef}
+        className="fixed top-0 left-0 w-9 h-9 rounded-full pointer-events-none z-[9999]"
         style={{
-          transform: 'translate(-50%, -50%)',
-          border: '2px solid rgba(0, 240, 255, 0.8)',
-          borderRadius: '50%',
-          transition: 'width 0.3s, height 0.3s',
+          transform: "translate(-50%, -50%)",
+          border: "1.5px solid rgba(255,255,255,0.35)",
+          background: "rgba(255,255,255,0.02)",
+          backdropFilter: "blur(10px)",
         }}
       />
-
-      {/* Center dot */}
       <div
-        ref={cursorDotRef}
-        className="fixed top-0 left-0 w-2 h-2 bg-accent pointer-events-none z-[9999] rounded-full"
+        ref={dotRef}
+        className="fixed top-0 left-0 w-2.5 h-2.5 rounded-full pointer-events-none z-[9999]"
         style={{
-          transform: 'translate(-50%, -50%)',
-          boxShadow: '0 0 15px rgba(0, 240, 255, 1), 0 0 30px rgba(0, 240, 255, 0.5)',
+          transform: "translate(-50%, -50%)",
+          background: "#2997FF",
+          boxShadow: "0 0 14px rgba(41,151,255,0.9)",
         }}
       />
     </>

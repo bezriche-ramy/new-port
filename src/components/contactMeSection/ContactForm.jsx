@@ -1,122 +1,107 @@
-import React, { useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { gsap } from "../../lib/gsap";
 
 const ContactForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [success, setSuccess] = useState("");
+  const formRef = useRef(null);
+  const submitRef = useRef(null);
+  const [formData, setFormData] = useState({
+    from_name: "",
+    from_email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
 
-  const handleName = (e) => setName(e.target.value);
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handleMessage = (e) => setMessage(e.target.value);
-  const form = useRef();
+  useEffect(() => {
+    if (!submitRef.current) {
+      return;
+    }
 
-  const sendEmail = (e) => {
-    e.preventDefault();
+    const onPress = () => {
+      gsap.to(submitRef.current, { scale: 0.97, duration: 0.12 });
+    };
+
+    const onRelease = () => {
+      gsap.to(submitRef.current, { scale: 1, duration: 0.16 });
+    };
+
+    const button = submitRef.current;
+    button.addEventListener("pointerdown", onPress);
+    button.addEventListener("pointerup", onRelease);
+    button.addEventListener("pointerleave", onRelease);
+
+    return () => {
+      button.removeEventListener("pointerdown", onPress);
+      button.removeEventListener("pointerup", onRelease);
+      button.removeEventListener("pointerleave", onRelease);
+    };
+  }, []);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((current) => ({ ...current, [name]: value }));
+  };
+
+  const sendEmail = (event) => {
+    event.preventDefault();
+
     emailjs
-      .sendForm("service_ko3hmpt", "template_ahbmmqd", form.current, {
+      .sendForm("service_ko3hmpt", "template_ahbmmqd", formRef.current, {
         publicKey: "I6HAT5mUZH7WHabGE",
       })
       .then(
         () => {
-          setEmail("");
-          setName("");
-          setMessage("");
-          setSuccess("Message envoyé avec succès !");
-          setTimeout(() => setSuccess(""), 5000);
+          setFormData({ from_name: "", from_email: "", message: "" });
+          setStatus("Message sent successfully.");
+          window.setTimeout(() => setStatus(""), 5000);
         },
         (error) => {
-          setSuccess("Échec de l'envoi : " + error.text);
+          setStatus(`Send failed: ${error.text}`);
         }
       );
   };
 
   return (
-    <div className="w-full relative z-10">
-      <h3 className="text-3xl font-bold text-black mb-2">Envoyez un message</h3>
-      <p className="text-black mb-6 text-sm sm:text-base leading-relaxed">
-        Vous avez une question, une proposition de projet innovant,
-        ou vous souhaitez simplement discuter de cybersécurité et de développement ?
-        N'hésitez pas à m'envoyer un message via le formulaire ci-dessous.
-        Je m'efforce de répondre à toutes les sollicitations dans les plus brefs délais !
+    <div>
+      <h3 className="text-2xl md:text-3xl font-heading font-bold text-text-primary">Envoyez un message</h3>
+      <p className="text-text-secondary text-sm md:text-base mt-3 leading-relaxed">
+        Have a project in mind or want to discuss security-focused product work? Send a message and I will reply as soon as possible.
       </p>
 
-      <form ref={form} onSubmit={sendEmail} className="space-y-6">
-        <div className="group relative">
-          <input
-            type="text"
-            name="from_name"
-            required
-            className="peer w-full h-12 bg-gray-50 border-b-2 border-gray-200 text-black font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1"
-            placeholder="Nom"
-            id="nameInput"
-            value={name}
-            onChange={handleName}
-          />
-          <label
-            htmlFor="nameInput"
-            className="absolute left-1 -top-3.5 text-sm text-black transition-all 
-                     peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-3 
-                     peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-accent"
-          >
-            VOTRE NOM
-          </label>
-        </div>
+      <form ref={formRef} onSubmit={sendEmail} className="mt-6 space-y-4">
+        <input
+          className="glass-input"
+          type="text"
+          name="from_name"
+          placeholder="Votre nom"
+          value={formData.from_name}
+          onChange={handleChange}
+          required
+        />
 
-        <div className="group relative">
-          <input
-            type="email"
-            name="from_email"
-            required
-            className="peer w-full h-12 bg-gray-50 border-b-2 border-gray-200 text-black font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1"
-            placeholder="Email"
-            id="emailInput"
-            value={email}
-            onChange={handleEmail}
-          />
-          <label
-            htmlFor="emailInput"
-            className="absolute left-1 -top-3.5 text-sm text-black transition-all 
-                     peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-3 
-                     peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-accent"
-          >
-            VOTRE EMAIL
-          </label>
-        </div>
+        <input
+          className="glass-input"
+          type="email"
+          name="from_email"
+          placeholder="Votre email"
+          value={formData.from_email}
+          onChange={handleChange}
+          required
+        />
 
-        <div className="group relative">
-          <textarea
-            name="message"
-            rows={4}
-            required
-            className="peer w-full bg-gray-50 border-b-2 border-gray-200 text-black font-medium placeholder-transparent focus:outline-none focus:border-accent transition-colors py-2 px-1 resize-none"
-            placeholder="Message"
-            id="messageInput"
-            value={message}
-            onChange={handleMessage}
-          />
-          <label
-            htmlFor="messageInput"
-            className="absolute left-1 -top-3.5 text-sm text-black transition-all 
-                     peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-placeholder-shown:top-3 
-                     peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-accent"
-          >
-            VOTRE MESSAGE
-          </label>
-        </div>
+        <textarea
+          className="glass-input min-h-[150px] resize-y"
+          name="message"
+          placeholder="Votre message"
+          value={formData.message}
+          onChange={handleChange}
+          required
+        />
 
-        {success && (
-          <p className="text-green-600 text-sm font-medium animate-pulse">
-            {success}
-          </p>
-        )}
+        {status ? <p className="text-sm text-text-secondary">{status}</p> : null}
 
-        <button
-          type="submit"
-          className="w-full h-14 bg-gradient-to-r from-accent to-cyan-600 text-black font-bold tracking-wide uppercase rounded-lg shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2"
-        >
-          ENVOYER MESSAGE
+        <button ref={submitRef} type="submit" className="btn-primary w-full sm:w-auto">
+          Envoyer Message
         </button>
       </form>
     </div>

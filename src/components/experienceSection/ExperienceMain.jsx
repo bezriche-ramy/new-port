@@ -1,31 +1,16 @@
-import AllExperiences from "./AllExperiences";
-import ExperienceText from "./ExperienceText";
+﻿import ExperienceText from "./ExperienceText";
 import ExperienceTop from "./ExperienceTop";
-import { motion } from "framer-motion";
-import { fadeIn } from "../../framerMotion/variants";
+import AllExperiences from "./AllExperiences";
 
 const ExperienceMain = () => {
   return (
-    <section className="section-alternate py-20">
-      <div id="experience" className="section-container">
-        <motion.div
-          variants={fadeIn("down", 0)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.7 }}
-        >
-          <ExperienceText />
-        </motion.div>
-        <motion.div
-          variants={fadeIn("down", 0.5)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0 }}
-          className="mt-16"
-        >
+    <section id="experience" className="section-alternate">
+      <div className="section-container">
+        <ExperienceText />
+        <div className="mt-10">
           <ExperienceTop />
-        </motion.div>
-        <div className="mt-16">
+        </div>
+        <div className="mt-14">
           <AllExperiences />
         </div>
       </div>

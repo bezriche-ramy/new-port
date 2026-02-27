@@ -1,11 +1,11 @@
-const ExperienceText = () => {
+﻿const ExperienceText = () => {
   return (
-    <div className="section-container text-center">
-      <h2 className="section-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl break-words px-2">Expérience Professionnelle</h2>
+    <header className="text-center">
+      <h2 className="section-title">Experience Professionnelle</h2>
       <p className="section-subtitle">
-        Mon parcours professionnel en développement et ingénierie, mettant en avant mes rôles et réalisations clés.
+        Roles, impact, and delivery highlights across freelancing and engineering internships.
       </p>
-    </div>
+    </header>
   );
 };
 

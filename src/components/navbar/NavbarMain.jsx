@@ -1,36 +1,90 @@
+﻿import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import NavbarLogo from "./NavbarLogo";
 import NavbarLinks from "./NavbarLinks";
 import NavbarBtn from "./NavbarBtn";
 import NavbarToggler from "./NavbarToggler";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleMenu } from "../../state/menuSlice";
-import { motion } from "framer-motion";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 
 const NavbarMain = () => {
-  const dispatch = useDispatch();
   const menuOpen = useSelector((state) => state.menu.menuOpen);
+  const shellRef = useRef(null);
+  const mobileWrapRef = useRef(null);
+
+  useEffect(() => {
+    if (!shellRef.current) {
+      return undefined;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        shellRef.current,
+        { y: -80, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+      );
+
+      ScrollTrigger.create({
+        start: 0,
+        end: 260,
+        scrub: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          gsap.to(shellRef.current, {
+            paddingTop: 16 - progress * 4,
+            paddingBottom: 16 - progress * 4,
+            backgroundColor: `rgba(18, 18, 26, ${0.4 + progress * 0.28})`,
+            borderColor: `rgba(255, 255, 255, ${0.08 + progress * 0.1})`,
+            duration: 0.2,
+            overwrite: true,
+          });
+        },
+      });
+    }, shellRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    if (!mobileWrapRef.current) {
+      return;
+    }
+
+    gsap.killTweensOf(mobileWrapRef.current);
+
+    if (menuOpen) {
+      gsap.set(mobileWrapRef.current, { display: "block" });
+      gsap.fromTo(
+        mobileWrapRef.current,
+        { height: 0, opacity: 0 },
+        { height: "auto", opacity: 1, duration: 0.36, ease: "power2.out" }
+      );
+      return;
+    }
+
+    gsap.to(mobileWrapRef.current, {
+      height: 0,
+      opacity: 0,
+      duration: 0.26,
+      ease: "power2.in",
+      onComplete: () => {
+        gsap.set(mobileWrapRef.current, { display: "none" });
+      },
+    });
+  }, [menuOpen]);
 
   return (
-    <nav className="fixed top-6 left-0 w-full z-50 px-6">
-      <motion.div
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="max-w-5xl mx-auto"
-      >
-        {/* Floating Dynamic Island Navbar */}
-        <div className="relative">
-          <div className="flex items-center justify-between bg-slate/40 border border-white/10 rounded-full px-6 py-4 shadow-glass backdrop-blur-glass transition-all duration-500 hover:border-white/20 hover:shadow-glow-cyan">
+    <nav className="fixed top-5 left-0 w-full z-50 px-4 md:px-6">
+      <div className="max-w-6xl mx-auto">
+        <div ref={shellRef} className="glass-pill px-5 md:px-7 py-4 transition-shadow duration-300 hover:shadow-glass-glow">
+          <div className="flex items-center justify-between gap-4">
             <NavbarLogo />
 
-            {/* Desktop Links - Center */}
             <div className="hidden lg:flex items-center gap-8">
               <NavbarLinks />
             </div>
 
-            {/* Right Side Controls */}
-            <div className="flex items-center gap-4">
-              <div className="lg:block hidden">
+            <div className="flex items-center gap-3 md:gap-4">
+              <div className="hidden lg:block">
                 <NavbarBtn />
               </div>
               <div className="lg:hidden block">
@@ -38,25 +92,14 @@ const NavbarMain = () => {
               </div>
             </div>
           </div>
-
-          {/* Glow effect */}
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-accent/20 via-electric/20 to-accent/20 blur-3xl opacity-30 rounded-full" />
         </div>
 
-        {/* Mobile Menu - Floating below */}
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="lg:hidden block mt-4"
-          >
-            <div className="bg-slate/60 border border-white/10 rounded-3xl p-6 shadow-glass backdrop-blur-glass">
-              <NavbarLinks />
-            </div>
-          </motion.div>
-        )}
-      </motion.div>
+        <div ref={mobileWrapRef} className="lg:hidden hidden overflow-hidden">
+          <div className="glass-panel mt-3 p-4">
+            <NavbarLinks />
+          </div>
+        </div>
+      </div>
     </nav>
   );
 };

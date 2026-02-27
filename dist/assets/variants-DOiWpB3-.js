@@ -1,1 +1,0 @@
-const a=(e,t)=>({hidden:{y:e==="up"?20:e==="down"?-20:0,x:e==="left"?20:e==="right"?-20:0,opacity:0},show:{y:0,x:0,opacity:1,transition:{type:"tween",duration:.4,delay:t,ease:"easeOut"}}});export{a as f};

@@ -1,44 +1,43 @@
-import { Link } from "react-scroll";
+﻿import { Link } from "react-scroll";
+import FooterLine from "./FooterLine";
+
+const links = [
+  { name: "A propos", section: "about" },
+  { name: "Competences", section: "skills" },
+  { name: "Experience", section: "experience" },
+  { name: "Projets", section: "projects" },
+  { name: "Contact", section: "contact" },
+];
 
 const FooterMain = () => {
-  const footerLinks = [
-    { name: "À propos", section: "about" },
-    { name: "Compétences", section: "skills" },
-    { name: "Expérience", section: "experience" },
-    { name: "Projets", section: "projects" },
-  ];
-
   return (
-    <div className="px-4 relative bg-gray-50">
-      <div className="w-full h-[1px] bg-gray-200 mt-24"></div>
-      <div className="md:flex justify-between mt-8 max-w-[1200px] mx-auto sm:hidden">
-        <h3 className="text-2xl text-black font-semibold">RAMY BEZRICHE</h3>
-        <ul className="flex gap-6 text-black text-lg">
-          {footerLinks.map((item, index) => {
-            return (
-              <li key={index} className="group">
+    <footer className="px-6 md:px-8 pb-10 pt-8">
+      <div className="max-w-6xl mx-auto">
+        <FooterLine />
+
+        <div className="mt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+          <p className="font-heading text-xl text-text-primary">Ramy Bezriche</p>
+
+          <ul className="flex flex-wrap gap-4 md:gap-5 text-sm text-text-secondary">
+            {links.map((item) => (
+              <li key={item.section}>
                 <Link
-                  spy={true}
-                  smooth={true}
-                  duration={300}
-                  offset={-80}
-                  isDynamic={true}
-                  spyThrottle={100}
                   to={item.section}
-                  className="hover:text-accent transition-all duration-300 cursor-pointer font-medium"
+                  smooth
+                  duration={450}
+                  offset={-110}
+                  className="hover:text-text-primary transition-colors cursor-pointer"
                 >
                   {item.name}
                 </Link>
-                <div className="mx-auto bg-accent w-0 group-hover:w-full h-[1px] transition-all duration-300"></div>
               </li>
-            );
-          })}
-        </ul>
+            ))}
+          </ul>
+        </div>
+
+        <p className="mt-6 text-xs md:text-sm text-text-secondary">Copyright 2026 Ramy Bezriche. All rights reserved.</p>
       </div>
-      <p className="max-w-[1200px] mx-auto text-center mt-6 mb-8 text-sm text-black">
-        © 2025 BEZRICHE RAMY | Tous droits réservés
-      </p>
-    </div>
+    </footer>
   );
 };
 

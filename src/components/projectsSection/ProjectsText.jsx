@@ -1,9 +1,9 @@
-const ProjectsText = () => {
+﻿const ProjectsText = () => {
   return (
-    <div className="section-container text-center">
-      <h2 className="section-title">Projets Clés</h2>
+    <div className="text-center">
+      <h2 className="section-title">Projets Cles</h2>
       <p className="section-subtitle">
-        Une sélection de mes travaux récents en développement web, cybersécurité et analyse de données.
+        A selection of recent builds across web engineering, security experimentation, and product prototyping.
       </p>
     </div>
   );

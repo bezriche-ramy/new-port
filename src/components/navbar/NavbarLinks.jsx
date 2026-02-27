@@ -1,17 +1,56 @@
+﻿import { useEffect, useRef } from "react";
 import { Link } from "react-scroll";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../../state/menuSlice";
+import { gsap } from "../../lib/gsap";
+
+const links = [
+  { label: "A propos", section: "about" },
+  { label: "Competences", section: "skills" },
+  { label: "Experience", section: "experience" },
+  { label: "Projets", section: "projects" },
+  { label: "Contact", section: "contact" },
+];
 
 const NavbarLinks = () => {
   const dispatch = useDispatch();
+  const itemRefs = useRef([]);
 
-  const links = [
-    { link: "À propos", section: "about" },
-    { link: "Compétences", section: "skills" },
-    { link: "Expérience", section: "experience" },
-    { link: "Projets", section: "projects" },
-    { link: "Contact", section: "contact" },
-  ];
+  useEffect(() => {
+    const cleanups = [];
+
+    itemRefs.current.forEach((item) => {
+      if (!item) {
+        return;
+      }
+
+      const underline = item.querySelector(".nav-link-underline");
+      if (!underline) {
+        return;
+      }
+
+      gsap.set(underline, { scaleX: 0, transformOrigin: "left center" });
+
+      const enter = () => {
+        gsap.to(underline, { scaleX: 1, duration: 0.24, ease: "power2.out" });
+      };
+
+      const leave = () => {
+        gsap.to(underline, { scaleX: 0, duration: 0.22, ease: "power2.inOut" });
+      };
+
+      item.addEventListener("mouseenter", enter);
+      item.addEventListener("mouseleave", leave);
+      cleanups.push(() => {
+        item.removeEventListener("mouseenter", enter);
+        item.removeEventListener("mouseleave", leave);
+      });
+    });
+
+    return () => {
+      cleanups.forEach((cleanup) => cleanup());
+    };
+  }, []);
 
   const handleLinkClick = () => {
     if (window.innerWidth < 1024) {
@@ -20,29 +59,28 @@ const NavbarLinks = () => {
   };
 
   return (
-    <ul className="lg:flex lg:flex-row lg:items-center lg:gap-6 
-                   sm:flex sm:flex-col sm:items-center sm:gap-4 
-                   lg:h-auto sm:h-full lg:static lg:p-0 sm:py-8">
+    <ul className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-6">
       {links.map((link, index) => (
-        <li key={index} className="w-full lg:w-auto">
+        <li
+          key={link.section}
+          ref={(node) => {
+            itemRefs.current[index] = node;
+          }}
+          className="relative"
+        >
           <Link
-            spy={true}
-            smooth={true}
-            duration={500}
-            offset={-130}
             to={link.section}
+            spy
+            smooth
+            duration={500}
+            offset={-120}
             onClick={handleLinkClick}
-            isDynamic={true}
-            spyThrottle={100}
-            className="px-4 py-4 w-full text-center lg:text-left
-                     text-muted hover:text-accent font-medium
-                     transition-all duration-300 hover-lift
-                     lg:border-none sm:border sm:border-gray-200 sm:rounded-lg
-                     sm:bg-white lg:bg-transparent hover:bg-gray-50"
+            className="block px-4 py-3 text-sm md:text-base text-text-secondary hover:text-text-primary transition-colors duration-300 rounded-xl lg:rounded-none lg:px-0 lg:py-1"
+            activeClass="text-text-primary"
           >
-            {link.link}
+            {link.label}
           </Link>
-          <div className="mx-auto bg-accent w-0 group-hover:w-full h-[1px] transition-all duration-500"></div>
+          <span className="nav-link-underline absolute left-4 lg:left-0 right-4 lg:right-0 -bottom-[2px] h-[2px] rounded-full bg-gradient-to-r from-accent-1 to-accent-2" />
         </li>
       ))}
     </ul>

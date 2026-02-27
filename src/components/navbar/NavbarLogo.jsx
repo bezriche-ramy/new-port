@@ -1,29 +1,23 @@
-import { Link } from "react-scroll";
+﻿import { Link } from "react-scroll";
 
 const NavbarLogo = () => {
   return (
     <Link
       to="hero"
-      spy={true}
-      smooth={true}
-      duration={300}
+      spy
+      smooth
+      duration={450}
       offset={0}
-      isDynamic={true}
-      ignoreCancelEvents={false}
-      spyThrottle={100}
-      hashSpy={false}
-      style={{ cursor: 'pointer' }}
-      className="group cursor-pointer"
+      className="cursor-pointer select-none"
     >
-      {/* Desktop Logo */}
-      <h1 className="text-2xl font-bold text-black dark:text-black lg:flex sm:hidden items-center gap-2 group-hover:text-accent transition-colors duration-300">
-        Ramy Bezriche
-      </h1>
-
-      {/* Mobile Logo */}
-      <h1 className="text-xl font-bold text-black dark:text-black lg:hidden sm:flex items-center group-hover:text-accent transition-colors duration-300">
-        RB
-      </h1>
+      <div className="hidden sm:block">
+        <p className="font-heading text-lg md:text-xl font-bold tracking-tight text-text-primary">
+          Ramy Bezriche
+        </p>
+      </div>
+      <div className="sm:hidden">
+        <p className="font-heading text-xl font-bold tracking-tight text-text-primary">RB</p>
+      </div>
     </Link>
   );
 };

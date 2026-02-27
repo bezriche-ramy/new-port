@@ -1,23 +1,22 @@
-const SingleInfo = ({ text, Image, link }) => {
-  return (
-    <div className="flex gap-4 items-center justify-start group">
-      {Image && <Image className="text-2xl text-accent group-hover:text-accent/80 transition-colors duration-300" />}
-      {link ? (
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300 hover:underline font-medium"
-        >
-          {text}
-        </a>
-      ) : (
-        <p className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
-          {text}
-        </p>
-      )}
+﻿/* eslint-disable react/prop-types */
+const SingleInfo = ({ text, Icon, link }) => {
+  const content = (
+    <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-3 py-3">
+      {Icon ? <Icon className="text-accent-1 text-lg" /> : null}
+      <span className="text-sm text-text-secondary">{text}</span>
     </div>
   );
+
+  if (link) {
+    return (
+      <a href={link} target="_blank" rel="noopener noreferrer" className="block">
+        {content}
+      </a>
+    );
+  }
+
+  return content;
 };
 
 export default SingleInfo;
+

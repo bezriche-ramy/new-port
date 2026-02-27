@@ -1,20 +1,11 @@
-const ExperienceTopRight = () => {
+﻿const ExperienceTopRight = () => {
   return (
-    <div className="xl:w-[25%] lg:w-[30%] card p-6">
-      <h4 className="text-lg font-semibold text-accent mb-4">
-        Technical Expertise
-      </h4>
-      
-      <div className="space-y-4">
-        <p className="text-muted leading-relaxed">
-          Primary focus on modern JavaScript frameworks and libraries, specializing in React ecosystem and modern web development.
-        </p>
-        <p className="text-muted leading-relaxed">
-          Experience in building responsive, performant web applications with clean architecture and best practices.
-        </p>
-        <p className="text-muted leading-relaxed">
-          Skilled in both frontend and backend development, with emphasis on user experience and code quality.
-        </p>
+    <div className="glass-panel p-5">
+      <h4 className="text-text-primary font-semibold mb-3">Technical Expertise</h4>
+      <div className="space-y-3 text-sm text-text-secondary leading-relaxed">
+        <p>Strong command of modern JavaScript frameworks and maintainable component-driven architecture.</p>
+        <p>Experience shipping responsive web products with clear UX intent and stable performance.</p>
+        <p>Comfortable across frontend, backend, and deployment workflows with security-first thinking.</p>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
-import { Link } from "react-scroll";
-import { LuArrowDownRight } from "react-icons/lu";
+﻿import { LuArrowUpRight } from "react-icons/lu";
 
 const NavbarBtn = () => {
   return (
@@ -7,14 +6,10 @@ const NavbarBtn = () => {
       href="https://www.upwork.com/freelancers/~01940bb9c33250ffae"
       target="_blank"
       rel="noopener noreferrer"
-      className="btn-primary
-               sm:text-xs md:text-sm lg:text-base
-               sm:px-3 md:px-4 sm:py-1.5 md:py-2
-               sm:whitespace-nowrap flex items-center gap-2
-               self-center hover-lift"
+      className="btn-primary text-sm md:text-base px-4 md:px-5 py-2.5"
     >
-      <span>Me Recruter</span>
-      <LuArrowDownRight className="w-4 h-4" />
+      Me Recruter
+      <LuArrowUpRight className="w-4 h-4" />
     </a>
   );
 };

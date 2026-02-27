@@ -1,111 +1,89 @@
-import { motion } from "framer-motion";
-import { SiReact, SiNextdotjs, SiJavascript, SiTypescript, SiSupabase } from "react-icons/si";
+﻿import { useEffect, useRef } from "react";
 import { PiShieldCheckBold } from "react-icons/pi";
+import {
+  SiJavascript,
+  SiNextdotjs,
+  SiReact,
+  SiSupabase,
+  SiTypescript,
+} from "react-icons/si";
+import { gsap } from "../../lib/gsap";
+
+const iconItems = [
+  { Icon: SiReact, color: "#61dafb", top: "16%", left: "7%" },
+  { Icon: SiNextdotjs, color: "#f5f5f7", top: "21%", right: "10%" },
+  { Icon: SiJavascript, color: "#f7df1e", top: "46%", left: "5%" },
+  { Icon: SiTypescript, color: "#3178c6", top: "52%", right: "7%" },
+  { Icon: PiShieldCheckBold, color: "#ffd700", bottom: "16%", left: "11%" },
+  { Icon: SiSupabase, color: "#3ecf8e", bottom: "12%", right: "36%" },
+];
 
 const TechStackIcons = () => {
-    // Animation variants for floating icons
-    const floatVariant = (delay = 0, duration = 3) => ({
-        initial: { y: 0, opacity: 0 },
-        animate: {
-            y: [-10, 10, -10],
-            opacity: 0.7,
-            transition: {
-                y: {
-                    duration,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay,
-                },
-                opacity: {
-                    duration: 0.5,
-                },
-            },
-        },
+  const iconRefs = useRef([]);
+
+  useEffect(() => {
+    const tweens = [];
+
+    iconRefs.current.forEach((iconNode, index) => {
+      if (!iconNode) {
+        return;
+      }
+
+      gsap.fromTo(
+        iconNode,
+        { opacity: 0, y: 20, scale: 0.8 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.45,
+          ease: "power2.out",
+          delay: 0.5 + index * 0.06,
+        }
+      );
+
+      tweens.push(
+        gsap.to(iconNode, {
+          y: index % 2 === 0 ? -14 : 14,
+          duration: 2.8 + index * 0.25,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        })
+      );
     });
 
-    const hoverVariant = {
-        scale: 1.2,
-        opacity: 1,
-        transition: { duration: 0.2 },
+    return () => {
+      tweens.forEach((tween) => tween.kill());
     };
+  }, []);
 
-    return (
-        <div className="hidden lg:block">
-            {/* React - Top Left */}
-            <motion.div
-                variants={floatVariant(0, 3.5)}
-                initial="initial"
-                animate="animate"
-                whileHover={hoverVariant}
-                className="absolute top-[15%] left-[5%] text-5xl sm:text-6xl text-[#61dafb] opacity-70"
-                style={{ zIndex: 1 }}
-            >
-                <SiReact />
-            </motion.div>
+  return (
+    <div className="hidden lg:block pointer-events-none">
+      {iconItems.map((item, index) => {
+        const style = {
+          color: item.color,
+          top: item.top,
+          right: item.right,
+          bottom: item.bottom,
+          left: item.left,
+        };
 
-            {/* Next.js - Top Right */}
-            <motion.div
-                variants={floatVariant(0.5, 4)}
-                initial="initial"
-                animate="animate"
-                whileHover={hoverVariant}
-                className="absolute top-[20%] right-[8%] text-4xl sm:text-5xl text-black opacity-70"
-                style={{ zIndex: 1 }}
-            >
-                <SiNextdotjs />
-            </motion.div>
-
-            {/* JavaScript - Left Middle */}
-            <motion.div
-                variants={floatVariant(1, 3.2)}
-                initial="initial"
-                animate="animate"
-                whileHover={hoverVariant}
-                className="absolute top-[45%] left-[3%] text-4xl sm:text-5xl text-[#f7df1e] opacity-70"
-                style={{ zIndex: 1 }}
-            >
-                <SiJavascript />
-            </motion.div>
-
-            {/* TypeScript - Right Middle */}
-            <motion.div
-                variants={floatVariant(1.5, 3.8)}
-                initial="initial"
-                animate="animate"
-                whileHover={hoverVariant}
-                className="absolute top-[50%] right-[5%] text-4xl sm:text-5xl text-[#3178c6] opacity-70"
-                style={{ zIndex: 1 }}
-            >
-                <SiTypescript />
-            </motion.div>
-
-            {/* Security Shield - Bottom Left */}
-            <motion.div
-                variants={floatVariant(2, 3.5)}
-                initial="initial"
-                animate="animate"
-                whileHover={hoverVariant}
-                className="absolute bottom-[18%] left-[8%] text-5xl sm:text-6xl text-[#ffd700] opacity-70"
-                style={{ zIndex: 1 }}
-            >
-                <PiShieldCheckBold />
-            </motion.div>
-
-
-
-            {/* Supabase - Bottom Center */}
-            <motion.div
-                variants={floatVariant(1.8, 3.6)}
-                initial="initial"
-                animate="animate"
-                whileHover={hoverVariant}
-                className="absolute bottom-[12%] left-[50%] -translate-x-1/2 text-4xl sm:text-5xl text-[#3ecf8e] opacity-70"
-                style={{ zIndex: 1 }}
-            >
-                <SiSupabase />
-            </motion.div>
-        </div>
-    );
+        return (
+          <div
+            key={`hero-icon-${index}`}
+            ref={(node) => {
+              iconRefs.current[index] = node;
+            }}
+            className="absolute z-[2] w-12 h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-glass flex items-center justify-center text-2xl"
+            style={style}
+          >
+            <item.Icon />
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default TechStackIcons;

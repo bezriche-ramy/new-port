@@ -1,57 +1,66 @@
-import React from "react";
+﻿import { useEffect, useRef } from "react";
 import SingleExperience from "./SingleExperience";
-import { motion } from "framer-motion";
+import { gsap } from "../../lib/gsap";
 
 const experiences = [
   {
-    job: "Développeur Web Full Stack (Freelance)",
-    company: "À distance",
-    date: "Septembre 2025 – Présent",
+    job: "Full Stack Developer (Freelance)",
+    company: "Remote",
+    date: "Sep 2025 - Present",
     responsibilities: [
-      "Conception et développement d'applications web performantes et réactives avec Next.js et React.",
-      " Intégration d'interfaces utilisateur modernes avec Tailwind CSS (UX fluide et responsive).",
-      "Collaboration directe avec les clients pour traduire leurs besoins en solutions techniques.",
-      "Optimisation du code pour la sécurité et la rapidité de chargement.",
+      "Built performant web applications with React and Next.js for independent clients.",
+      "Delivered responsive UI systems and production-ready component libraries.",
+      "Collaborated directly with stakeholders to translate business requirements into code.",
+      "Improved loading performance and baseline security posture on active deployments.",
     ],
   },
   {
-    job: "Stagiaire - Département Télécommunications",
-    company: "Djezzy, Alger",
-    date: "Juillet 2024 – Septembre 2024",
+    job: "Telecom Engineering Intern",
+    company: "Djezzy, Algiers",
+    date: "Jul 2024 - Sep 2024",
     responsibilities: [
-      "Analyse des indicateurs de performance (KPI) pour les connexions LTE, RRC et S1.",
-      "Optimisation des performances réseau et mise en place de reporting automatisé.",
-      "Surveillance de l'utilisation des PRB (Physical Resource Blocks) et amélioration des systèmes de reporting.",
+      "Analyzed LTE, RRC, and S1 performance indicators across production datasets.",
+      "Supported automated KPI reporting and alerting workflows.",
+      "Improved PRB usage reporting and operational visibility for network teams.",
     ],
   },
 ];
 
 const AllExperiences = () => {
+  const wrapRef = useRef(null);
+  const lineRef = useRef(null);
+
+  useEffect(() => {
+    if (!wrapRef.current || !lineRef.current) {
+      return;
+    }
+
+    gsap.fromTo(
+      lineRef.current,
+      { scaleY: 0, transformOrigin: "top center" },
+      {
+        scaleY: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: wrapRef.current,
+          start: "top 72%",
+          end: "bottom 25%",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
   return (
-    <div className="max-w-4xl mx-auto relative">
-      {/* Vertical Timeline Line */}
-      <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-accent/50 via-accent to-accent/50 hidden md:block transform -translate-x-1/2 rounded-full"></div>
+    <div ref={wrapRef} className="relative max-w-5xl mx-auto">
+      <div
+        ref={lineRef}
+        className="hidden md:block absolute left-1/2 -translate-x-1/2 top-3 bottom-3 w-[2px] bg-gradient-to-b from-accent-1 via-accent-2 to-accent-1"
+      />
 
-      {/* Experience Cards */}
-      <div className="flex flex-col gap-32 md:block md:space-y-0">
+      <div className="space-y-10 md:space-y-12">
         {experiences.map((experience, index) => (
-          <div key={index} className="relative">
-            {/* Timeline Dot */}
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ delay: index * 0.2 + 0.3, type: "spring" }}
-              viewport={{ once: true }}
-              className="absolute left-0 md:left-1/2 top-12 w-6 h-6 bg-accent rounded-full border-4 border-white shadow-lg hidden md:block transform -translate-x-1/2 z-30"
-            >
-              <div className="absolute inset-0 bg-accent rounded-full animate-ping opacity-75"></div>
-            </motion.div>
-
-            {/* Card */}
-            <div className={`md:w-[calc(50%-2rem)] ${index % 2 === 0 ? 'md:ml-0' : 'md:ml-auto'}`}>
-              <SingleExperience experience={experience} index={index} />
-            </div>
-          </div>
+          <SingleExperience key={experience.job} experience={experience} index={index} />
         ))}
       </div>
     </div>

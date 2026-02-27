@@ -1,7 +1,6 @@
-import { lazy, Suspense, useState, useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import NavbarMain from "./components/navbar/NavbarMain";
 import HeroMain from "./components/heroSection/HeroMain";
-import HeroGradient from "./components/heroSection/HeroGradient";
 import MagneticCursor from "./components/MagneticCursor";
 import PageTransition from "./components/PageTransition";
 
@@ -55,18 +54,7 @@ const CertAndContact = lazy(() =>
 );
 
 function App() {
-  const [isReducedMotion, setIsReducedMotion] = useState(false);
   const lenisRef = useRef(null);
-
-  useEffect(() => {
-    // Check for reduced motion preference
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setIsReducedMotion(mediaQuery.matches);
-
-    const listener = (e) => setIsReducedMotion(e.matches);
-    mediaQuery.addEventListener("change", listener);
-    return () => mediaQuery.removeEventListener("change", listener);
-  }, []);
 
   useEffect(() => {
     // Initialize Lenis smooth scroll
@@ -97,11 +85,10 @@ function App() {
     <ThemeProvider>
       <PageTransition />
       <MagneticCursor />
-      <main className="font-body text-black relative overflow-hidden bg-void min-h-screen">
+      <main className="font-body text-text-primary relative overflow-hidden bg-background min-h-screen">
         <div className="relative z-10">
           <NavbarMain />
           <HeroMain />
-          <HeroGradient />
 
           <Suspense fallback={<LoadingDots />}>
             <div className="section-background">

@@ -1,28 +1,27 @@
-import React from "react";
-import { motion } from "framer-motion";
-
-const SingleCertificate = ({ image, title, index, setSelectedId }) => {
+﻿/* eslint-disable react/prop-types */
+const SingleCertificate = ({ image, title, onOpen }) => {
   return (
-    <motion.div
-      layoutId={`cert-${index}`} // Shared layout ID for the zoom effect
-      onClick={() => setSelectedId(index)}
-      whileHover={{ scale: 1.02 }}
-      className="cursor-zoom-in relative rounded-xl overflow-hidden shadow-lg border border-accent/20 bg-black/50 aspect-[4/3] group"
+    <button
+      type="button"
+      onClick={onOpen}
+      className="glass-panel overflow-hidden text-left group transition-transform duration-300 hover:-translate-y-1"
     >
-      <motion.img
-        src={image}
-        alt={title}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-      />
-
-      {/* Hover Overlay */}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-        <span className="text-black bg-black/50 px-3 py-1 rounded-full text-sm backdrop-blur-sm border border-white/20">
-          Voir Détail
-        </span>
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[18px]">
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-transparent" />
       </div>
-    </motion.div>
+
+      <div className="px-4 pb-4 pt-3">
+        <p className="text-sm text-text-primary">{title}</p>
+      </div>
+    </button>
   );
 };
 
 export default SingleCertificate;
+

@@ -1,26 +1,41 @@
-import { motion } from "framer-motion";
-import { fadeIn } from "../../framerMotion/variants";
+﻿import { useEffect, useRef } from "react";
 import SkillsText from "./SkillsText";
 import AllSkills from "./AllSkills";
+import { gsap } from "../../lib/gsap";
 
 const SkillsMain = () => {
-  return (
-    <div className="pt-0 pb-20">
-      <section id="skills" className="section-container">
-        <motion.div
-          variants={fadeIn("down", 0)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.3 }}
-        >
-          <SkillsText />
-        </motion.div>
+  const sectionRef = useRef(null);
 
-        <div className="mt-0">
-          <AllSkills />
+  useEffect(() => {
+    if (!sectionRef.current) {
+      return;
+    }
+
+    gsap.fromTo(
+      sectionRef.current.querySelector(".skills-heading"),
+      { opacity: 0, y: 32 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+        },
+      }
+    );
+  }, []);
+
+  return (
+    <section id="skills" ref={sectionRef} className="section-alternate">
+      <div className="section-container">
+        <div className="skills-heading">
+          <SkillsText />
         </div>
-      </section>
-    </div>
+        <AllSkills />
+      </div>
+    </section>
   );
 };
 

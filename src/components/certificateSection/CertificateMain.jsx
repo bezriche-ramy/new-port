@@ -1,106 +1,89 @@
-import React, { useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import SingleCertificate from "./SingleCertificate";
-import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "../../lib/gsap";
 
 const certificates = [
-  {
-    image: 'https://i.ibb.co/MyzFsd4X/cer1.png',
-    title: 'Professional Development Achievement'
-  },
-  {
-    image: 'https://i.ibb.co/VYNJ4mnj/cer2.png',
-    title: 'Technical Leadership Recognition'
-  },
-  {
-    image: 'https://i.ibb.co/PZrchQ2V/cer3.png',
-    title: 'Development Excellence Certification'
-  },
-  {
-    image: "https://i.ibb.co/v6sqv2Xk/Rami-Bezriche.png",
-    title: "Certificate 4",
-  },
-  {
-    image: "https://i.ibb.co/CpDQZ14n/Bezriche-Ramy-2.png",
-    title: "Certificate 5",
-  },
-  {
-    image: "https://i.ibb.co/XxQqQfrs/Bezriche-Ramy-3.png",
-    title: "Certificate 6",
-  },
-  {
-    image: "https://i.ibb.co/WNGSLzpQ/ramy.png",
-    title: "Certificate 7",
-  },
-  {
-    image: "https://i.ibb.co/Wpzcx1TB/Bezriche-Ramy-1.png",
-    title: "Certificate 8",
-  },
-  {
-    image: "https://i.ibb.co/4RgvVnNj/bezriche-ramy.png",
-    title: "Certificate 9",
-  },
+  { image: "https://i.ibb.co/MyzFsd4X/cer1.png", title: "Professional Development Achievement" },
+  { image: "https://i.ibb.co/VYNJ4mnj/cer2.png", title: "Technical Leadership Recognition" },
+  { image: "https://i.ibb.co/PZrchQ2V/cer3.png", title: "Development Excellence Certification" },
+  { image: "https://i.ibb.co/v6sqv2Xk/Rami-Bezriche.png", title: "Certificate 4" },
+  { image: "https://i.ibb.co/CpDQZ14n/Bezriche-Ramy-2.png", title: "Certificate 5" },
+  { image: "https://i.ibb.co/XxQqQfrs/Bezriche-Ramy-3.png", title: "Certificate 6" },
+  { image: "https://i.ibb.co/WNGSLzpQ/ramy.png", title: "Certificate 7" },
+  { image: "https://i.ibb.co/Wpzcx1TB/Bezriche-Ramy-1.png", title: "Certificate 8" },
+  { image: "https://i.ibb.co/4RgvVnNj/bezriche-ramy.png", title: "Certificate 9" },
 ];
 
 const CertificateMain = () => {
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const gridRef = useRef(null);
+
+  useEffect(() => {
+    if (!gridRef.current) {
+      return;
+    }
+
+    gsap.fromTo(
+      gridRef.current.children,
+      { opacity: 0, y: 26 },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.06,
+        duration: 0.55,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: "top 80%",
+        },
+      }
+    );
+  }, []);
 
   return (
-    <section id="certificates" className="py-20">
+    <section id="certificates">
       <div className="section-container">
-        <div className="text-center mb-16">
-          <h2 className="section-title">Certifications et Réalisations</h2>
+        <div className="text-center">
+          <h2 className="section-title">Certifications et Realisations</h2>
           <p className="section-subtitle">
-            Reconnaissance de mon développement professionnel et de mon expertise technique en génie logiciel.
+            Credentials and achievements reflecting continuous learning and practical engineering growth.
           </p>
         </div>
 
-        {/* Responsive Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {certificates.map((cert, index) => (
+        <div ref={gridRef} className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {certificates.map((certificate, index) => (
             <SingleCertificate
-              key={index}
-              image={cert.image}
-              title={cert.title}
-              index={index}
-              setSelectedId={setSelectedId}
+              key={certificate.title}
+              image={certificate.image}
+              title={certificate.title}
+              onOpen={() => setSelectedIndex(index)}
             />
           ))}
         </div>
 
-        {/* Lightbox / Zoom Overlay */}
-        <AnimatePresence>
-          {selectedId !== null && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 cursor-zoom-out"
-              onClick={() => setSelectedId(null)}
+        {selectedIndex !== null ? (
+          <div
+            className="fixed inset-0 z-[90] bg-black/70 backdrop-blur-xl p-5 flex items-center justify-center"
+            onClick={() => setSelectedIndex(null)}
+          >
+            <div
+              className="glass-panel w-full max-w-5xl p-3 md:p-4"
+              onClick={(event) => event.stopPropagation()}
             >
-              <motion.div
-                layoutId={`cert-${selectedId}`} // Shared Switch Animation
-                className="relative max-w-5xl w-full max-h-[90vh] rounded-lg overflow-hidden shadow-2xl"
-                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking image
-              >
-                <img
-                  src={certificates[selectedId].image}
-                  alt={certificates[selectedId].title}
-                  className="w-full h-full object-contain bg-black"
-                />
-
-                {/* Close Button */}
-                <button
-                  onClick={() => setSelectedId(null)}
-                  className="absolute top-4 right-4 bg-white/10 hover:bg-white/30 text-black rounded-full p-2 transition-colors"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+              <img
+                src={certificates[selectedIndex].image}
+                alt={certificates[selectedIndex].title}
+                className="w-full max-h-[82vh] object-contain rounded-xl bg-black/20"
+              />
+              <div className="mt-4 flex items-center justify-between gap-4">
+                <p className="text-text-secondary text-sm md:text-base">{certificates[selectedIndex].title}</p>
+                <button type="button" onClick={() => setSelectedIndex(null)} className="btn-secondary py-2 px-4 text-sm">
+                  Close
                 </button>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   );
