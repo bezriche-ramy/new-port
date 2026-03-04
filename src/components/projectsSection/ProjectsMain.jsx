@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback } from "react";
-import { BsArrowUpRight, BsGithub } from "react-icons/bs";
+import { BsArrowUpRight, BsClockHistory, BsGithub } from "react-icons/bs";
 import { gsap } from "../../lib/gsap";
 
 const projects = [
@@ -101,6 +101,8 @@ const TiltCard = ({ children, className }) => {
       rotateX: -y * 6,
       duration: 0.4,
       ease: "power2.out",
+      overwrite: true,
+      force3D: true,
     });
   }, []);
 
@@ -113,6 +115,8 @@ const TiltCard = ({ children, className }) => {
       rotateX: 0,
       duration: 0.6,
       ease: "elastic.out(1, 0.5)",
+      overwrite: true,
+      force3D: true,
     });
   }, []);
 
@@ -198,27 +202,10 @@ const ProjectsMain = () => {
       horizontalTl.to(track, {
         x: () => -getScrollDistance(),
         ease: "none",
+        force3D: true,
       });
 
-      // Parallax on project images
-      imageRefs.current.filter(Boolean).forEach((img) => {
-        gsap.fromTo(
-          img,
-          { xPercent: -8 },
-          {
-            xPercent: 8,
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top top",
-              end: () => `+=${getScrollEnd()}`,
-              scrub: 1,
-              invalidateOnRefresh: true,
-              markers: debugMarkers,
-            },
-          }
-        );
-      });
+      // Keep project screenshots fully visible (no per-image parallax shift).
     }, section);
 
     const pendingImages = [];
@@ -259,10 +246,10 @@ const ProjectsMain = () => {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="relative bg-bg-primary pt-24 pb-12">
+    <section id="projects" ref={sectionRef} className="relative bg-bg-primary h-screen w-full flex flex-col justify-center overflow-hidden">
       {/* Header */}
-      <div className="section-padding-sm max-container" ref={headerRef}>
-        <div className="flex items-center gap-4 mb-6">
+      <div className="max-container w-full px-6 md:px-10 py-3 md:py-5" ref={headerRef}>
+        <div className="flex items-center gap-4 mb-4">
           <span className="text-label">Projects</span>
           <div className="flex-1 h-[1px] bg-border-subtle" />
           <span className="text-xs text-text-tertiary font-code">
@@ -278,22 +265,26 @@ const ProjectsMain = () => {
       <div className="overflow-hidden">
         <div
           ref={trackRef}
-          className="flex gap-6 md:gap-8 pl-6 md:pl-10 pr-6 md:pr-10 pt-8 pb-16"
+          className="flex gap-6 md:gap-8 pl-6 md:pl-10 pr-6 md:pr-10 py-4 md:py-8 will-change-transform"
           style={{ width: "max-content" }}
         >
-          {projects.map((project, i) => (
+          {projects.map((project, i) => {
+            const hasDemo = project.demoLink && project.demoLink !== "#";
+            const hasCode = project.githubLink && project.githubLink !== "#";
+
+            return (
             <TiltCard
               key={project.name}
-              className="group relative w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[40vw] shrink-0 flex flex-col border border-border-subtle hover:border-accent/30 bg-bg-elevated transition-colors duration-500"
+              className="group relative w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[40vw] h-[65vh] min-h-[400px] max-h-[650px] shrink-0 flex flex-col border border-border-subtle hover:border-accent/30 bg-bg-elevated transition-colors duration-500 will-change-transform"
             >
               {/* Image area */}
-              <div className="relative overflow-hidden bg-[#0a0a0a] aspect-[16/10]">
+              <div className="relative overflow-hidden bg-[#0a0a0a] h-[45%] md:h-[55%] shrink-0 flex items-center justify-center">
                 <img
                   ref={(el) => { imageRefs.current[i] = el; }}
                   src={project.image}
                   alt={`${project.name} preview`}
                   loading="lazy"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 scale-110 group-hover:scale-100 transition-all duration-700"
+                  className="w-full h-full object-contain object-center grayscale group-hover:grayscale-0 transition-all duration-500 will-change-transform"
                 />
 
                 {/* Number badge — bottom left on image */}
@@ -302,28 +293,34 @@ const ProjectsMain = () => {
                 </span>
 
                 {/* CTA buttons — bottom right on image */}
-                <div className="absolute bottom-3 right-3 flex gap-2 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
-                  <a
-                    href={project.demoLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-accent text-bg-primary text-xs font-semibold hover:gap-2.5 transition-all duration-200"
-                    data-cursor-label="View"
-                  >
-                    Demo
-                    <BsArrowUpRight className="text-[10px]" />
-                  </a>
-                  <a
-                    href={project.githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-bg-primary/80 backdrop-blur-sm border border-border-medium text-text-primary text-xs font-medium hover:gap-2.5 transition-all duration-200"
-                    data-cursor-label="Code"
-                  >
-                    Code
-                    <BsGithub className="text-[10px]" />
-                  </a>
-                </div>
+                {(hasDemo || hasCode) && (
+                  <div className="absolute bottom-3 right-3 flex gap-2 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+                    {hasDemo && (
+                      <a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-accent text-bg-primary text-xs font-semibold hover:gap-2.5 transition-all duration-200"
+                        data-cursor-label="View"
+                      >
+                        Demo
+                        <BsArrowUpRight className="text-[10px]" />
+                      </a>
+                    )}
+                    {hasCode && (
+                      <a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-bg-primary/80 backdrop-blur-sm border border-border-medium text-text-primary text-xs font-medium hover:gap-2.5 transition-all duration-200"
+                        data-cursor-label="Code"
+                      >
+                        Code
+                        <BsGithub className="text-[10px]" />
+                      </a>
+                    )}
+                  </div>
+                )}
 
                 {/* Top-right year badge */}
                 <span className="absolute top-3 right-3 text-[10px] font-code text-text-tertiary bg-bg-primary/70 backdrop-blur-sm px-2.5 py-1 border border-border-subtle">
@@ -367,7 +364,21 @@ const ProjectsMain = () => {
                 </div>
               </div>
             </TiltCard>
-          ))}
+            );
+          })}
+          <div className="shrink-0 w-[46vw] min-w-[280px] md:min-w-[360px] flex items-center">
+            <div className="w-full py-10 md:py-14 border-t border-border-subtle/70">
+              <div className="flex items-center gap-3 text-accent">
+                <BsClockHistory className="text-xl md:text-2xl animate-[spin_7s_linear_infinite]" />
+                <span className="text-[11px] md:text-xs font-code uppercase tracking-[0.2em] text-text-tertiary">
+                  To Be Continued...
+                </span>
+              </div>
+              <p className="mt-4 text-sm md:text-base text-text-secondary max-w-[36ch]">
+                More projects are in creation and will be added here soon.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

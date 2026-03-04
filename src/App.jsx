@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import NavbarMain from "./components/navbar/NavbarMain";
 import HeroMain from "./components/heroSection/HeroMain";
 import MagneticCursor from "./components/MagneticCursor";
@@ -67,6 +67,7 @@ const LazyContentReady = () => {
 };
 
 function App() {
+  const [isIntroActive, setIsIntroActive] = useState(true);
   const lenisRef = useRef(null);
   const refreshRafRef = useRef(0);
   const refreshTimeoutRef = useRef(0);
@@ -90,6 +91,13 @@ function App() {
       refreshTimeoutRef.current = window.setTimeout(scheduleRefresh, 140);
     };
 
+    const scheduleRefreshDebounced = () => {
+      if (refreshTimeoutRef.current) {
+        window.clearTimeout(refreshTimeoutRef.current);
+      }
+      refreshTimeoutRef.current = window.setTimeout(scheduleRefresh, 120);
+    };
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -110,14 +118,14 @@ function App() {
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
     window.addEventListener("load", scheduleRefreshBurst);
-    window.addEventListener("resize", scheduleRefreshBurst);
-    window.addEventListener("app:layout-updated", scheduleRefreshBurst);
+    window.addEventListener("resize", scheduleRefreshDebounced);
+    window.addEventListener("app:layout-updated", scheduleRefreshDebounced);
     scheduleRefreshBurst();
 
     return () => {
       window.removeEventListener("load", scheduleRefreshBurst);
-      window.removeEventListener("resize", scheduleRefreshBurst);
-      window.removeEventListener("app:layout-updated", scheduleRefreshBurst);
+      window.removeEventListener("resize", scheduleRefreshDebounced);
+      window.removeEventListener("app:layout-updated", scheduleRefreshDebounced);
       if (refreshRafRef.current) {
         cancelAnimationFrame(refreshRafRef.current);
       }
@@ -133,9 +141,34 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    const body = document.body;
+
+    if (isIntroActive) {
+      root.style.overflow = "hidden";
+      body.style.overflow = "hidden";
+      lenisRef.current?.stop();
+      return () => {
+        root.style.overflow = "";
+        body.style.overflow = "";
+      };
+    }
+
+    root.style.overflow = "";
+    body.style.overflow = "";
+    lenisRef.current?.start();
+    emitLayoutUpdated();
+
+    return () => {
+      root.style.overflow = "";
+      body.style.overflow = "";
+    };
+  }, [isIntroActive]);
+
   return (
     <>
-      <PageTransition />
+      <PageTransition onComplete={() => setIsIntroActive(false)} />
       <MagneticCursor />
       <ScrollProgress />
       <EasterEgg />

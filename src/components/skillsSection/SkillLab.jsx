@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 const DESKTOP_MEDIA_QUERY = "(hover: hover) and (pointer: fine) and (min-width: 1024px)";
@@ -135,6 +135,7 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
   const [analysisMessage, setAnalysisMessage] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [clientNeed, setClientNeed] = useState("");
+  const needTextareaRef = useRef(null);
   const [draggingSkillId, setDraggingSkillId] = useState(null);
   const [isDropActive, setIsDropActive] = useState(false);
   const [limitNotice, setLimitNotice] = useState("");
@@ -225,6 +226,41 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
     }
   }, [isDesktopInteractive]);
 
+  useEffect(() => {
+    const textarea = needTextareaRef.current;
+    if (!textarea || typeof ResizeObserver === "undefined") return undefined;
+
+    let previousHeight = textarea.offsetHeight;
+    let refreshTimeoutId = 0;
+
+    const queueLayoutRefresh = () => {
+      if (refreshTimeoutId) {
+        window.clearTimeout(refreshTimeoutId);
+      }
+
+      refreshTimeoutId = window.setTimeout(() => {
+        window.dispatchEvent(new Event("app:layout-updated"));
+      }, 90);
+    };
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      const nextHeight = entries[0]?.contentRect?.height ?? textarea.offsetHeight;
+      if (Math.abs(nextHeight - previousHeight) < 0.5) return;
+
+      previousHeight = nextHeight;
+      queueLayoutRefresh();
+    });
+
+    resizeObserver.observe(textarea);
+
+    return () => {
+      resizeObserver.disconnect();
+      if (refreshTimeoutId) {
+        window.clearTimeout(refreshTimeoutId);
+      }
+    };
+  }, [isDesktopInteractive]);
+
   const handleAnalyzeNeed = () => {
     const ranked = rankSkillsFromNeed(skills, clientNeed, maxSelected);
 
@@ -310,6 +346,7 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
         What do you need me to build?
       </label>
       <textarea
+        ref={needTextareaRef}
         id={readOnlyPreview ? "client-need-preview" : "client-need"}
         value={clientNeed}
         onChange={(event) => setClientNeed(event.target.value)}

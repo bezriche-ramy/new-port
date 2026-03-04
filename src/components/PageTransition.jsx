@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "../lib/gsap";
 
-const PageTransition = () => {
+const PageTransition = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
   const overlayRef = useRef(null);
   const counterRef = useRef(null);
@@ -13,7 +13,10 @@ const PageTransition = () => {
 
     const counter = { value: 0 };
     const tl = gsap.timeline({
-      onComplete: () => setIsVisible(false),
+      onComplete: () => {
+        setIsVisible(false);
+        onComplete?.();
+      },
     });
 
     // Count from 0 to 100
@@ -49,7 +52,7 @@ const PageTransition = () => {
     );
 
     return () => tl.kill();
-  }, []);
+  }, [onComplete]);
 
   if (!isVisible) return null;
 
