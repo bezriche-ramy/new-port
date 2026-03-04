@@ -45,7 +45,7 @@ const PageTransition = () => {
         stagger: 0.08,
         ease: "power4.inOut",
       },
-      1.6
+      ">=0.15"
     );
 
     return () => tl.kill();

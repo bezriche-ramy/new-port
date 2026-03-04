@@ -3,6 +3,9 @@ import NavbarMain from "./components/navbar/NavbarMain";
 import HeroMain from "./components/heroSection/HeroMain";
 import MagneticCursor from "./components/MagneticCursor";
 import PageTransition from "./components/PageTransition";
+import ScrollProgress from "./components/ScrollProgress";
+import EasterEgg from "./components/EasterEgg";
+import BackToTop from "./components/BackToTop";
 import LoadingDots from "./components/LoadingDots";
 import Lenis from "lenis";
 
@@ -81,6 +84,9 @@ function App() {
     <>
       <PageTransition />
       <MagneticCursor />
+      <ScrollProgress />
+      <EasterEgg />
+      <BackToTop />
       <div className="noise-overlay" />
       <main className="relative bg-bg-primary min-h-screen text-text-primary font-body">
         <NavbarMain />

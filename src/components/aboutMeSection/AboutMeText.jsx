@@ -37,6 +37,7 @@ const AboutMeText = () => {
         scrollTrigger: {
           trigger: blockRefs.current[0],
           start: "top 84%",
+          toggleActions: "play reverse play reverse",
         },
       }
     );

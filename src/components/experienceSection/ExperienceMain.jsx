@@ -90,6 +90,7 @@ const ExperienceMain = () => {
           scrollTrigger: {
             trigger: timelineRef.current,
             start: "top 75%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -107,6 +108,7 @@ const ExperienceMain = () => {
             scrollTrigger: {
               trigger: bar,
               start: "top 85%",
+              toggleActions: "play reverse play reverse",
             },
           }
         );
@@ -117,7 +119,7 @@ const ExperienceMain = () => {
   }, []);
 
   return (
-    <section id="experience" ref={sectionRef} className="relative z-[2] bg-bg-primary">
+    <section id="experience" ref={sectionRef} className="relative bg-bg-primary">
       <div className="section-padding max-container">
         {/* Section label */}
         <div className="flex items-center gap-4 mb-12">

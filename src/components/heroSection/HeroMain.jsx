@@ -6,6 +6,7 @@ import { gsap } from "../../lib/gsap";
 const HeroMain = () => {
   const heroRef = useRef(null);
   const scrollIndicatorRef = useRef(null);
+  const auroraRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -19,6 +20,23 @@ const HeroMain = () => {
           ease: "sine.inOut",
         });
       }
+
+      // Aurora ambient animation
+      if (auroraRef.current) {
+        const blobs = auroraRef.current.querySelectorAll(".aurora-blob");
+        blobs.forEach((blob, i) => {
+          gsap.to(blob, {
+            x: `random(-120, 120)`,
+            y: `random(-80, 80)`,
+            scale: `random(0.8, 1.3)`,
+            duration: `random(6, 10)`,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: i * 1.5,
+          });
+        });
+      }
     }, heroRef);
 
     return () => ctx.revert();
@@ -30,6 +48,34 @@ const HeroMain = () => {
       ref={heroRef}
       className="relative min-h-screen flex flex-col justify-center overflow-hidden"
     >
+      {/* Aurora glow background */}
+      <div
+        ref={auroraRef}
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+      >
+        <div
+          className="aurora-blob absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full opacity-[0.04]"
+          style={{
+            background: "radial-gradient(circle, #c4ff00 0%, transparent 70%)",
+            filter: "blur(80px)",
+          }}
+        />
+        <div
+          className="aurora-blob absolute top-[40%] right-[10%] w-[400px] h-[400px] rounded-full opacity-[0.03]"
+          style={{
+            background: "radial-gradient(circle, #00ffc4 0%, transparent 70%)",
+            filter: "blur(100px)",
+          }}
+        />
+        <div
+          className="aurora-blob absolute bottom-[10%] left-[40%] w-[450px] h-[450px] rounded-full opacity-[0.03]"
+          style={{
+            background: "radial-gradient(circle, #c4ff00 0%, transparent 70%)",
+            filter: "blur(90px)",
+          }}
+        />
+      </div>
+
       {/* Subtle background grid */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"

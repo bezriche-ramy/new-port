@@ -1,44 +1,7 @@
 import { useEffect, useRef } from "react";
-import { FaBug, FaGitAlt, FaJava, FaNodeJs, FaPython, FaReact, FaShieldAlt } from "react-icons/fa";
-import { TbBrandCpp } from "react-icons/tb";
-import { SiJavascript, SiLinux, SiMongodb, SiMysql, SiNextdotjs, SiTailwindcss } from "react-icons/si";
 import { gsap } from "../../lib/gsap";
-
-const skillsData = [
-  { skill: "React.js", icon: FaReact, score: 95 },
-  { skill: "Next.js", icon: SiNextdotjs, score: 92 },
-  { skill: "JavaScript", icon: SiJavascript, score: 93 },
-  { skill: "Malware Analysis", icon: FaBug, score: 90 },
-  { skill: "Python", icon: FaPython, score: 89 },
-  { skill: "Tailwind CSS", icon: SiTailwindcss, score: 91 },
-  { skill: "Linux", icon: SiLinux, score: 88 },
-  { skill: "Git & GitHub", icon: FaGitAlt, score: 90 },
-  { skill: "Ghidra", icon: FaShieldAlt, score: 86 },
-  { skill: "Node.js", icon: FaNodeJs, score: 80 },
-  { skill: "C/C++", icon: TbBrandCpp, score: 79 },
-  { skill: "MongoDB", icon: SiMongodb, score: 78 },
-  { skill: "MySQL", icon: SiMysql, score: 76 },
-  { skill: "Java", icon: FaJava, score: 77 },
-];
-
-const domains = [
-  {
-    title: "Frontend",
-    items: ["React", "JavaScript/TypeScript", "Responsive Design", "Redux"],
-  },
-  {
-    title: "Backend",
-    items: ["Node.js", "REST APIs", "Databases", "Server Security"],
-  },
-  {
-    title: "Security",
-    items: ["Pentesting", "Malware Analysis", "Reverse Engineering", "Audits"],
-  },
-  {
-    title: "DevOps",
-    items: ["Git", "Docker", "Linux", "CI/CD"],
-  },
-];
+import SkillLab from "./SkillLab";
+import { domains, skillsData } from "./skillsData";
 
 const SkillsMain = () => {
   const sectionRef = useRef(null);
@@ -60,6 +23,7 @@ const SkillsMain = () => {
             scrollTrigger: {
               trigger: sectionRef.current,
               start: "top 70%",
+              toggleActions: "play reverse play reverse",
             },
           }
         );
@@ -78,6 +42,7 @@ const SkillsMain = () => {
           scrollTrigger: {
             trigger: domainRefs.current[0],
             start: "top 80%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -174,6 +139,10 @@ const SkillsMain = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="section-padding-sm max-container pt-0">
+        <SkillLab skills={skillsData} domains={domains} />
       </div>
     </section>
   );

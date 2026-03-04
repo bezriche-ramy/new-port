@@ -22,6 +22,7 @@ const commands = {
     "  neofetch      — System info",
     "  clear         — Clear terminal",
     "  secret        — ???",
+    "  matrix        — Take the red pill",
   ],
   whoami: () => [
     "Ramy Bezriche",
@@ -101,6 +102,10 @@ const commands = {
     "│                                 │",
     "│   — Ramy, probably             │",
     "│                                 │",
+    "│   Hint: There's another secret  │",
+    "│   hidden on this page...        │",
+    "│   ↑ ↑ ↓ ↓ ← → ← → B A        │",
+    "│                                 │",
     "└─────────────────────────────────┘",
   ],
   sudo: () => [
@@ -115,6 +120,13 @@ const commands = {
   ],
   pwd: () => ["/home/ramy/portfolio"],
   date: () => [new Date().toString()],
+  matrix: () => {
+    window.dispatchEvent(new CustomEvent("activate-matrix"));
+    return [
+      "Entering the Matrix...",
+      "Wake up, Neo...",
+    ];
+  },
 };
 
 const INITIAL_LINES = [
@@ -253,7 +265,7 @@ const HeroTerminal = () => {
       style={{ fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}
     >
       {/* Terminal window */}
-      <div className="border border-border-medium bg-bg-elevated overflow-hidden">
+      <div className="accent-glow-shell border border-border-medium bg-bg-elevated overflow-hidden">
         {/* Title bar */}
         <div className="flex items-center gap-2 px-4 py-2.5 bg-bg-surface border-b border-border-subtle">
           <div className="flex gap-1.5">
@@ -295,7 +307,7 @@ const HeroTerminal = () => {
           <div className="flex items-center">
             <span className="text-accent shrink-0">❯</span>
             <span className="ml-1.5 text-text-primary">{input}</span>
-            <span className="w-[7px] h-[15px] bg-accent ml-[1px] animate-pulse" />
+            <span className="terminal-input-signal ml-2" aria-hidden="true" />
             <input
               ref={inputRef}
               type="text"
@@ -320,3 +332,4 @@ const HeroTerminal = () => {
 };
 
 export default HeroTerminal;
+

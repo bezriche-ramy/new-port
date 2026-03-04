@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BsArrowRight, BsGithub } from "react-icons/bs";
 import { gsap } from "../../lib/gsap";
+import MagneticButton from "../MagneticButton";
 
 const roles = [
   "Cybersecurity Student",
@@ -21,34 +22,39 @@ const HeroText = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Staggered character reveal with clip-path
+      // Cinematic character reveal with 3D flip
       const allChars = [...firstLineRefs.current, ...lastLineRefs.current].filter(Boolean);
 
       gsap.fromTo(
         allChars,
-        { y: 120, rotateX: -80, opacity: 0 },
+        { y: 120, rotateX: -90, opacity: 0, scale: 0.8 },
         {
           y: 0,
           rotateX: 0,
           opacity: 1,
-          duration: 1,
-          ease: "power4.out",
-          stagger: 0.04,
+          scale: 1,
+          duration: 1.2,
+          ease: "back.out(1.4)",
+          stagger: {
+            each: 0.04,
+            from: "start",
+          },
           delay: 2.0,
         }
       );
 
-      // Subtitle and CTA reveal
+      // Subtitle and CTA reveal with staggered slide-up
       gsap.fromTo(
         ".hero-reveal",
-        { y: 40, opacity: 0 },
+        { y: 50, opacity: 0, filter: "blur(4px)" },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
+          filter: "blur(0px)",
+          duration: 0.9,
           ease: "power3.out",
-          stagger: 0.12,
-          delay: 2.6,
+          stagger: 0.15,
+          delay: 2.8,
         }
       );
     }, wrapperRef);
@@ -127,25 +133,29 @@ const HeroText = () => {
 
       {/* CTA Row */}
       <div className="hero-reveal mt-10 flex flex-col sm:flex-row gap-4">
-        <a
-          className="inline-flex items-center gap-3 px-7 py-3.5 bg-accent text-bg-primary text-sm font-semibold hover:gap-5 transition-all duration-300"
-          href="https://github.com/bezriche-ramy"
-          target="_blank"
-          rel="noopener noreferrer"
-          data-cursor="magnetic"
-        >
-          <BsGithub className="text-lg" />
-          Explore GitHub
-        </a>
+        <MagneticButton strength={0.3}>
+          <a
+            className="inline-flex items-center gap-3 px-7 py-3.5 bg-accent text-bg-primary text-sm font-semibold hover:gap-5 transition-all duration-300"
+            href="https://github.com/bezriche-ramy"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="magnetic"
+          >
+            <BsGithub className="text-lg" />
+            Explore GitHub
+          </a>
+        </MagneticButton>
 
-        <a
-          className="inline-flex items-center gap-3 px-7 py-3.5 border border-border-medium text-text-primary text-sm font-medium hover:border-text-primary hover:gap-5 transition-all duration-300"
-          href="#projects"
-          data-cursor="magnetic"
-        >
-          View Projects
-          <BsArrowRight className="text-lg" />
-        </a>
+        <MagneticButton strength={0.3}>
+          <a
+            className="inline-flex items-center gap-3 px-7 py-3.5 border border-border-medium text-text-primary text-sm font-medium hover:border-text-primary hover:gap-5 transition-all duration-300"
+            href="#projects"
+            data-cursor="magnetic"
+          >
+            View Projects
+            <BsArrowRight className="text-lg" />
+          </a>
+        </MagneticButton>
       </div>
 
       {/* Horizontal info line */}

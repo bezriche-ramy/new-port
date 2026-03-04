@@ -22,6 +22,7 @@ const SingleExperience = ({ experience, index }) => {
         scrollTrigger: {
           trigger: rowRef.current,
           start: "top 82%",
+          toggleActions: "play reverse play reverse",
         },
       }
     );

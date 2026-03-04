@@ -84,6 +84,7 @@ const AllSkills = () => {
           scrollTrigger: {
             trigger: gridRef.current,
             start: "top 80%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );

@@ -36,6 +36,7 @@ const SingleProject = ({
           scrollTrigger: {
             trigger: cardNode,
             start: "top 80%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
@@ -51,6 +52,7 @@ const SingleProject = ({
           scrollTrigger: {
             trigger: cardNode,
             start: "top 78%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );

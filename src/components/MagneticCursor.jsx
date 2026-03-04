@@ -36,18 +36,20 @@ const MagneticCursor = () => {
       mouseX = e.clientX;
       mouseY = e.clientY;
 
+      // Inner dot — snappy follow
       gsap.to(cursor, {
         x: mouseX,
         y: mouseY,
-        duration: 0.1,
+        duration: 0.08,
         ease: "power2.out",
       });
 
+      // Outer ring — spring physics for organic feel
       gsap.to(follower, {
         x: mouseX,
         y: mouseY,
-        duration: 0.45,
-        ease: "power3.out",
+        duration: 0.6,
+        ease: "back.out(1.7)",
       });
     };
 
@@ -59,13 +61,14 @@ const MagneticCursor = () => {
         height: 80,
         backgroundColor: "rgba(196, 255, 0, 0.06)",
         borderColor: "rgba(196, 255, 0, 0.4)",
-        duration: 0.3,
-        ease: "power2.out",
+        duration: 0.4,
+        ease: "back.out(2)",
       });
 
       gsap.to(cursor, {
         scale: 0,
         duration: 0.2,
+        ease: "power2.in",
       });
 
       if (label && textRef.current) {
@@ -80,13 +83,14 @@ const MagneticCursor = () => {
         height: 40,
         backgroundColor: "transparent",
         borderColor: "rgba(255, 255, 255, 0.15)",
-        duration: 0.3,
-        ease: "power2.out",
+        duration: 0.5,
+        ease: "elastic.out(1, 0.4)",
       });
 
       gsap.to(cursor, {
         scale: 1,
-        duration: 0.2,
+        duration: 0.3,
+        ease: "back.out(2)",
       });
 
       if (textRef.current) {

@@ -31,6 +31,7 @@ const ContactMeMain = () => {
             scrollTrigger: {
               trigger: sectionRef.current,
               start: "top 70%",
+              toggleActions: "play reverse play reverse",
             },
           }
         );

@@ -1,4 +1,5 @@
 import { Link } from "react-scroll";
+import ScrambleText from "../ScrambleText";
 
 const links = [
   { name: "About", section: "about" },
@@ -42,9 +43,10 @@ const FooterMain = () => {
           <p className="text-xs text-text-tertiary">
             &copy; 2026 Ramy Bezriche. All rights reserved.
           </p>
-          <p className="text-xs text-text-tertiary">
-            Crafted with precision.
-          </p>
+          <ScrambleText
+            text="Crafted with precision."
+            className="text-xs text-text-tertiary cursor-default"
+          />
         </div>
       </div>
     </footer>

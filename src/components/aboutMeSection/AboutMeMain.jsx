@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "../../lib/gsap";
+import MagneticButton from "../MagneticButton";
 
 const detailBlocks = [
   {
@@ -24,62 +25,96 @@ const AboutMeMain = () => {
   const headingRef = useRef(null);
   const lineRefs = useRef([]);
   const blockRefs = useRef([]);
+  const leftColRef = useRef(null);
+  const rightColRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading text unmask on scroll
+      // Heading text unmask with smoother, more pronounced reveal
       if (headingRef.current) {
         const words = headingRef.current.querySelectorAll(".word-mask");
         gsap.fromTo(
           words,
-          { y: "100%", opacity: 0 },
+          { y: "120%", opacity: 0, rotateX: -40 },
           {
             y: 0,
             opacity: 1,
-            stagger: 0.08,
-            duration: 0.8,
-            ease: "power3.out",
+            rotateX: 0,
+            stagger: 0.06,
+            duration: 1,
+            ease: "back.out(1.2)",
             scrollTrigger: {
               trigger: sectionRef.current,
               start: "top 70%",
+              toggleActions: "play reverse play reverse",
             },
           }
         );
       }
 
-      // Lines reveal
+      // Lines reveal with blur effect
       gsap.fromTo(
         lineRefs.current.filter(Boolean),
-        { y: 30, opacity: 0 },
+        { y: 30, opacity: 0, filter: "blur(4px)" },
         {
           y: 0,
           opacity: 1,
+          filter: "blur(0px)",
           stagger: 0.12,
-          duration: 0.7,
+          duration: 0.8,
           ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 65%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
 
-      // Detail blocks
+      // Detail blocks with staggered slide-up
       gsap.fromTo(
         blockRefs.current.filter(Boolean),
-        { y: 40, opacity: 0 },
+        { y: 50, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           stagger: 0.14,
-          duration: 0.7,
-          ease: "power2.out",
+          duration: 0.8,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: blockRefs.current[0],
             start: "top 80%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
+
+      // Parallax: left column moves slightly slower than right
+      if (leftColRef.current) {
+        gsap.to(leftColRef.current, {
+          yPercent: -4,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }
+
+      if (rightColRef.current) {
+        gsap.to(rightColRef.current, {
+          yPercent: 3,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -102,14 +137,18 @@ const AboutMeMain = () => {
         {/* Two-column asymmetric layout */}
         <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-16 lg:gap-24">
           {/* Left — Large heading with word-by-word reveal */}
-          <div>
+          <div ref={leftColRef}>
             <h2
               ref={headingRef}
               className="text-display font-display text-text-primary"
+              style={{ perspective: "600px" }}
             >
               {headingWords.map((word, i) => (
                 <span key={i} className="inline-block overflow-hidden mr-[0.3em]">
-                  <span className="word-mask inline-block will-change-transform">
+                  <span
+                    className="word-mask inline-block will-change-transform"
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
                     {word}
                   </span>
                 </span>
@@ -124,19 +163,21 @@ const AboutMeMain = () => {
               create interfaces that are both dependable and memorable.
             </p>
 
-            <a
-              ref={(el) => { lineRefs.current[2] = el; }}
-              href="#projects"
-              className="inline-flex items-center gap-3 mt-8 text-sm text-accent hover:gap-5 transition-all duration-300"
-              data-cursor="magnetic"
-            >
-              <span className="w-8 h-[1px] bg-accent" />
-              View Projects
-            </a>
+            <MagneticButton strength={0.35}>
+              <a
+                ref={(el) => { lineRefs.current[2] = el; }}
+                href="#projects"
+                className="inline-flex items-center gap-3 mt-8 text-sm text-accent hover:gap-5 transition-all duration-300"
+                data-cursor="magnetic"
+              >
+                <span className="w-8 h-[1px] bg-accent" />
+                View Projects
+              </a>
+            </MagneticButton>
           </div>
 
           {/* Right — Detail blocks */}
-          <div className="space-y-8">
+          <div ref={rightColRef} className="space-y-8">
             {detailBlocks.map((block, i) => (
               <div
                 key={block.title}
