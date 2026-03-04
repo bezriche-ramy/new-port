@@ -13,62 +13,54 @@ export default {
     },
     colors: {
       transparent: "transparent",
+      current: "currentColor",
       white: "#FFFFFF",
       black: "#000000",
-      void: "#0A0A0F",
-      slate: "#12121A",
-      background: "#0A0A0F",
-      secondary: "#12121A",
-      muted: "#86868B",
-      accent: "#2997FF",
-      highlight: "#BF5AF2",
-      glass: "rgba(255,255,255,0.04)",
+      bg: {
+        primary: "#050505",
+        elevated: "#0a0a0a",
+        surface: "#111111",
+      },
       text: {
-        primary: "#F5F5F7",
-        secondary: "#86868B",
+        primary: "#e8e8e8",
+        secondary: "#777777",
+        tertiary: "#444444",
       },
+      accent: "#c4ff00",
       border: {
-        glass: "rgba(255,255,255,0.08)",
+        subtle: "rgba(255,255,255,0.06)",
+        medium: "rgba(255,255,255,0.12)",
       },
-      "accent-1": "#2997FF",
-      "accent-2": "#BF5AF2",
     },
     extend: {
       fontSize: {
-        hero: ["clamp(3rem, 10vw, 8rem)", { lineHeight: "0.95", letterSpacing: "-0.03em" }],
+        hero: [
+          "clamp(3.5rem, 12vw, 10rem)",
+          { lineHeight: "0.88", letterSpacing: "-0.04em" },
+        ],
       },
-      boxShadow: {
-        card: "0 8px 32px rgba(0,0,0,0.4)",
-        elevated: "0 16px 50px rgba(0,0,0,0.5)",
-        glass: "0 8px 32px rgba(0,0,0,0.4)",
-        "glass-glow": "0 10px 45px rgba(41,151,255,0.15)",
-      },
-      backdropBlur: {
-        glass: "40px",
-      },
-      borderRadius: {
-        glass: "24px",
-        pill: "9999px",
+      transitionTimingFunction: {
+        smooth: "cubic-bezier(0.65, 0, 0.35, 1)",
       },
       animation: {
         "float-y": "floatY 6s ease-in-out infinite",
-        "gradient-flow": "gradientFlow 14s ease-in-out infinite alternate",
       },
       keyframes: {
         floatY: {
           "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-16px)" },
-        },
-        gradientFlow: {
-          "0%": { backgroundPosition: "0% 50%" },
-          "100%": { backgroundPosition: "100% 50%" },
+          "50%": { transform: "translateY(-12px)" },
         },
       },
     },
     fontFamily: {
-      body: ["Inter", "system-ui", "sans-serif"],
-      heading: ["Manrope", "Inter", "system-ui", "sans-serif"],
-      display: ["SF Pro Display", "Manrope", "Inter", "system-ui", "sans-serif"],
+      body: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+      display: [
+        "Space Grotesk",
+        "Inter",
+        "system-ui",
+        "-apple-system",
+        "sans-serif",
+      ],
       code: ["JetBrains Mono", "monospace"],
     },
   },

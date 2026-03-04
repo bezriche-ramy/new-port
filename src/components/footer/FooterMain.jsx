@@ -1,32 +1,33 @@
-﻿import { Link } from "react-scroll";
-import FooterLine from "./FooterLine";
+import { Link } from "react-scroll";
 
 const links = [
-  { name: "A propos", section: "about" },
-  { name: "Competences", section: "skills" },
+  { name: "About", section: "about" },
+  { name: "Skills", section: "skills" },
   { name: "Experience", section: "experience" },
-  { name: "Projets", section: "projects" },
+  { name: "Projects", section: "projects" },
   { name: "Contact", section: "contact" },
 ];
 
 const FooterMain = () => {
   return (
-    <footer className="px-6 md:px-8 pb-10 pt-8">
-      <div className="max-w-6xl mx-auto">
-        <FooterLine />
+    <footer className="border-t border-border-subtle">
+      <div className="section-padding-sm max-container">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          {/* Logo */}
+          <span className="font-display text-lg text-text-primary tracking-tight">
+            RB<span className="text-accent">.</span>
+          </span>
 
-        <div className="mt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-          <p className="font-heading text-xl text-text-primary">Ramy Bezriche</p>
-
-          <ul className="flex flex-wrap gap-4 md:gap-5 text-sm text-text-secondary">
+          {/* Links */}
+          <ul className="flex flex-wrap gap-6 text-sm text-text-secondary">
             {links.map((item) => (
               <li key={item.section}>
                 <Link
                   to={item.section}
                   smooth
                   duration={450}
-                  offset={-110}
-                  className="hover:text-text-primary transition-colors cursor-pointer"
+                  offset={-80}
+                  className="hover:text-text-primary transition-colors hover-line"
                 >
                   {item.name}
                 </Link>
@@ -35,7 +36,16 @@ const FooterMain = () => {
           </ul>
         </div>
 
-        <p className="mt-6 text-xs md:text-sm text-text-secondary">Copyright 2026 Ramy Bezriche. All rights reserved.</p>
+        <div className="mt-8 h-[1px] bg-border-subtle" />
+
+        <div className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <p className="text-xs text-text-tertiary">
+            &copy; 2026 Ramy Bezriche. All rights reserved.
+          </p>
+          <p className="text-xs text-text-tertiary">
+            Crafted with precision.
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { BsArrowRight, BsGithub } from "react-icons/bs";
 import { gsap } from "../../lib/gsap";
 
@@ -11,42 +11,50 @@ const roles = [
 
 const HeroText = () => {
   const wrapperRef = useRef(null);
-  const charRefs = useRef([]);
+  const firstLineRefs = useRef([]);
+  const lastLineRefs = useRef([]);
   const roleRef = useRef(null);
   const [roleIndex, setRoleIndex] = useState(0);
+
   const firstNameChars = useMemo(() => "Ramy".split(""), []);
   const lastNameChars = useMemo(() => "Bezriche".split(""), []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Staggered character reveal with clip-path
+      const allChars = [...firstLineRefs.current, ...lastLineRefs.current].filter(Boolean);
+
       gsap.fromTo(
-        charRefs.current,
-        { y: 48, opacity: 0 },
+        allChars,
+        { y: 120, rotateX: -80, opacity: 0 },
+        {
+          y: 0,
+          rotateX: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power4.out",
+          stagger: 0.04,
+          delay: 2.0,
+        }
+      );
+
+      // Subtitle and CTA reveal
+      gsap.fromTo(
+        ".hero-reveal",
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           duration: 0.8,
-          ease: "elastic.out(1, 0.8)",
-          stagger: 0.03,
-          delay: 0.18,
+          ease: "power3.out",
+          stagger: 0.12,
+          delay: 2.6,
         }
-      );
-
-      gsap.fromTo(
-        ".hero-line",
-        { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, ease: "power2.out", stagger: 0.12, delay: 0.45 }
-      );
-
-      gsap.fromTo(
-        ".hero-cta",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.55, ease: "power2.out", stagger: 0.09, delay: 0.78 }
       );
     }, wrapperRef);
 
     const interval = window.setInterval(() => {
-      setRoleIndex((current) => (current + 1) % roles.length);
+      setRoleIndex((c) => (c + 1) % roles.length);
     }, 2600);
 
     return () => {
@@ -56,75 +64,97 @@ const HeroText = () => {
   }, []);
 
   useEffect(() => {
-    if (!roleRef.current) {
-      return;
-    }
-
+    if (!roleRef.current) return;
     gsap.fromTo(
       roleRef.current,
-      { y: 18, opacity: 0 },
+      { y: 20, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
     );
   }, [roleIndex]);
 
   return (
-    <div ref={wrapperRef} className="text-center lg:text-left">
-      <p className="hero-line uppercase tracking-[0.35em] text-[11px] sm:text-xs text-text-secondary font-semibold mb-4">
-        Digital Alchemist
-      </p>
+    <div ref={wrapperRef} style={{ perspective: "1000px" }}>
+      {/* Role tag */}
+      <div className="hero-reveal mb-8">
+        <span
+          ref={roleRef}
+          className="inline-block text-sm md:text-base text-accent font-medium tracking-wide"
+        >
+          {roles[roleIndex]}
+        </span>
+      </div>
 
-      <h1 className="font-display text-[clamp(2.8rem,8.2vw,6.6rem)] font-extrabold leading-[0.92] text-text-primary mb-4">
-        <span className="block">
-          {firstNameChars.map((char, index) => (
+      {/* Giant name — typography as primary visual */}
+      <h1 className="font-display text-hero leading-[0.88] tracking-tighter">
+        <span className="block overflow-hidden pb-2">
+          {firstNameChars.map((char, i) => (
             <span
-              key={`first-${char}-${index}`}
-              ref={(node) => {
-                charRefs.current[index] = node;
-              }}
-              className="inline-block"
+              key={`f-${i}`}
+              ref={(el) => { firstLineRefs.current[i] = el; }}
+              className="inline-block will-change-transform"
+              style={{ transformStyle: "preserve-3d" }}
             >
               {char}
             </span>
           ))}
         </span>
-        <span className="block">
-          {lastNameChars.map((char, index) => (
+        <span className="block overflow-hidden pb-2">
+          {lastNameChars.map((char, i) => (
             <span
-              key={`last-${char}-${index}`}
-              ref={(node) => {
-                charRefs.current[firstNameChars.length + index] = node;
-              }}
-              className="inline-block"
+              key={`l-${i}`}
+              ref={(el) => { lastLineRefs.current[i] = el; }}
+              className="inline-block will-change-transform"
+              style={{ transformStyle: "preserve-3d" }}
             >
               {char}
             </span>
           ))}
+          <span
+            className="inline-block will-change-transform text-accent"
+            ref={(el) => { lastLineRefs.current[lastNameChars.length] = el; }}
+            style={{ transformStyle: "preserve-3d" }}
+          >
+            .
+          </span>
         </span>
       </h1>
 
-      <p ref={roleRef} className="hero-line gradient-text text-2xl sm:text-3xl md:text-4xl font-bold min-h-[2.4rem] sm:min-h-[3rem]">
-        {roles[roleIndex]}
+      {/* Description */}
+      <p className="hero-reveal mt-8 md:mt-12 text-base md:text-lg text-text-secondary max-w-xl leading-relaxed">
+        Crafting secure digital experiences with modern front-end engineering,
+        performance-first execution, and practical security depth.
       </p>
 
-      <p className="hero-line mt-6 text-base sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-        Crafting secure digital experiences with modern front-end engineering, performance-first execution, and practical security depth.
-      </p>
-
-      <div className="mt-9 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+      {/* CTA Row */}
+      <div className="hero-reveal mt-10 flex flex-col sm:flex-row gap-4">
         <a
-          className="hero-cta btn-primary"
+          className="inline-flex items-center gap-3 px-7 py-3.5 bg-accent text-bg-primary text-sm font-semibold hover:gap-5 transition-all duration-300"
           href="https://github.com/bezriche-ramy"
           target="_blank"
           rel="noopener noreferrer"
+          data-cursor="magnetic"
         >
           <BsGithub className="text-lg" />
           Explore GitHub
         </a>
 
-        <a className="hero-cta btn-secondary" href="#projects">
+        <a
+          className="inline-flex items-center gap-3 px-7 py-3.5 border border-border-medium text-text-primary text-sm font-medium hover:border-text-primary hover:gap-5 transition-all duration-300"
+          href="#projects"
+          data-cursor="magnetic"
+        >
           View Projects
           <BsArrowRight className="text-lg" />
         </a>
+      </div>
+
+      {/* Horizontal info line */}
+      <div className="hero-reveal mt-16 flex items-center gap-8 text-xs text-text-tertiary uppercase tracking-widest">
+        <span>Based in Algiers</span>
+        <span className="w-12 h-[1px] bg-border-medium" />
+        <span>3+ Years Experience</span>
+        <span className="w-12 h-[1px] bg-border-medium hidden sm:block" />
+        <span className="hidden sm:inline">20+ Projects</span>
       </div>
     </div>
   );

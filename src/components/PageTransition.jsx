@@ -1,41 +1,87 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "../lib/gsap";
 
 const PageTransition = () => {
   const [isVisible, setIsVisible] = useState(true);
   const overlayRef = useRef(null);
+  const counterRef = useRef(null);
+  const nameRef = useRef(null);
+  const columnsRef = useRef([]);
 
   useEffect(() => {
-    if (!overlayRef.current) {
-      return undefined;
-    }
+    if (!overlayRef.current) return undefined;
 
+    const counter = { value: 0 };
     const tl = gsap.timeline({
-      delay: 0.2,
       onComplete: () => setIsVisible(false),
     });
 
-    tl.fromTo(".page-transition-logo", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" })
-      .to(".page-transition-bar", { width: "100%", duration: 1.05, ease: "power2.inOut" }, "<")
-      .to(".page-transition-logo", { opacity: 0, y: -18, duration: 0.26, ease: "power2.in" }, ">-0.08")
-      .to(overlayRef.current, { yPercent: -100, duration: 0.75, ease: "power3.inOut" });
+    // Count from 0 to 100
+    tl.to(counter, {
+      value: 100,
+      duration: 1.8,
+      ease: "power2.inOut",
+      onUpdate: () => {
+        if (counterRef.current) {
+          counterRef.current.textContent = Math.round(counter.value);
+        }
+      },
+    });
+
+    // Fade in name
+    tl.fromTo(
+      nameRef.current,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      0.3
+    );
+
+    // Slide columns up with stagger to reveal content
+    tl.to(
+      columnsRef.current,
+      {
+        yPercent: -100,
+        duration: 0.8,
+        stagger: 0.08,
+        ease: "power4.inOut",
+      },
+      1.6
+    );
 
     return () => tl.kill();
   }, []);
 
-  if (!isVisible) {
-    return null;
-  }
+  if (!isVisible) return null;
 
   return (
-    <div ref={overlayRef} className="fixed inset-0 z-[9999] bg-background/95 backdrop-blur-xl flex items-center justify-center">
-      <div className="glass-panel w-[min(460px,88vw)] p-8 md:p-10 text-center">
-        <h1 className="page-transition-logo font-display text-5xl md:text-6xl font-bold gradient-text">RB</h1>
-        <p className="text-text-secondary text-xs uppercase tracking-[0.3em] mt-2">Loading Experience</p>
+    <div ref={overlayRef} className="fixed inset-0 z-[9999]">
+      {/* Column-based reveal mask */}
+      <div className="absolute inset-0 flex">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <div
+            key={i}
+            ref={(el) => { columnsRef.current[i] = el; }}
+            className="flex-1 bg-bg-primary will-change-transform"
+          />
+        ))}
+      </div>
 
-        <div className="mt-8 h-1.5 rounded-full bg-white/8 overflow-hidden">
-          <div className="page-transition-bar h-full w-0 rounded-full bg-gradient-to-r from-accent-1 to-accent-2" />
-        </div>
+      {/* Counter overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
+        <p
+          ref={counterRef}
+          className="font-display text-[clamp(5rem,20vw,14rem)] font-bold text-text-primary leading-none tracking-tighter"
+          style={{ mixBlendMode: "difference" }}
+        >
+          0
+        </p>
+        <p
+          ref={nameRef}
+          className="text-label mt-6 opacity-0"
+          style={{ mixBlendMode: "difference", color: "#e8e8e8" }}
+        >
+          Ramy Bezriche — Portfolio
+        </p>
       </div>
     </div>
   );

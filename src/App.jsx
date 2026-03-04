@@ -3,37 +3,34 @@ import NavbarMain from "./components/navbar/NavbarMain";
 import HeroMain from "./components/heroSection/HeroMain";
 import MagneticCursor from "./components/MagneticCursor";
 import PageTransition from "./components/PageTransition";
-
 import LoadingDots from "./components/LoadingDots";
-import { ThemeProvider } from "./context/ThemeContext";
-import Lenis from 'lenis';
+import Lenis from "lenis";
 
-// Lazy load components in chunks for better performance
 const AboutAndSkills = lazy(() =>
   Promise.all([
     import("./components/aboutMeSection/AboutMeMain"),
-    import("./components/skillsSection/SkillsMain")
+    import("./components/skillsSection/SkillsMain"),
   ]).then(([about, skills]) => ({
     default: () => (
       <>
         <about.default />
         <skills.default />
       </>
-    )
+    ),
   }))
 );
 
 const ProjectsAndExperience = lazy(() =>
   Promise.all([
     import("./components/experienceSection/ExperienceMain"),
-    import("./components/projectsSection/ProjectsMain")
+    import("./components/projectsSection/ProjectsMain"),
   ]).then(([exp, proj]) => ({
     default: () => (
       <>
         <exp.default />
         <proj.default />
       </>
-    )
+    ),
   }))
 );
 
@@ -41,7 +38,7 @@ const CertAndContact = lazy(() =>
   Promise.all([
     import("./components/certificateSection/CertificateMain"),
     import("./components/contactMeSection/ContactMeMain"),
-    import("./components/footer/FooterMain")
+    import("./components/footer/FooterMain"),
   ]).then(([cert, contact, footer]) => ({
     default: () => (
       <>
@@ -49,7 +46,7 @@ const CertAndContact = lazy(() =>
         <contact.default />
         <footer.default />
       </>
-    )
+    ),
   }))
 );
 
@@ -57,11 +54,10 @@ function App() {
   const lenisRef = useRef(null);
 
   useEffect(() => {
-    // Initialize Lenis smooth scroll
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
+      orientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
@@ -82,24 +78,21 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider>
+    <>
       <PageTransition />
       <MagneticCursor />
-      <main className="font-body text-text-primary relative overflow-hidden bg-background min-h-screen">
-        <div className="relative z-10">
-          <NavbarMain />
-          <HeroMain />
+      <div className="noise-overlay" />
+      <main className="relative bg-bg-primary min-h-screen text-text-primary font-body">
+        <NavbarMain />
+        <HeroMain />
 
-          <Suspense fallback={<LoadingDots />}>
-            <div className="section-background">
-              <AboutAndSkills />
-              <ProjectsAndExperience />
-              <CertAndContact />
-            </div>
-          </Suspense>
-        </div>
+        <Suspense fallback={<LoadingDots />}>
+          <AboutAndSkills />
+          <ProjectsAndExperience />
+          <CertAndContact />
+        </Suspense>
       </main>
-    </ThemeProvider>
+    </>
   );
 }
 
