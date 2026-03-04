@@ -54,20 +54,53 @@ const CertAndContact = lazy(() =>
   }))
 );
 
+const emitLayoutUpdated = () => {
+  window.dispatchEvent(new Event("app:layout-updated"));
+};
+
+const LazyContentReady = () => {
+  useEffect(() => {
+    emitLayoutUpdated();
+  }, []);
+
+  return null;
+};
+
 function App() {
   const lenisRef = useRef(null);
+  const refreshRafRef = useRef(0);
+  const refreshTimeoutRef = useRef(0);
 
   useEffect(() => {
+    const scheduleRefresh = () => {
+      if (refreshRafRef.current) {
+        cancelAnimationFrame(refreshRafRef.current);
+      }
+
+      refreshRafRef.current = requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+      });
+    };
+
+    const scheduleRefreshBurst = () => {
+      scheduleRefresh();
+      if (refreshTimeoutRef.current) {
+        window.clearTimeout(refreshTimeoutRef.current);
+      }
+      refreshTimeoutRef.current = window.setTimeout(scheduleRefresh, 140);
+    };
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: 1.35,
     });
 
     lenisRef.current = lenis;
+    window.__lenis = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 
     const raf = (time) => {
@@ -76,10 +109,26 @@ function App() {
 
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
+    window.addEventListener("load", scheduleRefreshBurst);
+    window.addEventListener("resize", scheduleRefreshBurst);
+    window.addEventListener("app:layout-updated", scheduleRefreshBurst);
+    scheduleRefreshBurst();
 
     return () => {
+      window.removeEventListener("load", scheduleRefreshBurst);
+      window.removeEventListener("resize", scheduleRefreshBurst);
+      window.removeEventListener("app:layout-updated", scheduleRefreshBurst);
+      if (refreshRafRef.current) {
+        cancelAnimationFrame(refreshRafRef.current);
+      }
+      if (refreshTimeoutRef.current) {
+        window.clearTimeout(refreshTimeoutRef.current);
+      }
       gsap.ticker.remove(raf);
       lenis.off?.("scroll", ScrollTrigger.update);
+      if (window.__lenis === lenis) {
+        delete window.__lenis;
+      }
       lenis.destroy();
     };
   }, []);
@@ -100,6 +149,7 @@ function App() {
           <AboutAndSkills />
           <ProjectsAndExperience />
           <CertAndContact />
+          <LazyContentReady />
         </Suspense>
       </main>
     </>

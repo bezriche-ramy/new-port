@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from "react";
 import { BsArrowUpRight, BsGithub } from "react-icons/bs";
-import { gsap, ScrollTrigger } from "../../lib/gsap";
+import { gsap } from "../../lib/gsap";
 
 const projects = [
   {
@@ -134,11 +134,23 @@ const ProjectsMain = () => {
   const trackRef = useRef(null);
   const headerRef = useRef(null);
   const imageRefs = useRef([]);
+  const refreshRafRef = useRef(0);
 
   useEffect(() => {
     const section = sectionRef.current;
     const track = trackRef.current;
     if (!section || !track) return undefined;
+
+    const debugMarkers = import.meta.env.DEV && window.__DEBUG_SCROLL === true;
+    const queueLayoutRefresh = () => {
+      if (refreshRafRef.current) {
+        cancelAnimationFrame(refreshRafRef.current);
+      }
+
+      refreshRafRef.current = requestAnimationFrame(() => {
+        window.dispatchEvent(new Event("app:layout-updated"));
+      });
+    };
 
     const ctx = gsap.context(() => {
       // Header reveal
@@ -154,29 +166,38 @@ const ProjectsMain = () => {
             scrollTrigger: {
               trigger: section,
               start: "top 75%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             },
           }
         );
       }
 
-      // Horizontal scroll
-      const getScrollAmount = () => {
-        return -(track.scrollWidth - window.innerWidth);
+      const getScrollDistance = () => {
+        return Math.max(track.scrollWidth - window.innerWidth, 0);
       };
 
-      gsap.to(track, {
-        x: getScrollAmount,
-        ease: "none",
+      const getScrollEnd = () => {
+        return Math.max(getScrollDistance(), 1);
+      };
+
+      // Horizontal scroll (pinned)
+      const horizontalTl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: () => `+=${Math.abs(getScrollAmount())}`,
+          end: () => `+=${getScrollEnd()}`,
           scrub: 1,
           pin: true,
           anticipatePin: 1,
+          fastScrollEnd: true,
           invalidateOnRefresh: true,
+          markers: debugMarkers,
         },
+      });
+
+      horizontalTl.to(track, {
+        x: () => -getScrollDistance(),
+        ease: "none",
       });
 
       // Parallax on project images
@@ -190,15 +211,51 @@ const ProjectsMain = () => {
             scrollTrigger: {
               trigger: section,
               start: "top top",
-              end: () => `+=${Math.abs(getScrollAmount())}`,
+              end: () => `+=${getScrollEnd()}`,
               scrub: 1,
+              invalidateOnRefresh: true,
+              markers: debugMarkers,
             },
           }
         );
       });
     }, section);
 
-    return () => ctx.revert();
+    const pendingImages = [];
+    let pendingImageCount = 0;
+    const onImageSettled = (event) => {
+      const img = event.currentTarget;
+      img.removeEventListener("load", onImageSettled);
+      img.removeEventListener("error", onImageSettled);
+      pendingImageCount = Math.max(pendingImageCount - 1, 0);
+
+      if (pendingImageCount === 0) {
+        queueLayoutRefresh();
+      }
+    };
+    const imgs = track.querySelectorAll("img");
+    imgs.forEach((img) => {
+      if (img.complete) return;
+      pendingImageCount += 1;
+      img.addEventListener("load", onImageSettled);
+      img.addEventListener("error", onImageSettled);
+      pendingImages.push(img);
+    });
+
+    if (pendingImageCount === 0) {
+      queueLayoutRefresh();
+    }
+
+    return () => {
+      pendingImages.forEach((img) => {
+        img.removeEventListener("load", onImageSettled);
+        img.removeEventListener("error", onImageSettled);
+      });
+      if (refreshRafRef.current) {
+        cancelAnimationFrame(refreshRafRef.current);
+      }
+      ctx.revert();
+    };
   }, []);
 
   return (

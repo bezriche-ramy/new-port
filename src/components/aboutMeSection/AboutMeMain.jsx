@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "../../lib/gsap";
 import MagneticButton from "../MagneticButton";
+import { scrollToSection } from "../../lib/scroll";
 
 const detailBlocks = [
   {
@@ -164,15 +165,16 @@ const AboutMeMain = () => {
             </p>
 
             <MagneticButton strength={0.35}>
-              <a
+              <button
+                type="button"
                 ref={(el) => { lineRefs.current[2] = el; }}
-                href="#projects"
+                onClick={() => scrollToSection("projects", { offset: -80 })}
                 className="inline-flex items-center gap-3 mt-8 text-sm text-accent hover:gap-5 transition-all duration-300"
                 data-cursor="magnetic"
               >
                 <span className="w-8 h-[1px] bg-accent" />
                 View Projects
-              </a>
+              </button>
             </MagneticButton>
           </div>
 

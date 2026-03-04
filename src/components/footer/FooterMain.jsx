@@ -1,5 +1,5 @@
-import { Link } from "react-scroll";
 import ScrambleText from "../ScrambleText";
+import { scrollToSection } from "../../lib/scroll";
 
 const links = [
   { name: "About", section: "about" },
@@ -23,15 +23,13 @@ const FooterMain = () => {
           <ul className="flex flex-wrap gap-6 text-sm text-text-secondary">
             {links.map((item) => (
               <li key={item.section}>
-                <Link
-                  to={item.section}
-                  smooth
-                  duration={450}
-                  offset={-80}
+                <button
+                  type="button"
+                  onClick={() => scrollToSection(item.section, { offset: -80 })}
                   className="hover:text-text-primary transition-colors hover-line"
                 >
                   {item.name}
-                </Link>
+                </button>
               </li>
             ))}
           </ul>

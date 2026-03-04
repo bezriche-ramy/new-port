@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "../lib/gsap";
+import { scrollToTop } from "../lib/scroll";
 
 const BackToTop = () => {
   const [visible, setVisible] = useState(false);
@@ -35,8 +36,8 @@ const BackToTop = () => {
     });
   }, [visible]);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleScrollToTop = () => {
+    scrollToTop({ duration: 1 });
   };
 
   const circumference = 2 * Math.PI * 18;
@@ -45,7 +46,7 @@ const BackToTop = () => {
     <button
       ref={btnRef}
       type="button"
-      onClick={scrollToTop}
+      onClick={handleScrollToTop}
       className="fixed bottom-8 right-8 z-[98] w-12 h-12 flex items-center justify-center bg-bg-elevated border border-border-medium hover:border-accent transition-colors duration-300 rounded-full"
       style={{ transform: "scale(0)", opacity: 0 }}
       aria-label="Back to top"

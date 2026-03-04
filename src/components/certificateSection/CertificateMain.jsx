@@ -25,21 +25,28 @@ const CertificateMain = () => {
     if (!gridRef.current || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
+      const cards = Array.from(gridRef.current.children);
+      const headerItems = headerRef.current ? Array.from(headerRef.current.children) : [];
+
+      gsap.set(cards, { willChange: "transform,opacity" });
+
       // Header reveal
-      if (headerRef.current) {
+      if (headerItems.length) {
         gsap.fromTo(
-          headerRef.current.children,
-          { y: 30, opacity: 0 },
+          headerItems,
+          { y: 24, autoAlpha: 0 },
           {
             y: 0,
-            opacity: 1,
-            stagger: 0.1,
-            duration: 0.7,
-            ease: "power3.out",
+            autoAlpha: 1,
+            stagger: 0.06,
+            duration: 0.5,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: "top 75%",
-              toggleActions: "play reverse play reverse",
+              start: "top 88%",
+              fastScrollEnd: true,
+              invalidateOnRefresh: true,
+              once: true,
             },
           }
         );
@@ -47,19 +54,21 @@ const CertificateMain = () => {
 
       // Cards staggered reveal
       gsap.fromTo(
-        gridRef.current.children,
-        { y: 40, opacity: 0, scale: 0.95 },
+        cards,
+        { y: 22, autoAlpha: 0 },
         {
           y: 0,
-          opacity: 1,
-          scale: 1,
-          stagger: 0.07,
-          duration: 0.6,
-          ease: "power3.out",
+          autoAlpha: 1,
+          stagger: 0.05,
+          duration: 0.45,
+          ease: "power2.out",
+          onComplete: () => gsap.set(cards, { clearProps: "willChange" }),
           scrollTrigger: {
             trigger: gridRef.current,
-            start: "top 80%",
-            toggleActions: "play reverse play reverse",
+            start: "top 90%",
+            fastScrollEnd: true,
+            invalidateOnRefresh: true,
+            once: true,
           },
         }
       );
@@ -142,7 +151,7 @@ const CertificateMain = () => {
               key={cert.title}
               type="button"
               onClick={() => setSelectedIndex(i)}
-              className="group relative text-left overflow-hidden bg-bg-primary border border-border-subtle hover:border-accent/30 transition-all duration-500"
+              className="group relative text-left overflow-hidden bg-bg-primary border border-border-subtle hover:border-accent/30 transition-all duration-500 will-change-transform"
               data-cursor-label="View"
             >
               {/* Number badge */}
@@ -156,7 +165,9 @@ const CertificateMain = () => {
                   src={cert.image}
                   alt={cert.title}
                   loading="lazy"
-                  className="w-full h-full object-contain p-3 grayscale brightness-[0.85] contrast-[1.1] group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 scale-[1.02] group-hover:scale-100 transition-all duration-700 ease-out"
+                  decoding="async"
+                  fetchPriority={i < 3 ? "high" : "auto"}
+                  className="w-full h-full object-contain p-3 grayscale group-hover:grayscale-0 scale-[1.01] group-hover:scale-100 transition-all duration-500 ease-out"
                 />
 
                 {/* Subtle scan line overlay */}

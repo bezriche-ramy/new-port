@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleMenu } from "../../state/menuSlice";
-import { Link } from "react-scroll";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
+import { scrollToSection } from "../../lib/scroll";
 
 const navLinks = [
   { label: "About", section: "about", num: "01" },
@@ -19,6 +19,7 @@ const NavbarMain = () => {
   const overlayRef = useRef(null);
   const linkRefs = useRef([]);
   const isHidden = useRef(false);
+  const navOffset = -80;
 
   // Hide on scroll down, show on scroll up
   useEffect(() => {
@@ -88,35 +89,29 @@ const NavbarMain = () => {
         style={{ opacity: 0 }}
       >
         <div className="max-container flex items-center justify-between py-5">
-          <Link
-            to="hero"
-            spy
-            smooth
-            duration={450}
-            offset={0}
+          <button
+            type="button"
+            onClick={() => scrollToSection("hero", { offset: 0 })}
             className="select-none"
+            aria-label="Scroll to hero"
           >
             <span className="font-display text-lg text-text-primary tracking-tight">
               RB
               <span className="text-accent">.</span>
             </span>
-          </Link>
+          </button>
 
           {/* Desktop links */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link
+              <button
+                type="button"
                 key={link.section}
-                to={link.section}
-                spy
-                smooth
-                duration={500}
-                offset={-80}
+                onClick={() => scrollToSection(link.section, { offset: navOffset })}
                 className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300 hover-line"
-                activeClass="!text-text-primary"
               >
                 {link.label}
-              </Link>
+              </button>
             ))}
           </div>
 
@@ -173,13 +168,12 @@ const NavbarMain = () => {
               key={link.section}
               ref={(el) => { linkRefs.current[i] = el; }}
             >
-              <Link
-                to={link.section}
-                spy
-                smooth
-                duration={500}
-                offset={-80}
-                onClick={() => dispatch(toggleMenu())}
+              <button
+                type="button"
+                onClick={() => {
+                  scrollToSection(link.section, { offset: navOffset });
+                  dispatch(toggleMenu());
+                }}
                 className="group flex items-baseline gap-4 py-3"
               >
                 <span className="text-sm text-text-tertiary font-code">
@@ -188,7 +182,7 @@ const NavbarMain = () => {
                 <span className="font-display text-[clamp(2rem,8vw,5rem)] text-text-primary leading-none tracking-tight group-hover:text-accent transition-colors duration-300">
                   {link.label}
                 </span>
-              </Link>
+              </button>
             </div>
           ))}
         </div>

@@ -90,7 +90,7 @@ const ExperienceMain = () => {
           scrollTrigger: {
             trigger: timelineRef.current,
             start: "top 75%",
-            toggleActions: "play reverse play reverse",
+            once: true,
           },
         }
       );
@@ -108,7 +108,7 @@ const ExperienceMain = () => {
             scrollTrigger: {
               trigger: bar,
               start: "top 85%",
-              toggleActions: "play reverse play reverse",
+              once: true,
             },
           }
         );
