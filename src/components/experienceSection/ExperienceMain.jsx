@@ -150,7 +150,7 @@ const ExperienceMain = () => {
 
             {/* Expertise bars */}
             <div className="mt-10 space-y-4">
-              {expertiseAreas.map((area) => (
+              {expertiseAreas.map((area, i) => (
                 <div key={area.name}>
                   <div className="flex justify-between text-xs mb-2">
                     <span className="text-text-secondary">{area.name}</span>
@@ -158,7 +158,7 @@ const ExperienceMain = () => {
                   </div>
                   <div className="h-[2px] bg-border-subtle overflow-hidden">
                     <div
-                      ref={(el) => { barRefs.current.push(el); }}
+                      ref={(el) => { barRefs.current[i] = el; }}
                       data-level={area.level}
                       className="h-full bg-accent will-change-transform"
                       style={{ width: 0 }}

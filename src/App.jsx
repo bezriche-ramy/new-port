@@ -8,6 +8,7 @@ import EasterEgg from "./components/EasterEgg";
 import BackToTop from "./components/BackToTop";
 import LoadingDots from "./components/LoadingDots";
 import Lenis from "lenis";
+import { gsap, ScrollTrigger } from "./lib/gsap";
 
 const AboutAndSkills = lazy(() =>
   Promise.all([
@@ -67,15 +68,18 @@ function App() {
     });
 
     lenisRef.current = lenis;
+    lenis.on("scroll", ScrollTrigger.update);
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    const raf = (time) => {
+      lenis.raf(time * 1000);
+    };
 
-    requestAnimationFrame(raf);
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
+      gsap.ticker.remove(raf);
+      lenis.off?.("scroll", ScrollTrigger.update);
       lenis.destroy();
     };
   }, []);

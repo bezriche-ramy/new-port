@@ -202,7 +202,7 @@ const ProjectsMain = () => {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="relative bg-bg-primary">
+    <section id="projects" ref={sectionRef} className="relative bg-bg-primary pt-24 pb-12">
       {/* Header */}
       <div className="section-padding-sm max-container" ref={headerRef}>
         <div className="flex items-center gap-4 mb-6">
@@ -224,93 +224,93 @@ const ProjectsMain = () => {
           className="flex gap-6 md:gap-8 pl-6 md:pl-10 pr-6 md:pr-10 pt-8 pb-16"
           style={{ width: "max-content" }}
         >
-        {projects.map((project, i) => (
-          <TiltCard
-            key={project.name}
-            className="group relative w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[40vw] shrink-0 flex flex-col border border-border-subtle hover:border-accent/30 bg-bg-elevated transition-colors duration-500"
-          >
-            {/* Image area */}
-            <div className="relative overflow-hidden bg-[#0a0a0a] aspect-[16/10]">
-              <img
-                ref={(el) => { imageRefs.current[i] = el; }}
-                src={project.image}
-                alt={`${project.name} preview`}
-                loading="lazy"
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 scale-110 group-hover:scale-100 transition-all duration-700"
-              />
+          {projects.map((project, i) => (
+            <TiltCard
+              key={project.name}
+              className="group relative w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[40vw] shrink-0 flex flex-col border border-border-subtle hover:border-accent/30 bg-bg-elevated transition-colors duration-500"
+            >
+              {/* Image area */}
+              <div className="relative overflow-hidden bg-[#0a0a0a] aspect-[16/10]">
+                <img
+                  ref={(el) => { imageRefs.current[i] = el; }}
+                  src={project.image}
+                  alt={`${project.name} preview`}
+                  loading="lazy"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 scale-110 group-hover:scale-100 transition-all duration-700"
+                />
 
-              {/* Number badge — bottom left on image */}
-              <span className="absolute bottom-3 left-3 text-[64px] md:text-[80px] font-display font-bold leading-none text-white/[0.06] group-hover:text-white/[0.12] transition-all duration-500 select-none">
-                {String(i + 1).padStart(2, "0")}
-              </span>
+                {/* Number badge — bottom left on image */}
+                <span className="absolute bottom-3 left-3 text-[64px] md:text-[80px] font-display font-bold leading-none text-white/[0.06] group-hover:text-white/[0.12] transition-all duration-500 select-none">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
 
-              {/* CTA buttons — bottom right on image */}
-              <div className="absolute bottom-3 right-3 flex gap-2 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
-                <a
-                  href={project.demoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-accent text-bg-primary text-xs font-semibold hover:gap-2.5 transition-all duration-200"
-                  data-cursor-label="View"
-                >
-                  Demo
-                  <BsArrowUpRight className="text-[10px]" />
-                </a>
-                <a
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-bg-primary/80 backdrop-blur-sm border border-border-medium text-text-primary text-xs font-medium hover:gap-2.5 transition-all duration-200"
-                  data-cursor-label="Code"
-                >
-                  Code
-                  <BsGithub className="text-[10px]" />
-                </a>
-              </div>
+                {/* CTA buttons — bottom right on image */}
+                <div className="absolute bottom-3 right-3 flex gap-2 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+                  <a
+                    href={project.demoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-accent text-bg-primary text-xs font-semibold hover:gap-2.5 transition-all duration-200"
+                    data-cursor-label="View"
+                  >
+                    Demo
+                    <BsArrowUpRight className="text-[10px]" />
+                  </a>
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-bg-primary/80 backdrop-blur-sm border border-border-medium text-text-primary text-xs font-medium hover:gap-2.5 transition-all duration-200"
+                    data-cursor-label="Code"
+                  >
+                    Code
+                    <BsGithub className="text-[10px]" />
+                  </a>
+                </div>
 
-              {/* Top-right year badge */}
-              <span className="absolute top-3 right-3 text-[10px] font-code text-text-tertiary bg-bg-primary/70 backdrop-blur-sm px-2.5 py-1 border border-border-subtle">
-                {project.year}
-              </span>
-            </div>
-
-            {/* Info area */}
-            <div className="p-5 md:p-6 flex flex-col flex-1">
-              {/* Title row */}
-              <div className="flex items-center justify-between gap-4">
-                <h3 className="text-lg md:text-xl font-display text-text-primary group-hover:text-accent transition-colors duration-300">
-                  {project.name}
-                </h3>
-                <span className="text-[10px] font-code text-text-tertiary shrink-0">
-                  {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+                {/* Top-right year badge */}
+                <span className="absolute top-3 right-3 text-[10px] font-code text-text-tertiary bg-bg-primary/70 backdrop-blur-sm px-2.5 py-1 border border-border-subtle">
+                  {project.year}
                 </span>
               </div>
 
-              {/* Accent divider — grows on hover */}
-              <div className="mt-3 mb-4 h-[1px] bg-border-subtle relative overflow-hidden">
-                <div className="absolute inset-y-0 left-0 w-0 group-hover:w-full bg-accent transition-all duration-700 ease-out" />
-              </div>
-
-              {/* Description */}
-              <p className="text-sm text-text-secondary leading-relaxed flex-1">
-                {project.description}
-              </p>
-
-              {/* Tech tags with accent dot */}
-              <div className="mt-4 pt-4 border-t border-border-subtle flex flex-wrap gap-x-4 gap-y-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={`${project.name}-${tech}`}
-                    className="text-[11px] text-text-tertiary flex items-center gap-1.5 group-hover:text-text-secondary transition-colors duration-300"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-accent/50 group-hover:bg-accent transition-colors duration-300" />
-                    {tech}
+              {/* Info area */}
+              <div className="p-5 md:p-6 flex flex-col flex-1">
+                {/* Title row */}
+                <div className="flex items-center justify-between gap-4">
+                  <h3 className="text-lg md:text-xl font-display text-text-primary group-hover:text-accent transition-colors duration-300">
+                    {project.name}
+                  </h3>
+                  <span className="text-[10px] font-code text-text-tertiary shrink-0">
+                    {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
                   </span>
-                ))}
+                </div>
+
+                {/* Accent divider — grows on hover */}
+                <div className="mt-3 mb-4 h-[1px] bg-border-subtle relative overflow-hidden">
+                  <div className="absolute inset-y-0 left-0 w-0 group-hover:w-full bg-accent transition-all duration-700 ease-out" />
+                </div>
+
+                {/* Description */}
+                <p className="text-sm text-text-secondary leading-relaxed flex-1">
+                  {project.description}
+                </p>
+
+                {/* Tech tags with accent dot */}
+                <div className="mt-4 pt-4 border-t border-border-subtle flex flex-wrap gap-x-4 gap-y-2">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={`${project.name}-${tech}`}
+                      className="text-[11px] text-text-tertiary flex items-center gap-1.5 group-hover:text-text-secondary transition-colors duration-300"
+                    >
+                      <span className="w-1 h-1 rounded-full bg-accent/50 group-hover:bg-accent transition-colors duration-300" />
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          </TiltCard>
-        ))}
+            </TiltCard>
+          ))}
         </div>
       </div>
     </section>
