@@ -28,72 +28,79 @@ const AboutMeMain = () => {
   const blockRefs = useRef([]);
   const leftColRef = useRef(null);
   const rightColRef = useRef(null);
+  const glowRefs = useRef([]);
+  const frameRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading text unmask with smoother, more pronounced reveal
+      const lines = lineRefs.current.filter(Boolean);
+      const blocks = blockRefs.current.filter(Boolean);
+      const glows = glowRefs.current.filter(Boolean);
+
       if (headingRef.current) {
         const words = headingRef.current.querySelectorAll(".word-mask");
         gsap.fromTo(
           words,
-          { y: "120%", opacity: 0, rotateX: -40 },
+          { y: "115%", opacity: 0, rotateX: -45 },
           {
             y: 0,
             opacity: 1,
             rotateX: 0,
-            stagger: 0.06,
-            duration: 1,
-            ease: "back.out(1.2)",
+            stagger: 0.055,
+            duration: 0.95,
+            ease: "back.out(1.15)",
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: "top 70%",
-              toggleActions: "play reverse play reverse",
+              start: "top 68%",
+              toggleActions: "play none none reverse",
             },
           }
         );
       }
 
-      // Lines reveal with blur effect
-      gsap.fromTo(
-        lineRefs.current.filter(Boolean),
-        { y: 30, opacity: 0, filter: "blur(4px)" },
-        {
-          y: 0,
-          opacity: 1,
-          filter: "blur(0px)",
-          stagger: 0.12,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 65%",
-            toggleActions: "play reverse play reverse",
-          },
-        }
-      );
+      if (lines.length) {
+        gsap.fromTo(
+          lines,
+          { y: 36, opacity: 0, filter: "blur(6px)" },
+          {
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            stagger: 0.12,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 64%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
 
-      // Detail blocks with staggered slide-up
-      gsap.fromTo(
-        blockRefs.current.filter(Boolean),
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.14,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: blockRefs.current[0],
-            start: "top 80%",
-            toggleActions: "play reverse play reverse",
-          },
-        }
-      );
+      if (blocks.length) {
+        gsap.fromTo(
+          blocks,
+          { y: 56, opacity: 0, rotateX: -8 },
+          {
+            y: 0,
+            opacity: 1,
+            rotateX: 0,
+            stagger: 0.14,
+            duration: 0.82,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 62%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
 
-      // Parallax: left column moves slightly slower than right
       if (leftColRef.current) {
         gsap.to(leftColRef.current, {
-          yPercent: -4,
+          yPercent: -6,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -106,46 +113,125 @@ const AboutMeMain = () => {
 
       if (rightColRef.current) {
         gsap.to(rightColRef.current, {
-          yPercent: 3,
+          yPercent: 4,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top bottom",
             end: "bottom top",
-            scrub: 1,
+            scrub: 1.15,
           },
         });
+      }
+
+      glows.forEach((glow, index) => {
+        gsap.to(glow, {
+          yPercent: index === 1 ? -18 : index === 2 ? 14 : -10,
+          xPercent: index === 0 ? -8 : index === 2 ? 10 : 6,
+          rotation: index % 2 === 0 ? 12 : -14,
+          scale: index === 2 ? 1.18 : 1.08,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1 + index * 0.2,
+          },
+        });
+      });
+
+      if (frameRef.current) {
+        gsap.fromTo(
+          frameRef.current,
+          { scaleX: 0.84, opacity: 0.18 },
+          {
+            scaleX: 1,
+            opacity: 0.42,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.1,
+            },
+          }
+        );
       }
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  const headingWords = "Building secure experiences with product-level polish".split(" ");
+  const headingWords =
+    "Building secure experiences with product-level polish".split(" ");
 
   return (
-    <section id="about" ref={sectionRef} className="relative">
-      <div className="section-padding max-container">
-        {/* Section label */}
+    <section id="about" ref={sectionRef} className="relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0">
         <div
-          ref={(el) => { lineRefs.current[0] = el; }}
-          className="flex items-center gap-4 mb-12"
+          ref={(el) => {
+            glowRefs.current[0] = el;
+          }}
+          className="absolute left-[-8%] top-[8%] h-[280px] w-[280px] rounded-full opacity-70 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(196,255,0,0.18) 0%, transparent 68%)",
+          }}
+        />
+        <div
+          ref={(el) => {
+            glowRefs.current[1] = el;
+          }}
+          className="absolute right-[4%] top-[22%] h-[340px] w-[340px] rounded-full opacity-60 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(116,247,212,0.16) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          ref={(el) => {
+            glowRefs.current[2] = el;
+          }}
+          className="absolute bottom-[10%] left-[34%] h-[240px] w-[240px] rounded-full opacity-40 blur-[120px]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 72%)",
+          }}
+        />
+        <div
+          ref={frameRef}
+          className="absolute inset-x-[8%] top-20 hidden h-[500px] border border-white/6 lg:block"
+        />
+        <div
+          className="absolute inset-x-[10%] bottom-12 h-[220px] opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.45) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+      </div>
+
+      <div className="section-padding max-container relative z-10">
+        <div
+          ref={(el) => {
+            lineRefs.current[0] = el;
+          }}
+          className="mb-12 flex items-center gap-4"
         >
           <span className="text-label">About</span>
-          <div className="flex-1 h-[1px] bg-border-subtle" />
+          <div className="h-[1px] flex-1 bg-border-subtle" />
         </div>
 
-        {/* Two-column asymmetric layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-16 lg:gap-24">
-          {/* Left — Large heading with word-by-word reveal */}
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1.35fr_1fr] lg:gap-24">
           <div ref={leftColRef}>
             <h2
               ref={headingRef}
               className="text-display font-display text-text-primary"
               style={{ perspective: "600px" }}
             >
-              {headingWords.map((word, i) => (
-                <span key={i} className="inline-block overflow-hidden mr-[0.3em]">
+              {headingWords.map((word) => (
+                <span key={word} className="mr-[0.3em] inline-block overflow-hidden">
                   <span
                     className="word-mask inline-block will-change-transform"
                     style={{ transformStyle: "preserve-3d" }}
@@ -157,51 +243,67 @@ const AboutMeMain = () => {
             </h2>
 
             <p
-              ref={(el) => { lineRefs.current[1] = el; }}
-              className="mt-8 text-text-secondary text-base md:text-lg leading-relaxed max-w-lg"
+              ref={(el) => {
+                lineRefs.current[1] = el;
+              }}
+              className="mt-8 max-w-xl text-base leading-relaxed text-text-secondary md:text-lg"
             >
               I combine offensive-security thinking with clean UI engineering to
               create interfaces that are both dependable and memorable.
             </p>
 
+            <div
+              ref={(el) => {
+                lineRefs.current[2] = el;
+              }}
+              className="mt-8 inline-flex items-center gap-3 border border-white/10 bg-white/[0.02] px-4 py-3 backdrop-blur-sm"
+            >
+              <span className="h-2 w-2 rounded-full bg-accent" />
+              <span className="text-[10px] font-code uppercase tracking-[0.32em] text-text-secondary">
+                Secure by design
+              </span>
+            </div>
+
             <MagneticButton strength={0.35}>
               <button
                 type="button"
-                ref={(el) => { lineRefs.current[2] = el; }}
+                ref={(el) => {
+                  lineRefs.current[3] = el;
+                }}
                 onClick={() => scrollToSection("projects", { offset: -80 })}
-                className="inline-flex items-center gap-3 mt-8 text-sm text-accent hover:gap-5 transition-all duration-300"
+                className="mt-8 inline-flex items-center gap-3 text-sm text-accent transition-all duration-300 hover:gap-5"
                 data-cursor="magnetic"
               >
-                <span className="w-8 h-[1px] bg-accent" />
+                <span className="h-[1px] w-8 bg-accent" />
                 View Projects
               </button>
             </MagneticButton>
           </div>
 
-          {/* Right — Detail blocks */}
-          <div ref={rightColRef} className="space-y-8">
-            {detailBlocks.map((block, i) => (
+          <div ref={rightColRef} className="space-y-5">
+            {detailBlocks.map((block, index) => (
               <div
                 key={block.title}
-                ref={(el) => { blockRefs.current[i] = el; }}
-                className="group"
+                ref={(el) => {
+                  blockRefs.current[index] = el;
+                }}
+                className="group relative overflow-hidden border border-transparent bg-white/[0.015] px-5 py-5 transition-all duration-500 hover:border-white/10 hover:bg-white/[0.03]"
               >
+                <div className="absolute inset-y-0 left-0 w-[2px] bg-gradient-to-b from-accent/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
                 <div className="flex items-start gap-4">
-                  <span className="text-xs font-code text-text-tertiary mt-1">
+                  <span className="mt-1 text-xs font-code text-text-tertiary">
                     {block.num}
                   </span>
                   <div>
-                    <h3 className="text-text-primary font-semibold text-lg mb-2 group-hover:text-accent transition-colors duration-300">
+                    <h3 className="mb-2 text-lg font-semibold text-text-primary transition-colors duration-300 group-hover:text-accent">
                       {block.title}
                     </h3>
-                    <p className="text-text-secondary text-sm leading-relaxed">
+                    <p className="text-sm leading-relaxed text-text-secondary">
                       {block.text}
                     </p>
                   </div>
                 </div>
-                {i < detailBlocks.length - 1 && (
-                  <div className="mt-8 h-[1px] bg-border-subtle" />
-                )}
               </div>
             ))}
           </div>

@@ -1,5 +1,6 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { BsArrowUpRight, BsClockHistory, BsGithub } from "react-icons/bs";
+import { Tilt } from "react-tilt";
 import { gsap } from "../../lib/gsap";
 
 const projects = [
@@ -80,64 +81,26 @@ const projects = [
     demoLink: "https://medhi-doctor.vercel.app/",
     githubLink: "https://github.com/bezriche-ramy/",
     description:
-      "Management system for a veterinary doctor — appointments, patient records, and clinic workflow automation.",
+      "Management system for a veterinary doctor - appointments, patient records, and clinic workflow automation.",
     technologies: ["React", "Full Stack", "Dashboard"],
   },
 ];
 
-const TiltCard = ({ children, className }) => {
-  const cardRef = useRef(null);
-
-  const handleMove = useCallback((e) => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-    gsap.to(card, {
-      rotateY: x * 8,
-      rotateX: -y * 6,
-      duration: 0.4,
-      ease: "power2.out",
-      overwrite: true,
-      force3D: true,
-    });
-  }, []);
-
-  const handleLeave = useCallback(() => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    gsap.to(card, {
-      rotateY: 0,
-      rotateX: 0,
-      duration: 0.6,
-      ease: "elastic.out(1, 0.5)",
-      overwrite: true,
-      force3D: true,
-    });
-  }, []);
-
-  return (
-    <div
-      ref={cardRef}
-      className={className}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      style={{ transformStyle: "preserve-3d", perspective: "800px" }}
-    >
-      {children}
-    </div>
-  );
+const tiltOptions = {
+  max: 10,
+  perspective: 1400,
+  scale: 1.02,
+  speed: 450,
+  transition: true,
+  reset: true,
 };
 
 const ProjectsMain = () => {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const headerRef = useRef(null);
-  const imageRefs = useRef([]);
+  const cardRefs = useRef([]);
+  const trailerRef = useRef(null);
   const refreshRafRef = useRef(0);
 
   useEffect(() => {
@@ -157,7 +120,8 @@ const ProjectsMain = () => {
     };
 
     const ctx = gsap.context(() => {
-      // Header reveal
+      const cards = cardRefs.current.filter(Boolean);
+
       if (headerRef.current) {
         gsap.fromTo(
           headerRef.current,
@@ -176,15 +140,53 @@ const ProjectsMain = () => {
         );
       }
 
-      const getScrollDistance = () => {
-        return Math.max(track.scrollWidth - window.innerWidth, 0);
-      };
+      if (cards.length) {
+        gsap.fromTo(
+          cards,
+          {
+            y: 80,
+            opacity: 0,
+            rotateX: -10,
+            transformOrigin: "50% 100%",
+          },
+          {
+            y: 0,
+            opacity: 1,
+            rotateX: 0,
+            stagger: 0.12,
+            duration: 0.95,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 68%",
+              once: true,
+            },
+          }
+        );
+      }
 
-      const getScrollEnd = () => {
-        return Math.max(getScrollDistance(), 1);
-      };
+      if (trailerRef.current) {
+        gsap.fromTo(
+          trailerRef.current,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            delay: 0.25,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 68%",
+              once: true,
+            },
+          }
+        );
+      }
 
-      // Horizontal scroll (pinned)
+      const getScrollDistance = () => Math.max(track.scrollWidth - window.innerWidth, 0);
+      const getScrollEnd = () => Math.max(getScrollDistance(), 1);
+
       const horizontalTl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -204,8 +206,6 @@ const ProjectsMain = () => {
         ease: "none",
         force3D: true,
       });
-
-      // Keep project screenshots fully visible (no per-image parallax shift).
     }, section);
 
     const pendingImages = [];
@@ -220,6 +220,7 @@ const ProjectsMain = () => {
         queueLayoutRefresh();
       }
     };
+
     const imgs = track.querySelectorAll("img");
     imgs.forEach((img) => {
       if (img.complete) return;
@@ -246,13 +247,18 @@ const ProjectsMain = () => {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="relative bg-bg-primary h-screen w-full flex flex-col justify-center overflow-hidden">
-      {/* Header */}
-      <div className="max-container w-full px-6 md:px-10 py-3 md:py-5" ref={headerRef}>
-        <div className="flex items-center gap-4 mb-4">
+    <section
+      id="projects"
+      ref={sectionRef}
+      className="relative flex h-screen w-full flex-col justify-center overflow-hidden bg-bg-primary"
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(196,255,0,0.1),transparent_22%),radial-gradient(circle_at_86%_78%,rgba(116,247,212,0.08),transparent_24%)]" />
+
+      <div className="max-container relative z-10 w-full px-6 py-3 md:px-10 md:py-5" ref={headerRef}>
+        <div className="mb-4 flex items-center gap-4">
           <span className="text-label">Projects</span>
-          <div className="flex-1 h-[1px] bg-border-subtle" />
-          <span className="text-xs text-text-tertiary font-code">
+          <div className="h-[1px] flex-1 bg-border-subtle" />
+          <span className="font-code text-xs text-text-tertiary">
             {String(projects.length).padStart(2, "0")} Works
           </span>
         </div>
@@ -261,120 +267,137 @@ const ProjectsMain = () => {
         </h2>
       </div>
 
-      {/* Horizontal scroll track */}
       <div className="overflow-hidden">
         <div
           ref={trackRef}
-          className="flex gap-6 md:gap-8 pl-6 md:pl-10 pr-6 md:pr-10 py-4 md:py-8 will-change-transform"
-          style={{ width: "max-content" }}
+          className="flex w-max gap-6 py-4 pl-6 pr-6 will-change-transform md:gap-8 md:px-10 md:py-8"
         >
-          {projects.map((project, i) => {
+          {projects.map((project, index) => {
             const hasDemo = project.demoLink && project.demoLink !== "#";
             const hasCode = project.githubLink && project.githubLink !== "#";
 
             return (
-            <TiltCard
-              key={project.name}
-              className="group relative w-[85vw] sm:w-[70vw] md:w-[50vw] lg:w-[40vw] h-[65vh] min-h-[400px] max-h-[650px] shrink-0 flex flex-col border border-border-subtle hover:border-accent/30 bg-bg-elevated transition-colors duration-500 will-change-transform"
-            >
-              {/* Image area */}
-              <div className="relative overflow-hidden bg-[#0a0a0a] h-[45%] md:h-[55%] shrink-0 flex items-center justify-center">
-                <img
-                  ref={(el) => { imageRefs.current[i] = el; }}
-                  src={project.image}
-                  alt={`${project.name} preview`}
-                  loading="lazy"
-                  className="w-full h-full object-contain object-center grayscale group-hover:grayscale-0 transition-all duration-500 will-change-transform"
-                />
+              <Tilt
+                key={project.name}
+                className="relative h-[65vh] min-h-[400px] w-[85vw] shrink-0 sm:w-[70vw] md:w-[50vw] lg:w-[40vw]"
+                options={tiltOptions}
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                <div
+                  ref={(el) => {
+                    cardRefs.current[index] = el;
+                  }}
+                  className="project-card-shell group relative flex h-full flex-col overflow-hidden border border-border-subtle bg-bg-elevated transition-colors duration-500 hover:border-accent/30"
+                  style={{ transformStyle: "preserve-3d" }}
+                >
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(196,255,0,0.1),transparent_45%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                {/* Number badge — bottom left on image */}
-                <span className="absolute bottom-3 left-3 text-[64px] md:text-[80px] font-display font-bold leading-none text-white/[0.06] group-hover:text-white/[0.12] transition-all duration-500 select-none">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                  <div
+                    className="relative flex h-[45%] shrink-0 items-center justify-center overflow-hidden bg-[#0a0a0a] md:h-[55%]"
+                    style={{ transform: "translateZ(28px)" }}
+                  >
+                    <img
+                      src={project.image}
+                      alt={`${project.name} preview`}
+                      loading="lazy"
+                      className="h-full w-full object-contain object-center grayscale transition-all duration-500 group-hover:scale-[1.02] group-hover:grayscale-0"
+                    />
 
-                {/* CTA buttons — bottom right on image */}
-                {(hasDemo || hasCode) && (
-                  <div className="absolute bottom-3 right-3 flex gap-2 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
-                    {hasDemo && (
-                      <a
-                        href={project.demoLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-accent text-bg-primary text-xs font-semibold hover:gap-2.5 transition-all duration-200"
-                        data-cursor-label="View"
-                      >
-                        Demo
-                        <BsArrowUpRight className="text-[10px]" />
-                      </a>
-                    )}
-                    {hasCode && (
-                      <a
-                        href={project.githubLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-bg-primary/80 backdrop-blur-sm border border-border-medium text-text-primary text-xs font-medium hover:gap-2.5 transition-all duration-200"
-                        data-cursor-label="Code"
-                      >
-                        Code
-                        <BsGithub className="text-[10px]" />
-                      </a>
-                    )}
-                  </div>
-                )}
-
-                {/* Top-right year badge */}
-                <span className="absolute top-3 right-3 text-[10px] font-code text-text-tertiary bg-bg-primary/70 backdrop-blur-sm px-2.5 py-1 border border-border-subtle">
-                  {project.year}
-                </span>
-              </div>
-
-              {/* Info area */}
-              <div className="p-5 md:p-6 flex flex-col flex-1">
-                {/* Title row */}
-                <div className="flex items-center justify-between gap-4">
-                  <h3 className="text-lg md:text-xl font-display text-text-primary group-hover:text-accent transition-colors duration-300">
-                    {project.name}
-                  </h3>
-                  <span className="text-[10px] font-code text-text-tertiary shrink-0">
-                    {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
-                  </span>
-                </div>
-
-                {/* Accent divider — grows on hover */}
-                <div className="mt-3 mb-4 h-[1px] bg-border-subtle relative overflow-hidden">
-                  <div className="absolute inset-y-0 left-0 w-0 group-hover:w-full bg-accent transition-all duration-700 ease-out" />
-                </div>
-
-                {/* Description */}
-                <p className="text-sm text-text-secondary leading-relaxed flex-1">
-                  {project.description}
-                </p>
-
-                {/* Tech tags with accent dot */}
-                <div className="mt-4 pt-4 border-t border-border-subtle flex flex-wrap gap-x-4 gap-y-2">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={`${project.name}-${tech}`}
-                      className="text-[11px] text-text-tertiary flex items-center gap-1.5 group-hover:text-text-secondary transition-colors duration-300"
-                    >
-                      <span className="w-1 h-1 rounded-full bg-accent/50 group-hover:bg-accent transition-colors duration-300" />
-                      {tech}
+                    <span className="absolute bottom-3 left-3 select-none font-display text-[64px] font-bold leading-none text-white/[0.06] transition-all duration-500 group-hover:text-white/[0.12] md:text-[80px]">
+                      {String(index + 1).padStart(2, "0")}
                     </span>
-                  ))}
+
+                    {(hasDemo || hasCode) && (
+                      <div
+                        className="absolute bottom-3 right-3 flex translate-y-2 gap-2 opacity-0 transition-all duration-400 group-hover:translate-y-0 group-hover:opacity-100"
+                        style={{ transform: "translateZ(44px)" }}
+                      >
+                        {hasDemo && (
+                          <a
+                            href={project.demoLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 bg-accent px-4 py-2 text-xs font-semibold text-bg-primary transition-all duration-200 hover:gap-2.5"
+                            data-cursor-label="View"
+                          >
+                            Demo
+                            <BsArrowUpRight className="text-[10px]" />
+                          </a>
+                        )}
+                        {hasCode && (
+                          <a
+                            href={project.githubLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 border border-border-medium bg-bg-primary/80 px-4 py-2 text-xs font-medium text-text-primary backdrop-blur-sm transition-all duration-200 hover:gap-2.5"
+                            data-cursor-label="Code"
+                          >
+                            Code
+                            <BsGithub className="text-[10px]" />
+                          </a>
+                        )}
+                      </div>
+                    )}
+
+                    <span
+                      className="absolute right-3 top-3 bg-bg-primary/70 px-2.5 py-1 font-code text-[10px] text-text-tertiary backdrop-blur-sm"
+                      style={{ transform: "translateZ(36px)" }}
+                    >
+                      {project.year}
+                    </span>
+                  </div>
+
+                  <div
+                    className="relative z-10 flex flex-1 flex-col p-5 md:p-6"
+                    style={{ transform: "translateZ(34px)" }}
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <h3 className="text-lg font-display text-text-primary transition-colors duration-300 group-hover:text-accent md:text-xl">
+                        {project.name}
+                      </h3>
+                      <span className="shrink-0 font-code text-[10px] text-text-tertiary">
+                        {String(index + 1).padStart(2, "0")} /{" "}
+                        {String(projects.length).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    <div className="relative mb-4 mt-3 h-[1px] overflow-hidden bg-border-subtle">
+                      <div className="absolute inset-y-0 left-0 w-0 bg-accent transition-all duration-700 ease-out group-hover:w-full" />
+                    </div>
+
+                    <p className="flex-1 text-sm leading-relaxed text-text-secondary">
+                      {project.description}
+                    </p>
+
+                    <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t border-border-subtle pt-4">
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={`${project.name}-${tech}`}
+                          className="flex items-center gap-1.5 text-[11px] text-text-tertiary transition-colors duration-300 group-hover:text-text-secondary"
+                        >
+                          <span className="h-1 w-1 rounded-full bg-accent/50 transition-colors duration-300 group-hover:bg-accent" />
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </TiltCard>
+              </Tilt>
             );
           })}
-          <div className="shrink-0 w-[46vw] min-w-[280px] md:min-w-[360px] flex items-center">
-            <div className="w-full py-10 md:py-14 border-t border-border-subtle/70">
+
+          <div className="flex min-w-[280px] shrink-0 items-center md:min-w-[360px]">
+            <div
+              ref={trailerRef}
+              className="w-full border-t border-border-subtle/70 py-10 md:py-14"
+            >
               <div className="flex items-center gap-3 text-accent">
-                <BsClockHistory className="text-xl md:text-2xl animate-[spin_7s_linear_infinite]" />
-                <span className="text-[11px] md:text-xs font-code uppercase tracking-[0.2em] text-text-tertiary">
+                <BsClockHistory className="animate-[spin_7s_linear_infinite] text-xl md:text-2xl" />
+                <span className="font-code text-[11px] uppercase tracking-[0.2em] text-text-tertiary md:text-xs">
                   To Be Continued...
                 </span>
               </div>
-              <p className="mt-4 text-sm md:text-base text-text-secondary max-w-[36ch]">
+              <p className="mt-4 max-w-[36ch] text-sm text-text-secondary md:text-base">
                 More projects are in creation and will be added here soon.
               </p>
             </div>

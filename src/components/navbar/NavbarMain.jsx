@@ -1,27 +1,28 @@
 import { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleMenu } from "../../state/menuSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { closeMenu, openMenu } from "../../state/menuSlice";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
-import { scrollToSection } from "../../lib/scroll";
-
-const navLinks = [
-  { label: "About", section: "about", num: "01" },
-  { label: "Skills", section: "skills", num: "02" },
-  { label: "Experience", section: "experience", num: "03" },
-  { label: "Projects", section: "projects", num: "04" },
-  { label: "Contact", section: "contact", num: "05" },
-];
+import { getLenis, scrollToSection } from "../../lib/scroll";
+import {
+  availabilityLink,
+  mobileMenuStatus,
+  navigationLinks,
+  navigationOffset,
+} from "../../lib/navigation";
 
 const NavbarMain = () => {
   const dispatch = useDispatch();
   const menuOpen = useSelector((state) => state.menu.menuOpen);
   const barRef = useRef(null);
   const overlayRef = useRef(null);
+  const panelRef = useRef(null);
+  const topRowRef = useRef(null);
+  const utilityRef = useRef(null);
+  const closeButtonRef = useRef(null);
   const linkRefs = useRef([]);
+  const menuTimelineRef = useRef(null);
   const isHidden = useRef(false);
-  const navOffset = -80;
 
-  // Hide on scroll down, show on scroll up
   useEffect(() => {
     if (!barRef.current) return undefined;
 
@@ -50,42 +51,124 @@ const NavbarMain = () => {
     return () => ctx.revert();
   }, []);
 
-  // Full-screen overlay animation
   useEffect(() => {
-    if (!overlayRef.current) return;
+    if (!overlayRef.current || !panelRef.current) return undefined;
+
+    const ctx = gsap.context(() => {
+      const animatedLinks = linkRefs.current.filter(Boolean);
+      const animatedBlocks = [topRowRef.current, utilityRef.current].filter(Boolean);
+
+      gsap.set(overlayRef.current, {
+        display: "none",
+        autoAlpha: 0,
+        pointerEvents: "none",
+      });
+      gsap.set(animatedLinks, { y: 52, autoAlpha: 0 });
+      gsap.set(animatedBlocks, { y: 24, autoAlpha: 0 });
+
+      const tl = gsap.timeline({
+        paused: true,
+        onReverseComplete: () => {
+          gsap.set(overlayRef.current, { display: "none", pointerEvents: "none" });
+        },
+      });
+
+      tl.set(overlayRef.current, { display: "flex", pointerEvents: "auto" })
+        .to(overlayRef.current, { autoAlpha: 1, duration: 0.24, ease: "power2.out" }, 0)
+        .fromTo(
+          panelRef.current,
+          { clipPath: "inset(0 0 100% 0)", yPercent: -4, scale: 0.985 },
+          {
+            clipPath: "inset(0 0 0% 0)",
+            yPercent: 0,
+            scale: 1,
+            duration: 0.62,
+            ease: "power4.out",
+          },
+          0
+        )
+        .to(animatedBlocks, { y: 0, autoAlpha: 1, duration: 0.34, stagger: 0.06 }, 0.08)
+        .to(
+          animatedLinks,
+          {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.44,
+            stagger: 0.06,
+            ease: "power3.out",
+          },
+          0.14
+        );
+
+      menuTimelineRef.current = tl;
+    }, overlayRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const lenis = getLenis();
+    const timeline = menuTimelineRef.current;
+    if (!timeline) return undefined;
 
     if (menuOpen) {
       document.body.style.overflow = "hidden";
-      gsap.set(overlayRef.current, { display: "flex" });
-      gsap.fromTo(
-        overlayRef.current,
-        { clipPath: "circle(0% at calc(100% - 3rem) 2rem)" },
-        { clipPath: "circle(150% at calc(100% - 3rem) 2rem)", duration: 0.8, ease: "power3.inOut" }
-      );
-      gsap.fromTo(
-        linkRefs.current.filter(Boolean),
-        { y: 60, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.07, duration: 0.6, ease: "power3.out", delay: 0.3 }
-      );
-    } else {
-      document.body.style.overflow = "";
-      gsap.to(overlayRef.current, {
-        clipPath: "circle(0% at calc(100% - 3rem) 2rem)",
-        duration: 0.5,
-        ease: "power2.in",
-        onComplete: () => {
-          gsap.set(overlayRef.current, { display: "none" });
-        },
-      });
+      lenis?.stop();
+      timeline.play(0);
+      closeButtonRef.current?.focus();
+      return () => {
+        document.body.style.overflow = "";
+      };
     }
+
+    document.body.style.overflow = "";
+    lenis?.start();
+    timeline.reverse();
+
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        dispatch(closeMenu());
+      }
+    };
+
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const handleViewportChange = (event) => {
+      if (event.matches) {
+        dispatch(closeMenu());
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    mediaQuery.addEventListener?.("change", handleViewportChange);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      mediaQuery.removeEventListener?.("change", handleViewportChange);
+    };
+  }, [dispatch, menuOpen]);
+
+  const handleToggleMenu = () => {
+    dispatch(menuOpen ? closeMenu() : openMenu());
+  };
+
+  const handleMobileNavigation = (section) => {
+    scrollToSection(section, { offset: navigationOffset });
+    dispatch(closeMenu());
+  };
 
   return (
     <>
-      {/* Minimal top bar */}
       <nav
         ref={barRef}
-        className="fixed top-0 left-0 w-full z-[100] px-6 md:px-10"
+        className="fixed left-0 top-0 z-[100] w-full px-6 md:px-10"
         style={{ opacity: 0 }}
       >
         <div className="max-container flex items-center justify-between py-5">
@@ -95,108 +178,196 @@ const NavbarMain = () => {
             className="select-none"
             aria-label="Scroll to hero"
           >
-            <span className="font-display text-lg text-text-primary tracking-tight">
+            <span className="font-display text-lg tracking-tight text-text-primary">
               RB
               <span className="text-accent">.</span>
             </span>
           </button>
 
-          {/* Desktop links */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
+          <div className="hidden items-center gap-8 lg:flex">
+            {navigationLinks.map((link) => (
               <button
                 type="button"
                 key={link.section}
-                onClick={() => scrollToSection(link.section, { offset: navOffset })}
-                className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300 hover-line"
+                onClick={() =>
+                  scrollToSection(link.section, { offset: navigationOffset })
+                }
+                className="text-sm text-text-secondary transition-colors duration-300 hover-line hover:text-text-primary"
               >
                 {link.label}
               </button>
             ))}
           </div>
 
-          <div className="flex items-center gap-5">
-            {/* Hire CTA - desktop */}
+          <div className="flex items-center gap-4 md:gap-5">
             <a
-              href="https://www.upwork.com/freelancers/~01940bb9c33250ffae"
+              href={availabilityLink.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden lg:inline-flex items-center gap-2 text-sm px-5 py-2.5 border border-accent text-accent hover:bg-accent hover:text-bg-primary transition-all duration-300"
+              className="hidden items-center gap-2 border border-accent px-5 py-2.5 text-sm text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary lg:inline-flex"
             >
-              Available for Work
+              {availabilityLink.label}
             </a>
 
-            {/* Hamburger */}
             <button
               type="button"
-              onClick={() => dispatch(toggleMenu())}
-              className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+              onClick={handleToggleMenu}
+              className="inline-flex h-11 items-center gap-3 border border-border-medium bg-bg-elevated/80 px-4 backdrop-blur-sm transition-colors duration-300 hover:border-accent lg:hidden"
               aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
             >
-              <span
-                className="block w-6 h-[1.5px] bg-text-primary transition-all duration-300"
-                style={{
-                  transform: menuOpen ? "rotate(45deg) translate(2px, 2px)" : "none",
-                }}
-              />
-              <span
-                className="block w-6 h-[1.5px] bg-text-primary transition-all duration-300"
-                style={{
-                  opacity: menuOpen ? 0 : 1,
-                }}
-              />
-              <span
-                className="block w-6 h-[1.5px] bg-text-primary transition-all duration-300"
-                style={{
-                  transform: menuOpen ? "rotate(-45deg) translate(2px, -2px)" : "none",
-                }}
-              />
+              <span className="text-[10px] uppercase tracking-[0.28em] text-text-secondary">
+                {menuOpen ? "Close" : "Menu"}
+              </span>
+              <span className="relative block h-3 w-5">
+                <span
+                  className="absolute left-0 top-0 block h-[1.5px] w-full bg-text-primary transition-all duration-300"
+                  style={{
+                    transform: menuOpen
+                      ? "translateY(5px) rotate(45deg)"
+                      : "translateY(0px)",
+                  }}
+                />
+                <span
+                  className="absolute left-0 top-[5px] block h-[1.5px] w-full bg-text-primary transition-all duration-300"
+                  style={{ opacity: menuOpen ? 0 : 1 }}
+                />
+                <span
+                  className="absolute left-0 top-[10px] block h-[1.5px] w-full bg-text-primary transition-all duration-300"
+                  style={{
+                    transform: menuOpen
+                      ? "translateY(-5px) rotate(-45deg)"
+                      : "translateY(0px)",
+                  }}
+                />
+              </span>
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Full-screen overlay menu */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-[99] bg-bg-primary flex-col items-center justify-center hidden"
-        style={{ clipPath: "circle(0% at calc(100% - 3rem) 2rem)" }}
+        id="mobile-navigation"
+        className="fixed inset-0 z-[99] hidden bg-black/60 lg:hidden"
       >
-        <div className="flex flex-col items-center gap-2">
-          {navLinks.map((link, i) => (
-            <div
-              key={link.section}
-              ref={(el) => { linkRefs.current[i] = el; }}
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  scrollToSection(link.section, { offset: navOffset });
-                  dispatch(toggleMenu());
-                }}
-                className="group flex items-baseline gap-4 py-3"
-              >
-                <span className="text-sm text-text-tertiary font-code">
-                  {link.num}
-                </span>
-                <span className="font-display text-[clamp(2rem,8vw,5rem)] text-text-primary leading-none tracking-tight group-hover:text-accent transition-colors duration-300">
-                  {link.label}
-                </span>
-              </button>
-            </div>
-          ))}
-        </div>
+        <div
+          ref={panelRef}
+          role="dialog"
+          aria-modal="true"
+          className="relative flex min-h-full w-full flex-col overflow-hidden bg-[linear-gradient(180deg,#050505_0%,#070707_52%,#0a0a0a_100%)] px-6 pb-8 pt-5"
+        >
+          <div
+            className="absolute inset-0 opacity-[0.045]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.55) 1px, transparent 1px)",
+              backgroundSize: "56px 56px",
+            }}
+          />
+          <div
+            className="absolute left-[-12%] top-[12%] h-56 w-56 rounded-full blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(196,255,0,0.16) 0%, transparent 68%)",
+            }}
+          />
+          <div
+            className="absolute right-[-8%] bottom-[16%] h-64 w-64 rounded-full blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(116,247,212,0.12) 0%, transparent 68%)",
+            }}
+          />
 
-        <div className="absolute bottom-10 left-0 right-0 flex items-center justify-between px-8 md:px-12">
-          <p className="text-label">Ramy Bezriche &copy; 2026</p>
-          <a
-            href="https://www.upwork.com/freelancers/~01940bb9c33250ffae"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-accent hover-line"
+          <div
+            ref={topRowRef}
+            className="relative z-10 flex items-center justify-between border-b border-border-subtle pb-4"
           >
-            Available for Work
-          </a>
+            <button
+              type="button"
+              onClick={() => handleMobileNavigation("hero")}
+              className="select-none"
+              aria-label="Scroll to hero"
+            >
+              <span className="font-display text-lg tracking-tight text-text-primary">
+                RB
+                <span className="text-accent">.</span>
+              </span>
+            </button>
+
+            <button
+              ref={closeButtonRef}
+              type="button"
+              onClick={() => dispatch(closeMenu())}
+              className="inline-flex h-11 items-center gap-3 border border-border-medium px-4 text-sm text-text-primary transition-colors duration-300 hover:border-accent"
+            >
+              Close
+              <span className="relative block h-3 w-3">
+                <span className="absolute left-0 top-[5px] block h-[1.5px] w-full rotate-45 bg-text-primary" />
+                <span className="absolute left-0 top-[5px] block h-[1.5px] w-full -rotate-45 bg-text-primary" />
+              </span>
+            </button>
+          </div>
+
+          <div className="relative z-10 flex flex-1 items-center py-10">
+            <div className="w-full">
+              {navigationLinks.map((link, index) => (
+                <div
+                  key={link.section}
+                  ref={(node) => {
+                    linkRefs.current[index] = node;
+                  }}
+                  className="border-b border-border-subtle/70 last:border-b-0"
+                >
+                  <button
+                    type="button"
+                    onClick={() => handleMobileNavigation(link.section)}
+                    className="group flex w-full items-center justify-between gap-5 py-5 text-left"
+                  >
+                    <div className="flex items-baseline gap-4">
+                      <span className="font-code text-[11px] text-text-tertiary">
+                        {link.num}
+                      </span>
+                      <span className="font-display text-[clamp(2.25rem,9vw,4.6rem)] leading-none tracking-[-0.04em] text-text-primary transition-colors duration-300 group-hover:text-accent">
+                        {link.label}
+                      </span>
+                    </div>
+                    <span className="font-code text-xs text-text-tertiary transition-transform duration-300 group-hover:translate-x-1 group-hover:text-text-primary">
+                      -&gt;
+                    </span>
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div
+            ref={utilityRef}
+            className="relative z-10 border-t border-border-subtle pt-5"
+          >
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="font-code text-[10px] uppercase tracking-[0.26em] text-text-tertiary">
+                  Open to select projects
+                </p>
+                <p className="mt-3 max-w-[28ch] text-sm leading-relaxed text-text-secondary">
+                  {mobileMenuStatus}
+                </p>
+              </div>
+
+              <a
+                href={availabilityLink.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 self-start border border-accent px-5 py-3 text-sm text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary"
+              >
+                {availabilityLink.label}
+                <span className="h-[1px] w-5 bg-current" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </>

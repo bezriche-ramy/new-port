@@ -7,6 +7,7 @@ import ScrollProgress from "./components/ScrollProgress";
 import EasterEgg from "./components/EasterEgg";
 import BackToTop from "./components/BackToTop";
 import LoadingDots from "./components/LoadingDots";
+import FloatingScrollAccents from "./components/FloatingScrollAccents";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "./lib/gsap";
 
@@ -174,16 +175,20 @@ function App() {
       <EasterEgg />
       <BackToTop />
       <div className="noise-overlay" />
-      <main className="relative bg-bg-primary min-h-screen text-text-primary font-body">
-        <NavbarMain />
-        <HeroMain />
+      <main className="relative isolate bg-bg-primary min-h-screen text-text-primary font-body">
+        <FloatingScrollAccents />
 
-        <Suspense fallback={<LoadingDots />}>
-          <AboutAndSkills />
-          <ProjectsAndExperience />
-          <CertAndContact />
-          <LazyContentReady />
-        </Suspense>
+        <div className="relative z-10">
+          <NavbarMain />
+          <HeroMain />
+
+          <Suspense fallback={<LoadingDots />}>
+            <AboutAndSkills />
+            <ProjectsAndExperience />
+            <CertAndContact />
+            <LazyContentReady />
+          </Suspense>
+        </div>
       </main>
     </>
   );

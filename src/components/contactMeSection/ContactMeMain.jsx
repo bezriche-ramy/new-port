@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { HiOutlineMail } from "react-icons/hi";
-import { FiPhone } from "react-icons/fi";
 import { gsap } from "../../lib/gsap";
 
 const ContactMeMain = () => {
   const sectionRef = useRef(null);
   const formRef = useRef(null);
+  const bigTextShellRef = useRef(null);
   const bigTextRef = useRef(null);
+  const formShellRef = useRef(null);
+  const infoShellRef = useRef(null);
+  const glowRef = useRef(null);
   const [formData, setFormData] = useState({
     from_name: "",
     from_email: "",
@@ -18,14 +20,14 @@ const ContactMeMain = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Big text reveal
       if (bigTextRef.current) {
         gsap.fromTo(
           bigTextRef.current,
-          { y: 80, opacity: 0 },
+          { y: 80, opacity: 0, filter: "blur(6px)" },
           {
             y: 0,
             opacity: 1,
+            filter: "blur(0px)",
             duration: 1,
             ease: "power3.out",
             scrollTrigger: {
@@ -35,6 +37,72 @@ const ContactMeMain = () => {
             },
           }
         );
+      }
+
+      if (formShellRef.current) {
+        gsap.fromTo(
+          formShellRef.current,
+          { y: 48, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: formShellRef.current,
+              start: "top 82%",
+              once: true,
+            },
+          }
+        );
+      }
+
+      if (infoShellRef.current) {
+        gsap.fromTo(
+          infoShellRef.current,
+          { x: 36, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: infoShellRef.current,
+              start: "top 82%",
+              once: true,
+            },
+          }
+        );
+      }
+
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        if (bigTextShellRef.current) {
+          gsap.to(bigTextShellRef.current, {
+            yPercent: -8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.1,
+            },
+          });
+        }
+
+        if (glowRef.current) {
+          gsap.to(glowRef.current, {
+            yPercent: -14,
+            xPercent: -8,
+            scale: 1.08,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          });
+        }
       }
     }, sectionRef);
 
@@ -65,115 +133,126 @@ const ContactMeMain = () => {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="relative border-t border-border-subtle">
-      <div className="section-padding max-container">
-        {/* Giant "LET'S TALK" text */}
-        <div ref={bigTextRef} className="mb-16">
-          <h2
-            className="font-display font-bold text-text-primary leading-none tracking-tighter"
-            style={{ fontSize: "clamp(3rem, 15vw, 12rem)" }}
-          >
-            Let&apos;s Talk
-            <span className="text-accent">.</span>
-          </h2>
-          <p className="mt-4 text-text-secondary text-base md:text-lg max-w-xl">
-            Have a project in mind or want to discuss security-focused product
-            work? Send a message and I will reply as soon as possible.
-          </p>
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="relative overflow-hidden border-t border-border-subtle"
+    >
+      <div
+        ref={glowRef}
+        className="pointer-events-none absolute left-[8%] top-[18%] hidden h-72 w-72 rounded-full opacity-55 blur-[120px] lg:block"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(116,247,212,0.12) 0%, transparent 72%)",
+        }}
+      />
+
+      <div className="section-padding max-container relative z-10">
+        <div ref={bigTextShellRef} className="mb-16">
+          <div ref={bigTextRef}>
+            <h2
+              className="font-display font-bold leading-none tracking-tighter text-text-primary"
+              style={{ fontSize: "clamp(3rem, 15vw, 12rem)" }}
+            >
+              Let&apos;s Talk
+              <span className="text-accent">.</span>
+            </h2>
+            <p className="mt-4 max-w-xl text-base text-text-secondary md:text-lg">
+              Have a project in mind or want to discuss security-focused product
+              work? Send a message and I will reply as soon as possible.
+            </p>
+          </div>
         </div>
 
-        {/* Two-column: form + info */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-16 lg:gap-24">
-          {/* Form — brutalist minimal inputs */}
-          <form ref={formRef} onSubmit={sendEmail} className="space-y-8">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1.2fr_0.8fr] lg:gap-24">
+          <div ref={formShellRef}>
+            <form ref={formRef} onSubmit={sendEmail} className="space-y-8">
+              <div>
+                <label className="mb-3 block text-[10px] uppercase tracking-[0.2em] text-text-tertiary">
+                  Name
+                </label>
+                <input
+                  className="form-input"
+                  type="text"
+                  name="from_name"
+                  placeholder="Your name"
+                  value={formData.from_name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="mb-3 block text-[10px] uppercase tracking-[0.2em] text-text-tertiary">
+                  Email
+                </label>
+                <input
+                  className="form-input"
+                  type="email"
+                  name="from_email"
+                  placeholder="your@email.com"
+                  value={formData.from_email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="mb-3 block text-[10px] uppercase tracking-[0.2em] text-text-tertiary">
+                  Message
+                </label>
+                <textarea
+                  className="form-textarea"
+                  name="message"
+                  placeholder="Tell me about your project..."
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              {status && <p className="text-sm text-accent">{status}</p>}
+
+              <button
+                type="submit"
+                className="inline-flex items-center gap-3 bg-accent px-8 py-4 text-sm font-semibold text-bg-primary transition-all duration-300 hover:gap-5"
+                data-cursor="magnetic"
+              >
+                Send Message
+                <span className="h-[1px] w-4 bg-bg-primary" />
+              </button>
+            </form>
+          </div>
+
+          <div ref={infoShellRef} className="space-y-8">
             <div>
-              <label className="text-[10px] uppercase tracking-[0.2em] text-text-tertiary block mb-3">
-                Name
-              </label>
-              <input
-                className="form-input"
-                type="text"
-                name="from_name"
-                placeholder="Your name"
-                value={formData.from_name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div>
-              <label className="text-[10px] uppercase tracking-[0.2em] text-text-tertiary block mb-3">
-                Email
-              </label>
-              <input
-                className="form-input"
-                type="email"
-                name="from_email"
-                placeholder="your@email.com"
-                value={formData.from_email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div>
-              <label className="text-[10px] uppercase tracking-[0.2em] text-text-tertiary block mb-3">
-                Message
-              </label>
-              <textarea
-                className="form-textarea"
-                name="message"
-                placeholder="Tell me about your project..."
-                value={formData.message}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            {status && (
-              <p className="text-sm text-accent">{status}</p>
-            )}
-
-            <button
-              type="submit"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-bg-primary text-sm font-semibold hover:gap-5 transition-all duration-300"
-              data-cursor="magnetic"
-            >
-              Send Message
-              <span className="w-4 h-[1px] bg-bg-primary" />
-            </button>
-          </form>
-
-          {/* Contact info */}
-          <div className="space-y-8">
-            <div>
-              <p className="text-label mb-4">Email</p>
+              <p className="mb-4 text-label">Email</p>
               <a
                 href="mailto:ramybezriche@gmail.com"
-                className="text-text-primary hover:text-accent transition-colors text-base hover-line"
+                className="text-base text-text-primary transition-colors hover-line hover:text-accent"
               >
                 ramybezriche@gmail.com
               </a>
             </div>
 
             <div>
-              <p className="text-label mb-4">Phone</p>
-              <p className="text-text-primary text-base">+213 552 173 451</p>
+              <p className="mb-4 text-label">Phone</p>
+              <p className="text-base text-text-primary">+213 552 173 451</p>
             </div>
 
             <div>
-              <p className="text-label mb-4">Location</p>
-              <p className="text-text-primary text-base">Alger, Algeria</p>
+              <p className="mb-4 text-label">Location</p>
+              <p className="text-base text-text-primary">Alger, Algeria</p>
             </div>
 
             <div>
-              <p className="text-label mb-4">Social</p>
+              <p className="mb-4 text-label">Social</p>
               <div className="flex gap-4">
                 <a
                   href="https://linkedin.com/in/ramy-bezriche"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-accent transition-colors text-xl"
+                  className="text-xl text-text-secondary transition-colors hover:text-accent"
                 >
                   <FaLinkedin />
                 </a>
@@ -181,7 +260,7 @@ const ContactMeMain = () => {
                   href="https://github.com/bezriche-ramy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-accent transition-colors text-xl"
+                  className="text-xl text-text-secondary transition-colors hover:text-accent"
                 >
                   <FaGithub />
                 </a>

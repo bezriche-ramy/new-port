@@ -1,13 +1,6 @@
 import ScrambleText from "../ScrambleText";
 import { scrollToSection } from "../../lib/scroll";
-
-const links = [
-  { name: "About", section: "about" },
-  { name: "Skills", section: "skills" },
-  { name: "Experience", section: "experience" },
-  { name: "Projects", section: "projects" },
-  { name: "Contact", section: "contact" },
-];
+import { navigationLinks, navigationOffset } from "../../lib/navigation";
 
 const FooterMain = () => {
   return (
@@ -21,14 +14,16 @@ const FooterMain = () => {
 
           {/* Links */}
           <ul className="flex flex-wrap gap-6 text-sm text-text-secondary">
-            {links.map((item) => (
+            {navigationLinks.map((item) => (
               <li key={item.section}>
                 <button
                   type="button"
-                  onClick={() => scrollToSection(item.section, { offset: -80 })}
+                  onClick={() =>
+                    scrollToSection(item.section, { offset: navigationOffset })
+                  }
                   className="hover:text-text-primary transition-colors hover-line"
                 >
-                  {item.name}
+                  {item.label}
                 </button>
               </li>
             ))}
