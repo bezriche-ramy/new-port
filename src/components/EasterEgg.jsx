@@ -65,7 +65,7 @@ const EasterEgg = () => {
       ctx.fillStyle = `rgba(5, 5, 5, 0.08)`;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = `rgba(196, 255, 0, ${0.9 * opacity})`;
+      ctx.fillStyle = `rgba(37, 99, 235, ${0.9 * opacity})`;
       ctx.font = "14px 'JetBrains Mono', monospace";
 
       drops.forEach((y, i) => {

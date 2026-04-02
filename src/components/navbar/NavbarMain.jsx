@@ -9,6 +9,7 @@ import {
   navigationLinks,
   navigationOffset,
 } from "../../lib/navigation";
+import ThemeToggle from "../ThemeToggle";
 
 const NavbarMain = () => {
   const dispatch = useDispatch();
@@ -171,7 +172,7 @@ const NavbarMain = () => {
         className="fixed left-0 top-0 z-[100] w-full px-6 md:px-10"
         style={{ opacity: 0 }}
       >
-        <div className="max-container flex items-center justify-between py-5">
+        <div className="theme-soft-panel max-container mt-4 flex items-center justify-between rounded-full px-4 py-4 md:px-6">
           <button
             type="button"
             onClick={() => scrollToSection("hero", { offset: 0 })}
@@ -200,6 +201,8 @@ const NavbarMain = () => {
           </div>
 
           <div className="flex items-center gap-4 md:gap-5">
+            <ThemeToggle />
+
             <a
               href={availabilityLink.href}
               target="_blank"
@@ -250,19 +253,21 @@ const NavbarMain = () => {
       <div
         ref={overlayRef}
         id="mobile-navigation"
-        className="fixed inset-0 z-[99] hidden bg-black/60 lg:hidden"
+        className="fixed inset-0 z-[99] hidden lg:hidden"
+        style={{ backgroundColor: "rgb(var(--shadow-rgb) / 0.46)" }}
       >
         <div
           ref={panelRef}
           role="dialog"
           aria-modal="true"
-          className="relative flex min-h-full w-full flex-col overflow-hidden bg-[linear-gradient(180deg,#050505_0%,#070707_52%,#0a0a0a_100%)] px-6 pb-8 pt-5"
+          className="relative flex min-h-full w-full flex-col overflow-hidden px-6 pb-8 pt-5"
+          style={{ background: "var(--panel-gradient)" }}
         >
           <div
             className="absolute inset-0 opacity-[0.045]"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.55) 1px, transparent 1px)",
+                "linear-gradient(rgb(var(--hero-grid-rgb) / 0.24) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--hero-grid-rgb) / 0.24) 1px, transparent 1px)",
               backgroundSize: "56px 56px",
             }}
           />
@@ -270,14 +275,14 @@ const NavbarMain = () => {
             className="absolute left-[-12%] top-[12%] h-56 w-56 rounded-full blur-3xl"
             style={{
               background:
-                "radial-gradient(circle, rgba(196,255,0,0.16) 0%, transparent 68%)",
+                "radial-gradient(circle, rgb(var(--accent-rgb) / 0.16) 0%, transparent 68%)",
             }}
           />
           <div
             className="absolute right-[-8%] bottom-[16%] h-64 w-64 rounded-full blur-3xl"
             style={{
               background:
-                "radial-gradient(circle, rgba(116,247,212,0.12) 0%, transparent 68%)",
+                "radial-gradient(circle, rgb(var(--accent-secondary-rgb) / 0.14) 0%, transparent 68%)",
             }}
           />
 
@@ -297,18 +302,22 @@ const NavbarMain = () => {
               </span>
             </button>
 
-            <button
-              ref={closeButtonRef}
-              type="button"
-              onClick={() => dispatch(closeMenu())}
-              className="inline-flex h-11 items-center gap-3 border border-border-medium px-4 text-sm text-text-primary transition-colors duration-300 hover:border-accent"
-            >
-              Close
-              <span className="relative block h-3 w-3">
-                <span className="absolute left-0 top-[5px] block h-[1.5px] w-full rotate-45 bg-text-primary" />
-                <span className="absolute left-0 top-[5px] block h-[1.5px] w-full -rotate-45 bg-text-primary" />
-              </span>
-            </button>
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+
+              <button
+                ref={closeButtonRef}
+                type="button"
+                onClick={() => dispatch(closeMenu())}
+                className="inline-flex h-11 items-center gap-3 border border-border-medium px-4 text-sm text-text-primary transition-colors duration-300 hover:border-accent"
+              >
+                Close
+                <span className="relative block h-3 w-3">
+                  <span className="absolute left-0 top-[5px] block h-[1.5px] w-full rotate-45 bg-text-primary" />
+                  <span className="absolute left-0 top-[5px] block h-[1.5px] w-full -rotate-45 bg-text-primary" />
+                </span>
+              </button>
+            </div>
           </div>
 
           <div className="relative z-10 flex flex-1 items-center py-10">

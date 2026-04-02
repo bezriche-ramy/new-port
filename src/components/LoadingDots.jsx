@@ -24,8 +24,7 @@ const LoadingDots = () => {
       <div className="w-48 h-[1px] bg-border-subtle overflow-hidden">
         <div
           ref={barRef}
-          className="h-full w-0"
-          style={{ background: "#c4ff00" }}
+          className="h-full w-0 bg-accent"
         />
       </div>
     </div>

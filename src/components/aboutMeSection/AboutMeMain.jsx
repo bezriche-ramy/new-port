@@ -6,18 +6,18 @@ import { scrollToSection } from "../../lib/scroll";
 const detailBlocks = [
   {
     num: "01",
-    title: "Profil",
-    text: "Computer science student focused on cybersecurity, reverse engineering, and practical front-end delivery.",
+    title: "What I fix",
+    text: "Confusing websites, weak first impressions, and interfaces that make customers work too hard to understand the offer.",
   },
   {
     num: "02",
-    title: "Formation",
-    text: "State engineering cycle at USTHB (2022-2027), with specialization in security systems and software architecture.",
+    title: "How I work",
+    text: "I turn business goals into structure, messaging, polished UI, and implementation-ready screens that feel intentional.",
   },
   {
     num: "03",
-    title: "Engagement",
-    text: "Active in GDG Algeria and Shellmates communities, contributing to developer education and project mentorship.",
+    title: "What you get",
+    text: "A calmer, more credible product experience that helps people trust the business faster and move toward action.",
   },
 ];
 
@@ -162,51 +162,50 @@ const AboutMeMain = () => {
     return () => ctx.revert();
   }, []);
 
-  const headingWords =
-    "Building secure experiences with product-level polish".split(" ");
+  const headingWords = "Design that makes businesses easier to trust".split(" ");
 
   return (
     <section id="about" ref={sectionRef} className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
         <div
-          ref={(el) => {
-            glowRefs.current[0] = el;
+          ref={(element) => {
+            glowRefs.current[0] = element;
           }}
           className="absolute left-[-8%] top-[8%] h-[280px] w-[280px] rounded-full opacity-70 blur-3xl"
           style={{
             background:
-              "radial-gradient(circle, rgba(196,255,0,0.18) 0%, transparent 68%)",
+              "radial-gradient(circle, rgb(var(--accent-rgb) / 0.18) 0%, transparent 68%)",
           }}
         />
         <div
-          ref={(el) => {
-            glowRefs.current[1] = el;
+          ref={(element) => {
+            glowRefs.current[1] = element;
           }}
           className="absolute right-[4%] top-[22%] h-[340px] w-[340px] rounded-full opacity-60 blur-3xl"
           style={{
             background:
-              "radial-gradient(circle, rgba(116,247,212,0.16) 0%, transparent 70%)",
+              "radial-gradient(circle, rgb(var(--accent-secondary-rgb) / 0.16) 0%, transparent 70%)",
           }}
         />
         <div
-          ref={(el) => {
-            glowRefs.current[2] = el;
+          ref={(element) => {
+            glowRefs.current[2] = element;
           }}
           className="absolute bottom-[10%] left-[34%] h-[240px] w-[240px] rounded-full opacity-40 blur-[120px]"
           style={{
             background:
-              "radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 72%)",
+              "radial-gradient(circle, rgb(var(--text-primary-rgb) / 0.08) 0%, transparent 72%)",
           }}
         />
         <div
           ref={frameRef}
-          className="absolute inset-x-[8%] top-20 hidden h-[500px] border border-white/6 lg:block"
+          className="absolute inset-x-[8%] top-20 hidden h-[500px] border border-border-subtle lg:block"
         />
         <div
           className="absolute inset-x-[10%] bottom-12 h-[220px] opacity-[0.05]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.45) 1px, transparent 1px)",
+              "linear-gradient(rgb(var(--hero-grid-rgb) / 0.26) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--hero-grid-rgb) / 0.26) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
@@ -214,8 +213,8 @@ const AboutMeMain = () => {
 
       <div className="section-padding max-container relative z-10">
         <div
-          ref={(el) => {
-            lineRefs.current[0] = el;
+          ref={(element) => {
+            lineRefs.current[0] = element;
           }}
           className="mb-12 flex items-center gap-4"
         >
@@ -243,39 +242,40 @@ const AboutMeMain = () => {
             </h2>
 
             <p
-              ref={(el) => {
-                lineRefs.current[1] = el;
+              ref={(element) => {
+                lineRefs.current[1] = element;
               }}
               className="mt-8 max-w-xl text-base leading-relaxed text-text-secondary md:text-lg"
             >
-              I combine offensive-security thinking with clean UI engineering to
-              create interfaces that are both dependable and memorable.
+              I help founders and service teams turn complex offers into calm,
+              credible interfaces that guide people toward the next step with less
+              friction.
             </p>
 
             <div
-              ref={(el) => {
-                lineRefs.current[2] = el;
+              ref={(element) => {
+                lineRefs.current[2] = element;
               }}
-              className="mt-8 inline-flex items-center gap-3 border border-white/10 bg-white/[0.02] px-4 py-3 backdrop-blur-sm"
+              className="mt-8 inline-flex items-center gap-3 border border-border-medium bg-bg-elevated/70 px-4 py-3 backdrop-blur-sm"
             >
               <span className="h-2 w-2 rounded-full bg-accent" />
-              <span className="text-[10px] font-code uppercase tracking-[0.32em] text-text-secondary">
-                Secure by design
+              <span className="font-code text-[10px] uppercase tracking-[0.32em] text-text-secondary">
+                UX/UI for clarity and conversion
               </span>
             </div>
 
             <MagneticButton strength={0.35}>
               <button
                 type="button"
-                ref={(el) => {
-                  lineRefs.current[3] = el;
+                ref={(element) => {
+                  lineRefs.current[3] = element;
                 }}
                 onClick={() => scrollToSection("projects", { offset: -80 })}
                 className="mt-8 inline-flex items-center gap-3 text-sm text-accent transition-all duration-300 hover:gap-5"
                 data-cursor="magnetic"
               >
                 <span className="h-[1px] w-8 bg-accent" />
-                View Projects
+                See Business Proof
               </button>
             </MagneticButton>
           </div>
@@ -284,15 +284,15 @@ const AboutMeMain = () => {
             {detailBlocks.map((block, index) => (
               <div
                 key={block.title}
-                ref={(el) => {
-                  blockRefs.current[index] = el;
+                ref={(element) => {
+                  blockRefs.current[index] = element;
                 }}
-                className="group relative overflow-hidden border border-transparent bg-white/[0.015] px-5 py-5 transition-all duration-500 hover:border-white/10 hover:bg-white/[0.03]"
+                className="group relative overflow-hidden border border-border-subtle bg-bg-elevated/60 px-5 py-5 transition-all duration-500 hover:border-border-medium hover:bg-bg-elevated"
               >
                 <div className="absolute inset-y-0 left-0 w-[2px] bg-gradient-to-b from-accent/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
                 <div className="flex items-start gap-4">
-                  <span className="mt-1 text-xs font-code text-text-tertiary">
+                  <span className="mt-1 font-code text-xs text-text-tertiary">
                     {block.num}
                   </span>
                   <div>

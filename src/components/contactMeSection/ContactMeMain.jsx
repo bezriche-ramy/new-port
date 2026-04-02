@@ -143,7 +143,7 @@ const ContactMeMain = () => {
         className="pointer-events-none absolute left-[8%] top-[18%] hidden h-72 w-72 rounded-full opacity-55 blur-[120px] lg:block"
         style={{
           background:
-            "radial-gradient(circle, rgba(116,247,212,0.12) 0%, transparent 72%)",
+            "radial-gradient(circle, rgb(var(--accent-secondary-rgb) / 0.12) 0%, transparent 72%)",
         }}
       />
 
@@ -158,8 +158,9 @@ const ContactMeMain = () => {
               <span className="text-accent">.</span>
             </h2>
             <p className="mt-4 max-w-xl text-base text-text-secondary md:text-lg">
-              Have a project in mind or want to discuss security-focused product
-              work? Send a message and I will reply as soon as possible.
+              Need a clearer website, a stronger customer flow, or a cleaner
+              product interface? Send a message and I will reply as soon as
+              possible.
             </p>
           </div>
         </div>

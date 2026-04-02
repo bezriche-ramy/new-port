@@ -9,9 +9,9 @@ const MAX_TOKEN_COUNT = 120;
 
 const DOMAIN_KEYWORDS = {
   Frontend: ["ui", "landing", "responsive", "dashboard", "animation"],
+  "Product Design": ["ux", "ui", "conversion", "journey", "clarity"],
   Backend: ["api", "server", "database", "auth", "performance"],
-  Security: ["pentest", "malware", "reverse", "audit", "secure"],
-  DevOps: ["deploy", "docker", "linux", "ci", "automation"],
+  Delivery: ["deploy", "launch", "handoff", "workflow", "automation"],
 };
 
 const normalizeText = (value) =>
@@ -34,7 +34,7 @@ const hasTermMatch = (normalizedText, tokenSet, term) => {
 
 const getProfileSentence = (groupedDomains, selectedCount) => {
   if (!selectedCount) {
-    return "Drag skills from inventory into the board to build your stack profile.";
+    return "Drag capabilities into the board to build a delivery profile.";
   }
 
   if (groupedDomains.length === 1) {
@@ -52,7 +52,7 @@ const getProfileSentence = (groupedDomains, selectedCount) => {
     return `This build prioritizes ${first[0]} with ${second[0]} support.`;
   }
 
-  return "This build is a balanced full-stack and security blend.";
+  return "This build blends UX thinking, frontend craft, and delivery support.";
 };
 
 const rankSkillsFromNeed = (skills, needText, maxSelected) => {
@@ -277,9 +277,13 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
     setLimitNotice("");
 
     if (ranked.fallbackUsed) {
-      setAnalysisMessage("No direct keyword match, showing strongest core skills.");
+      setAnalysisMessage(
+        "No direct keyword match, showing the strongest core capabilities."
+      );
     } else {
-      setAnalysisMessage("Based on your request, these are my strongest matching skills:");
+      setAnalysisMessage(
+        "Based on your request, these are the strongest matching capabilities:"
+      );
     }
   };
 
@@ -319,7 +323,9 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
     }
 
     if (selectedSkillIds.length >= maxSelected) {
-      setLimitNotice(`Board limit reached (${maxSelected}). Remove one skill to continue.`);
+      setLimitNotice(
+        `Board limit reached (${maxSelected}). Remove one capability to continue.`
+      );
       return;
     }
 
@@ -340,7 +346,7 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
     <div className="border border-border-subtle bg-bg-primary/60 p-5">
       <h4 className="text-sm uppercase tracking-[0.16em] text-text-secondary">Client Need</h4>
       <p className="text-xs text-text-tertiary mt-2">
-        Describe the task and I will map the strongest skills.
+        Describe the business need and I will map the strongest capabilities.
       </p>
       <label htmlFor={readOnlyPreview ? "client-need-preview" : "client-need"} className="sr-only">
         What do you need me to build?
@@ -350,7 +356,7 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
         id={readOnlyPreview ? "client-need-preview" : "client-need"}
         value={clientNeed}
         onChange={(event) => setClientNeed(event.target.value)}
-        placeholder="Example: Need a secure React dashboard with API auth and database integration."
+        placeholder="Example: Need a clearer service website with stronger mobile UX and a smoother booking flow."
         className="mt-4 w-full min-h-[120px] border border-border-subtle bg-bg-elevated p-3 text-sm text-text-primary focus:outline-none focus:border-accent resize-y"
       />
       <div className="mt-4 flex flex-wrap gap-3">
@@ -401,7 +407,7 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
 
       {readOnlyPreview && (
         <p className="text-xs text-text-tertiary mt-4">
-          Drag-and-drop board is desktop only. Open this section on desktop to refine the stack manually.
+          Drag-and-drop refinement is desktop only. Open this section on desktop to adjust the capability board manually.
         </p>
       )}
     </div>
@@ -414,7 +420,7 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
           <div>
             <p className="text-label">Skill Lab</p>
             <h3 className="text-heading font-display text-text-primary mt-2">
-              Tell me what you need. I&apos;ll map the right skills.
+              Tell me what the business needs. I&apos;ll map the right capabilities.
             </h3>
             <p className="text-sm text-text-secondary mt-3 max-w-2xl">
               This view gives you a read-only recommendation preview. Drag-and-drop refinement is available on desktop.
@@ -435,10 +441,10 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
         <div>
           <p className="text-label">Skill Lab</p>
           <h3 className="text-heading font-display text-text-primary mt-2">
-            Tell me what you need. I&apos;ll map the right skills.
+            Tell me what the business needs. I&apos;ll map the right capabilities.
           </h3>
           <p className="text-sm text-text-secondary mt-3 max-w-2xl">
-            Analyze your need to auto-fill top matches, then refine the board manually with drag and drop.
+            Analyze the brief to auto-fill top matches, then refine the board manually with drag and drop.
           </p>
         </div>
         <button
@@ -457,7 +463,7 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
           <div className="border border-border-subtle bg-bg-primary/60 p-5">
             <h4 className="text-sm uppercase tracking-[0.16em] text-text-secondary">Inventory</h4>
             <p className="text-xs text-text-tertiary mt-2">
-              Drag skills from here into your board to fine tune recommendations.
+              Drag capabilities from here into your board to fine tune recommendations.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               {skills.map((skill) => {
@@ -526,7 +532,7 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
 
           {!selectedSkills.length ? (
             <div className="mt-5 border border-dashed border-border-subtle p-5 text-sm text-text-tertiary">
-              Analyze your need or drag skills here to generate your summary.
+              Analyze your brief or drag capabilities here to generate your summary.
             </div>
           ) : (
             <div className="mt-5 flex flex-wrap gap-3">
@@ -565,7 +571,7 @@ const SkillLab = ({ skills, domains, maxSelected = 8 }) => {
                     className="flex items-center justify-between gap-3 text-xs border border-border-subtle px-3 py-2"
                   >
                     <span className="text-text-secondary">{mappedDomainName}</span>
-                    <span className="text-text-primary">{list.length} skills</span>
+                    <span className="text-text-primary">{list.length} items</span>
                   </div>
                 );
               })}

@@ -4,19 +4,72 @@
 @tailwind utilities;
 
 :root {
-  --bg-primary: #050505;
-  --bg-elevated: #0a0a0a;
-  --bg-surface: #111111;
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-medium: rgba(255, 255, 255, 0.12);
-  --text-primary: #e8e8e8;
-  --text-secondary: #777777;
-  --text-tertiary: #444444;
-  --accent: #c4ff00;
-  --accent-dim: rgba(196, 255, 0, 0.08);
-  --accent-glow: rgba(196, 255, 0, 0.25);
-  /* scroll-behavior: smooth; */
+  --bg-primary-rgb: 243 240 234;
+  --bg-elevated-rgb: 251 248 243;
+  --bg-surface-rgb: 233 228 219;
+  --text-primary-rgb: 26 32 44;
+  --text-secondary-rgb: 71 85 105;
+  --text-tertiary-rgb: 109 123 141;
+  --border-subtle-rgb: 205 197 185;
+  --border-medium-rgb: 161 174 191;
+  --accent-rgb: 37 99 235;
+  --accent-secondary-rgb: 14 165 233;
+  --hero-grid-rgb: 120 132 154;
+  --shadow-rgb: 15 23 42;
+  --noise-opacity: 0.014;
+  --panel-gradient:
+    linear-gradient(
+      180deg,
+      rgba(251, 248, 243, 0.98) 0%,
+      rgba(246, 242, 235, 0.98) 52%,
+      rgba(236, 231, 223, 0.98) 100%
+    );
+  --cursor-ring: rgba(15, 23, 42, 0.18);
+  --cursor-ring-hover: rgba(37, 99, 235, 0.34);
+  --cursor-surface: rgba(255, 255, 255, 0.78);
+  --cursor-surface-hover: rgba(37, 99, 235, 0.12);
+  --cursor-label: rgb(15, 23, 42);
+  --selection-foreground: #0f172a;
+  --bg-primary: rgb(var(--bg-primary-rgb));
+  --bg-elevated: rgb(var(--bg-elevated-rgb));
+  --bg-surface: rgb(var(--bg-surface-rgb));
+  --text-primary: rgb(var(--text-primary-rgb));
+  --text-secondary: rgb(var(--text-secondary-rgb));
+  --text-tertiary: rgb(var(--text-tertiary-rgb));
+  --border-subtle: rgb(var(--border-subtle-rgb));
+  --border-medium: rgb(var(--border-medium-rgb));
+  --accent: rgb(var(--accent-rgb));
+  --accent-dim: rgb(var(--accent-rgb) / 0.12);
+  --accent-glow: rgb(var(--accent-rgb) / 0.24);
   scroll-padding-top: 100px;
+}
+
+.dark {
+  --bg-primary-rgb: 5 5 5;
+  --bg-elevated-rgb: 10 10 10;
+  --bg-surface-rgb: 17 17 17;
+  --text-primary-rgb: 232 232 232;
+  --text-secondary-rgb: 193 203 216;
+  --text-tertiary-rgb: 148 163 184;
+  --border-subtle-rgb: 51 65 85;
+  --border-medium-rgb: 100 116 139;
+  --accent-secondary-rgb: 56 189 248;
+  --hero-grid-rgb: 255 255 255;
+  --shadow-rgb: 0 0 0;
+  --noise-opacity: 0.03;
+  --panel-gradient:
+    linear-gradient(
+      180deg,
+      rgba(5, 5, 5, 0.98) 0%,
+      rgba(7, 7, 7, 0.98) 52%,
+      rgba(10, 10, 10, 0.98) 100%
+    );
+  --cursor-ring: rgba(255, 255, 255, 0.18);
+  --cursor-ring-hover: rgba(96, 165, 250, 0.42);
+  --cursor-surface: rgba(10, 10, 10, 0.72);
+  --cursor-surface-hover: rgba(37, 99, 235, 0.1);
+  --cursor-label: rgb(248, 250, 252);
+  --selection-foreground: #050505;
 }
 
 * {
@@ -43,6 +96,9 @@ body {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   line-height: 1.6;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
 }
 
 a,
@@ -53,20 +109,11 @@ textarea {
   font-family: inherit;
 }
 
-/* Hide default cursor on desktop for custom cursor */
-@media (hover: hover) and (pointer: fine) {
-  body,
-  body * {
-    cursor: none !important;
-  }
-}
-
 ::selection {
   background: var(--accent);
-  color: #050505;
+  color: var(--selection-foreground);
 }
 
-/* Minimal scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -83,10 +130,6 @@ textarea {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
 }
-
-/* ========================================
-   TYPOGRAPHY SYSTEM
-   ======================================== */
 
 .font-display {
   font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
@@ -119,13 +162,9 @@ textarea {
   font-size: 0.6875rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text-secondary);
-  font-weight: 500;
+  color: var(--text-tertiary);
+  font-weight: 600;
 }
-
-/* ========================================
-   LAYOUT PRIMITIVES
-   ======================================== */
 
 .section-padding {
   padding: clamp(4rem, 10vh, 8rem) clamp(1.5rem, 5vw, 4rem);
@@ -145,10 +184,6 @@ textarea {
   height: 1px;
   background: var(--border-subtle);
 }
-
-/* ========================================
-   ACCENT & INTERACTION
-   ======================================== */
 
 .accent-text {
   color: var(--accent);
@@ -188,30 +223,7 @@ textarea {
   transform-origin: left;
 }
 
-/* ========================================
-   BRUTALIST FORM INPUTS
-   ======================================== */
-
-.form-input {
-  width: 100%;
-  padding: 1rem 0;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border-medium);
-  color: var(--text-primary);
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s ease;
-}
-
-.form-input::placeholder {
-  color: var(--text-tertiary);
-}
-
-.form-input:focus {
-  border-bottom-color: var(--accent);
-}
-
+.form-input,
 .form-textarea {
   width: 100%;
   padding: 1rem 0;
@@ -221,22 +233,68 @@ textarea {
   color: var(--text-primary);
   font-size: 1rem;
   outline: none;
-  resize: vertical;
-  min-height: 120px;
   transition: border-color 0.3s ease;
 }
 
+.form-input::placeholder,
 .form-textarea::placeholder {
-  color: var(--text-tertiary);
+  color: rgb(var(--text-tertiary-rgb) / 0.95);
 }
 
+.form-input:focus,
 .form-textarea:focus {
   border-bottom-color: var(--accent);
 }
 
-/* ========================================
-   UTILITY
-   ======================================== */
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--border-medium-rgb) / 0.85);
+  background: rgb(var(--bg-elevated-rgb) / 0.86);
+  color: var(--text-primary);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 30px rgb(var(--shadow-rgb) / 0.12);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.theme-toggle-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgb(var(--accent-rgb) / 0.65);
+  box-shadow: 0 18px 36px rgb(var(--shadow-rgb) / 0.16);
+}
+
+.theme-toggle-btn:focus-visible {
+  outline: 2px solid rgb(var(--accent-rgb) / 0.75);
+  outline-offset: 3px;
+}
+
+.theme-toggle-btn[aria-pressed="true"] {
+  background: rgb(var(--bg-surface-rgb) / 0.94);
+}
+
+.theme-toggle-btn svg {
+  flex-shrink: 0;
+}
+
+.theme-soft-panel {
+  background: rgb(var(--bg-elevated-rgb) / 0.82);
+  border: 1px solid rgb(var(--border-medium-rgb) / 0.7);
+  backdrop-filter: blur(16px);
+}
 
 .will-change-transform {
   will-change: transform;
@@ -246,24 +304,18 @@ textarea {
   clip-path: inset(0 100% 0 0);
 }
 
-.mix-blend-diff {
-  mix-blend-mode: difference;
-}
-
-/* Noise texture overlay for raw aesthetic */
 .noise-overlay::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.03;
+  opacity: var(--noise-opacity);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
 }
 
-/* Horizontal scroll section */
 .horizontal-scroll-wrapper {
   display: flex;
   gap: 2rem;
@@ -274,13 +326,14 @@ textarea {
   flex-shrink: 0;
 }
 
-/* ========================================
-   MARQUEE
-   ======================================== */
-
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .marquee-track {
@@ -293,16 +346,12 @@ textarea {
   animation-play-state: paused;
 }
 
-/* ========================================
-   SKILL LAB STATES
-   ======================================== */
-
 .accent-glow-shell {
   position: relative;
   box-shadow:
-    0 0 0 1px rgba(196, 255, 0, 0.12),
-    0 0 34px rgba(196, 255, 0, 0.12),
-    0 26px 48px rgba(0, 0, 0, 0.52);
+    0 0 0 1px rgb(var(--accent-rgb) / 0.12),
+    0 0 34px rgb(var(--accent-rgb) / 0.12),
+    0 26px 48px rgb(var(--shadow-rgb) / 0.14);
 }
 
 .accent-glow-shell::after {
@@ -310,16 +359,16 @@ textarea {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  border: 1px solid rgba(196, 255, 0, 0.16);
+  border: 1px solid rgb(var(--accent-rgb) / 0.16);
   opacity: 0.65;
 }
 
 .accent-glow-active {
   border-color: var(--accent) !important;
   box-shadow:
-    inset 0 0 0 1px rgba(196, 255, 0, 0.18),
-    0 0 28px rgba(196, 255, 0, 0.16),
-    0 20px 38px rgba(0, 0, 0, 0.5);
+    inset 0 0 0 1px rgb(var(--accent-rgb) / 0.18),
+    0 0 28px rgb(var(--accent-rgb) / 0.16),
+    0 20px 38px rgb(var(--shadow-rgb) / 0.16);
 }
 
 .skill-chip {
@@ -340,28 +389,30 @@ textarea {
   border-color: var(--accent) !important;
   background: linear-gradient(
     160deg,
-    rgba(196, 255, 0, 0.08) 0%,
-    rgba(196, 255, 0, 0.03) 50%,
-    rgba(17, 17, 17, 0.8) 100%
+    rgb(var(--accent-rgb) / 0.12) 0%,
+    rgb(var(--accent-rgb) / 0.05) 50%,
+    rgb(var(--bg-surface-rgb) / 0.92) 100%
   );
-  box-shadow: inset 0 0 0 1px rgba(196, 255, 0, 0.2);
+  box-shadow: inset 0 0 0 1px rgb(var(--accent-rgb) / 0.2);
 }
 
 @keyframes terminalSignal {
   0% {
     opacity: 0.35;
     transform: scale(0.75);
-    box-shadow: 0 0 0 0 rgba(196, 255, 0, 0.6);
+    box-shadow: 0 0 0 0 rgb(var(--accent-rgb) / 0.6);
   }
+
   50% {
     opacity: 1;
     transform: scale(1);
-    box-shadow: 0 0 0 5px rgba(196, 255, 0, 0);
+    box-shadow: 0 0 0 5px rgb(var(--accent-rgb) / 0);
   }
+
   100% {
     opacity: 0.35;
     transform: scale(0.75);
-    box-shadow: 0 0 0 0 rgba(196, 255, 0, 0);
+    box-shadow: 0 0 0 0 rgb(var(--accent-rgb) / 0);
   }
 }
 
@@ -379,15 +430,12 @@ textarea {
   .accent-glow-active,
   .skill-chip,
   .drop-active,
-  .terminal-input-signal {
+  .terminal-input-signal,
+  .theme-toggle-btn {
     transition: none !important;
     animation: none !important;
   }
 }
-
-/* ========================================
-   RESPONSIVE RESETS
-   ======================================== */
 
 @media (max-width: 768px) {
   .text-huge {

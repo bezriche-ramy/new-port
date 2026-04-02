@@ -7,10 +7,10 @@ const experiences = [
     company: "Remote",
     date: "Sep 2025 - Present",
     responsibilities: [
-      "Built performant web applications with React and Next.js for independent clients.",
-      "Delivered responsive UI systems and production-ready component libraries.",
-      "Collaborated directly with stakeholders to translate business requirements into code.",
-      "Improved loading performance and baseline security posture on active deployments.",
+      "Designed and shipped modern websites and product interfaces for independent clients.",
+      "Delivered responsive UI systems and reusable components with production-ready frontend implementation.",
+      "Worked directly with stakeholders to turn business goals into clearer user journeys.",
+      "Improved performance, consistency, and trust signals across active deployments.",
     ],
   },
   {
@@ -18,8 +18,8 @@ const experiences = [
     company: "Client based in Nice, France",
     date: "2025",
     responsibilities: [
-      "Built a fast, responsive, and mobile-first user interface for a European travel booking platform.",
-      "Focused heavily on accessible UI components, high conversion rates, and modern styling with Tailwind CSS to enhance the user booking experience.",
+      "Built a fast, mobile-first interface for a European travel booking platform.",
+      "Improved the booking journey with clearer layouts, accessible components, and modern visual design.",
     ],
   },
   {
@@ -27,8 +27,8 @@ const experiences = [
     company: "Shams El Djazair, Algiers, Algeria",
     date: "2025",
     responsibilities: [
-      "Engineered the front-end presentation layer for one of Algeria's largest enterprises.",
-      "Ensured cross-browser compatibility, UI/UX consistency, and strict security best practices across the application.",
+      "Engineered the presentation layer for one of Algeria's largest enterprises.",
+      "Maintained UI consistency, cross-browser reliability, and a cleaner experience across complex internal flows.",
     ],
   },
   {
@@ -44,10 +44,10 @@ const experiences = [
 ];
 
 const expertiseAreas = [
-  { name: "Frontend Development", level: 95 },
-  { name: "React Ecosystem", level: 92 },
-  { name: "Security Practice", level: 90 },
-  { name: "Backend Development", level: 86 },
+  { name: "UX/UI Direction", level: 95 },
+  { name: "Responsive Product Design", level: 92 },
+  { name: "Frontend Delivery", level: 90 },
+  { name: "Client Collaboration", level: 86 },
 ];
 
 const ExperienceMain = () => {
@@ -110,11 +110,11 @@ const ExperienceMain = () => {
           dot,
           {
             scale: 0.72,
-            boxShadow: "0 0 0 0 rgba(196,255,0,0.45)",
+            boxShadow: "0 0 0 0 rgb(var(--accent-rgb) / 0.45)",
           },
           {
             scale: 1,
-            boxShadow: "0 0 0 10px rgba(196,255,0,0)",
+            boxShadow: "0 0 0 10px rgb(var(--accent-rgb) / 0)",
             duration: 0.72,
             ease: "power2.out",
             scrollTrigger: {
@@ -198,7 +198,7 @@ const ExperienceMain = () => {
         className="pointer-events-none absolute right-[10%] top-[14%] hidden h-72 w-72 rounded-full opacity-55 blur-[120px] lg:block"
         style={{
           background:
-            "radial-gradient(circle, rgba(196,255,0,0.14) 0%, transparent 72%)",
+            "radial-gradient(circle, rgb(var(--accent-rgb) / 0.14) 0%, transparent 72%)",
         }}
       />
 
@@ -211,7 +211,7 @@ const ExperienceMain = () => {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
           <div ref={leftColRef}>
             <h2 className="text-display font-display text-text-primary">
-              Professional
+              Client
               <br />
               Experience
             </h2>

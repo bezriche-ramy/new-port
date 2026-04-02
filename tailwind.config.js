@@ -17,19 +17,23 @@ export default {
       white: "#FFFFFF",
       black: "#000000",
       bg: {
-        primary: "#050505",
-        elevated: "#0a0a0a",
-        surface: "#111111",
+        primary: "rgb(var(--bg-primary-rgb) / <alpha-value>)",
+        elevated: "rgb(var(--bg-elevated-rgb) / <alpha-value>)",
+        surface: "rgb(var(--bg-surface-rgb) / <alpha-value>)",
       },
       text: {
-        primary: "#e8e8e8",
-        secondary: "#777777",
-        tertiary: "#444444",
+        primary: "rgb(var(--text-primary-rgb) / <alpha-value>)",
+        secondary: "rgb(var(--text-secondary-rgb) / <alpha-value>)",
+        tertiary: "rgb(var(--text-tertiary-rgb) / <alpha-value>)",
       },
-      accent: "#c4ff00",
+      accent: {
+        DEFAULT: "rgb(var(--accent-rgb) / <alpha-value>)",
+        dim: "var(--accent-dim)",
+        glow: "var(--accent-glow)",
+      },
       border: {
-        subtle: "rgba(255,255,255,0.06)",
-        medium: "rgba(255,255,255,0.12)",
+        subtle: "rgb(var(--border-subtle-rgb) / <alpha-value>)",
+        medium: "rgb(var(--border-medium-rgb) / <alpha-value>)",
       },
     },
     extend: {

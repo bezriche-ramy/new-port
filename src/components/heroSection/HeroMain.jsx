@@ -114,21 +114,24 @@ const HeroMain = () => {
         <div
           className="aurora-blob absolute top-[10%] left-[15%] h-[500px] w-[500px] rounded-full opacity-[0.04]"
           style={{
-            background: "radial-gradient(circle, #c4ff00 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, rgb(var(--accent-rgb) / 0.18) 0%, transparent 70%)",
             filter: "blur(80px)",
           }}
         />
         <div
           className="aurora-blob absolute top-[40%] right-[10%] h-[400px] w-[400px] rounded-full opacity-[0.03]"
           style={{
-            background: "radial-gradient(circle, #00ffc4 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, rgb(var(--accent-secondary-rgb) / 0.16) 0%, transparent 70%)",
             filter: "blur(100px)",
           }}
         />
         <div
           className="aurora-blob absolute bottom-[10%] left-[40%] h-[450px] w-[450px] rounded-full opacity-[0.03]"
           style={{
-            background: "radial-gradient(circle, #c4ff00 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle, rgb(var(--accent-rgb) / 0.16) 0%, transparent 70%)",
             filter: "blur(90px)",
           }}
         />
@@ -139,7 +142,7 @@ const HeroMain = () => {
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            "linear-gradient(rgb(var(--hero-grid-rgb) / 0.22) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--hero-grid-rgb) / 0.22) 1px, transparent 1px)",
           backgroundSize: "80px 80px",
         }}
       />

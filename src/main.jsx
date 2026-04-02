@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./state/store.js";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 
 if ("performance" in window && "mark" in window.performance) {
   performance.mark("app-start");
@@ -18,7 +19,9 @@ if (import.meta.env.PROD && typeof window !== "undefined") {
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </Provider>
   </StrictMode>
 );

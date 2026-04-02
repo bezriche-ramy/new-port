@@ -9,18 +9,19 @@ const PageTransition = ({ onComplete }) => {
   const columnsRef = useRef([]);
 
   useEffect(() => {
-    if (!overlayRef.current) return undefined;
+    if (!overlayRef.current) {
+      return undefined;
+    }
 
     const counter = { value: 0 };
-    const tl = gsap.timeline({
+    const timeline = gsap.timeline({
       onComplete: () => {
         setIsVisible(false);
         onComplete?.();
       },
     });
 
-    // Count from 0 to 100
-    tl.to(counter, {
+    timeline.to(counter, {
       value: 100,
       duration: 1.8,
       ease: "power2.inOut",
@@ -31,16 +32,14 @@ const PageTransition = ({ onComplete }) => {
       },
     });
 
-    // Fade in name
-    tl.fromTo(
+    timeline.fromTo(
       nameRef.current,
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
       0.3
     );
 
-    // Slide columns up with stagger to reveal content
-    tl.to(
+    timeline.to(
       columnsRef.current,
       {
         yPercent: -100,
@@ -51,39 +50,36 @@ const PageTransition = ({ onComplete }) => {
       ">=0.15"
     );
 
-    return () => tl.kill();
+    return () => timeline.kill();
   }, [onComplete]);
 
-  if (!isVisible) return null;
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <div ref={overlayRef} className="fixed inset-0 z-[9999]">
-      {/* Column-based reveal mask */}
       <div className="absolute inset-0 flex">
-        {[0, 1, 2, 3, 4].map((i) => (
+        {[0, 1, 2, 3, 4].map((index) => (
           <div
-            key={i}
-            ref={(el) => { columnsRef.current[i] = el; }}
-            className="flex-1 bg-bg-primary will-change-transform"
+            key={index}
+            ref={(element) => {
+              columnsRef.current[index] = element;
+            }}
+            className="will-change-transform flex-1 bg-bg-primary"
           />
         ))}
       </div>
 
-      {/* Counter overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
+      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center">
         <p
           ref={counterRef}
-          className="font-display text-[clamp(5rem,20vw,14rem)] font-bold text-text-primary leading-none tracking-tighter"
-          style={{ mixBlendMode: "difference" }}
+          className="font-display text-[clamp(5rem,20vw,14rem)] font-bold leading-none tracking-tighter text-text-primary"
         >
           0
         </p>
-        <p
-          ref={nameRef}
-          className="text-label mt-6 opacity-0"
-          style={{ mixBlendMode: "difference", color: "#e8e8e8" }}
-        >
-          Ramy Bezriche — Portfolio
+        <p ref={nameRef} className="mt-6 text-label opacity-0">
+          Ramy Bezriche - UX/UI Portfolio
         </p>
       </div>
     </div>

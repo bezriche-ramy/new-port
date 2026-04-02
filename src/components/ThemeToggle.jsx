@@ -25,10 +25,15 @@ const ThemeToggle = () => {
       type="button"
       onClick={handleThemeToggle}
       className="theme-toggle-btn"
-      aria-label="Toggle theme"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-pressed={isDark}
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
-      {isDark ? <BsSun className="w-4 h-4" /> : <BsMoonStars className="w-4 h-4" />}
+      {isDark ? (
+        <BsSun className="h-4 w-4" />
+      ) : (
+        <BsMoonStars className="h-4 w-4" />
+      )}
     </button>
   );
 };

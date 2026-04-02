@@ -137,7 +137,7 @@ const CertificateMain = () => {
             Certifications & Achievements
           </h2>
           <p className="text-text-secondary text-sm md:text-base max-w-xl mb-14 leading-relaxed">
-            Verified credentials spanning cybersecurity, development, and technical leadership.
+            Verified credentials spanning product thinking, development, and technical leadership.
           </p>
         </div>
 
@@ -160,7 +160,7 @@ const CertificateMain = () => {
               </span>
 
               {/* Image — grayscale by default, color on hover */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#0a0a0a]">
+              <div className="relative aspect-[4/3] overflow-hidden bg-bg-surface">
                 <img
                   src={cert.image}
                   alt={cert.title}
@@ -174,7 +174,8 @@ const CertificateMain = () => {
                 <div
                   className="absolute inset-0 pointer-events-none opacity-[0.03] group-hover:opacity-0 transition-opacity duration-500"
                   style={{
-                    backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)",
+                    backgroundImage:
+                      "repeating-linear-gradient(0deg, transparent, transparent 2px, rgb(var(--hero-grid-rgb) / 0.18) 2px, rgb(var(--hero-grid-rgb) / 0.18) 4px)",
                   }}
                 />
 

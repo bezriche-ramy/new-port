@@ -13,7 +13,7 @@ export const useTheme = () => {
 
 const getInitialTheme = () => {
   if (typeof window === "undefined") {
-    return true;
+    return false;
   }
 
   const savedTheme = window.localStorage.getItem("theme");
@@ -25,7 +25,7 @@ const getInitialTheme = () => {
     return false;
   }
 
-  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return false;
 };
 
 export const ThemeProvider = ({ children }) => {
@@ -33,6 +33,8 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDark);
+    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+    document.documentElement.style.colorScheme = isDark ? "dark" : "light";
     window.localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [isDark]);
 

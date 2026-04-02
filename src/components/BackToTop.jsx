@@ -47,7 +47,7 @@ const BackToTop = () => {
       ref={btnRef}
       type="button"
       onClick={handleScrollToTop}
-      className="fixed bottom-8 right-8 z-[98] w-12 h-12 flex items-center justify-center bg-bg-elevated border border-border-medium hover:border-accent transition-colors duration-300 rounded-full"
+      className="theme-soft-panel fixed bottom-8 right-8 z-[98] flex h-12 w-12 items-center justify-center rounded-full border border-border-medium bg-bg-elevated transition-colors duration-300 hover:border-accent"
       style={{ transform: "scale(0)", opacity: 0 }}
       aria-label="Back to top"
       data-cursor="magnetic"
@@ -59,7 +59,7 @@ const BackToTop = () => {
           cy="24"
           r="18"
           fill="none"
-          stroke="rgba(196, 255, 0, 0.15)"
+          stroke="rgb(var(--accent-rgb) / 0.2)"
           strokeWidth="2"
         />
         <circle
@@ -68,7 +68,7 @@ const BackToTop = () => {
           cy="24"
           r="18"
           fill="none"
-          stroke="#c4ff00"
+          stroke="rgb(var(--accent-rgb) / 1)"
           strokeWidth="2"
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -86,7 +86,7 @@ const BackToTop = () => {
       >
         <path
           d="M7 12V2M7 2L2 7M7 2L12 7"
-          stroke="#c4ff00"
+          stroke="rgb(var(--accent-rgb) / 1)"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"

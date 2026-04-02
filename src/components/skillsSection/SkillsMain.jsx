@@ -143,7 +143,7 @@ const SkillsMain = () => {
         className="pointer-events-none absolute right-[8%] top-[18%] hidden h-64 w-64 rounded-full opacity-50 blur-[110px] lg:block"
         style={{
           background:
-            "radial-gradient(circle, rgba(196,255,0,0.16) 0%, transparent 72%)",
+            "radial-gradient(circle, rgb(var(--accent-rgb) / 0.16) 0%, transparent 72%)",
         }}
       />
 
@@ -156,11 +156,11 @@ const SkillsMain = () => {
         <div ref={introShellRef}>
           <div ref={headingRef}>
             <h2 className="max-w-3xl text-display font-display text-text-primary">
-              Technical Arsenal
+              Design + Delivery Toolkit
             </h2>
             <p className="mt-4 max-w-xl text-text-secondary">
-              Development, security, and infrastructure capabilities used to
-              ship resilient digital products.
+              The blend of UX thinking, frontend craft, and implementation
+              support I use to turn business goals into working products.
             </p>
           </div>
         </div>

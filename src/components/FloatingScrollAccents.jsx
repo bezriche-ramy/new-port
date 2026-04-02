@@ -8,7 +8,7 @@ const accentConfigs = [
     innerClassName: "h-full w-full rounded-full blur-[110px]",
     innerStyle: {
       background:
-        "radial-gradient(circle, rgba(196,255,0,0.16) 0%, rgba(196,255,0,0.02) 42%, transparent 72%)",
+        "radial-gradient(circle, rgb(var(--accent-rgb) / 0.16) 0%, rgb(var(--accent-rgb) / 0.02) 42%, transparent 72%)",
     },
   },
 ];

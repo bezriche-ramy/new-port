@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { BsArrowRight, BsGithub } from "react-icons/bs";
+import { BsArrowRight, BsSend } from "react-icons/bs";
 import { gsap } from "../../lib/gsap";
 import MagneticButton from "../MagneticButton";
+import { scrollToSection } from "../../lib/scroll";
 
 const roles = [
-  "Cybersecurity Student",
-  "Frontend Developer",
-  "Malware Analyst",
-  "React Specialist",
+  "UX/UI Designer for Business Owners",
+  "Conversion-Focused Website Partner",
+  "Product Designer Who Ships",
+  "Interface Designer for Growth Teams",
 ];
 
 const HeroText = () => {
@@ -22,7 +23,6 @@ const HeroText = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Cinematic character reveal with 3D flip
       const allChars = [...firstLineRefs.current, ...lastLineRefs.current].filter(Boolean);
 
       gsap.fromTo(
@@ -39,11 +39,10 @@ const HeroText = () => {
             each: 0.04,
             from: "start",
           },
-          delay: 2.0,
+          delay: 2,
         }
       );
 
-      // Subtitle and CTA reveal with staggered slide-up
       gsap.fromTo(
         ".hero-reveal",
         { y: 50, opacity: 0, filter: "blur(4px)" },
@@ -60,7 +59,7 @@ const HeroText = () => {
     }, wrapperRef);
 
     const interval = window.setInterval(() => {
-      setRoleIndex((c) => (c + 1) % roles.length);
+      setRoleIndex((current) => (current + 1) % roles.length);
     }, 2600);
 
     return () => {
@@ -70,7 +69,10 @@ const HeroText = () => {
   }, []);
 
   useEffect(() => {
-    if (!roleRef.current) return;
+    if (!roleRef.current) {
+      return;
+    }
+
     gsap.fromTo(
       roleRef.current,
       { y: 20, opacity: 0 },
@@ -80,23 +82,23 @@ const HeroText = () => {
 
   return (
     <div ref={wrapperRef} style={{ perspective: "1000px" }}>
-      {/* Role tag */}
       <div className="hero-reveal mb-8">
         <span
           ref={roleRef}
-          className="inline-block text-sm md:text-base text-accent font-medium tracking-wide"
+          className="inline-block text-sm font-medium tracking-wide text-accent md:text-base"
         >
           {roles[roleIndex]}
         </span>
       </div>
 
-      {/* Giant name — typography as primary visual */}
       <h1 className="font-display text-hero leading-[0.88] tracking-tighter">
         <span className="block overflow-hidden pb-2">
-          {firstNameChars.map((char, i) => (
+          {firstNameChars.map((char, index) => (
             <span
-              key={`f-${i}`}
-              ref={(el) => { firstLineRefs.current[i] = el; }}
+              key={`first-${index}`}
+              ref={(element) => {
+                firstLineRefs.current[index] = element;
+              }}
               className="inline-block will-change-transform"
               style={{ transformStyle: "preserve-3d" }}
             >
@@ -105,10 +107,12 @@ const HeroText = () => {
           ))}
         </span>
         <span className="block overflow-hidden pb-2">
-          {lastNameChars.map((char, i) => (
+          {lastNameChars.map((char, index) => (
             <span
-              key={`l-${i}`}
-              ref={(el) => { lastLineRefs.current[i] = el; }}
+              key={`last-${index}`}
+              ref={(element) => {
+                lastLineRefs.current[index] = element;
+              }}
               className="inline-block will-change-transform"
               style={{ transformStyle: "preserve-3d" }}
             >
@@ -116,8 +120,10 @@ const HeroText = () => {
             </span>
           ))}
           <span
-            className="inline-block will-change-transform text-accent"
-            ref={(el) => { lastLineRefs.current[lastNameChars.length] = el; }}
+            ref={(element) => {
+              lastLineRefs.current[lastNameChars.length] = element;
+            }}
+            className="inline-block text-accent will-change-transform"
             style={{ transformStyle: "preserve-3d" }}
           >
             .
@@ -125,46 +131,44 @@ const HeroText = () => {
         </span>
       </h1>
 
-      {/* Description */}
-      <p className="hero-reveal mt-8 md:mt-12 text-base md:text-lg text-text-secondary max-w-xl leading-relaxed">
-        Crafting secure digital experiences with modern front-end engineering,
-        performance-first execution, and practical security depth.
+      <p className="hero-reveal mt-8 max-w-2xl text-base leading-relaxed text-text-secondary md:mt-12 md:text-lg">
+        I design clear websites and product interfaces that help business owners
+        explain their value faster, build trust quickly, and turn more visitors
+        into qualified conversations.
       </p>
 
-      {/* CTA Row */}
-      <div className="hero-reveal mt-10 flex flex-col sm:flex-row gap-4">
+      <div className="hero-reveal mt-10 flex flex-col gap-4 sm:flex-row">
         <MagneticButton strength={0.3}>
-          <a
-            className="inline-flex items-center gap-3 px-7 py-3.5 bg-accent text-bg-primary text-sm font-semibold hover:gap-5 transition-all duration-300"
-            href="https://github.com/bezriche-ramy"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            className="inline-flex items-center gap-3 bg-accent px-7 py-3.5 text-sm font-semibold text-bg-primary transition-all duration-300 hover:gap-5"
+            onClick={() => scrollToSection("projects", { offset: -80 })}
             data-cursor="magnetic"
           >
-            <BsGithub className="text-lg" />
-            Explore GitHub
-          </a>
+            See Client Work
+            <BsArrowRight className="text-lg" />
+          </button>
         </MagneticButton>
 
         <MagneticButton strength={0.3}>
-          <a
-            className="inline-flex items-center gap-3 px-7 py-3.5 border border-border-medium text-text-primary text-sm font-medium hover:border-text-primary hover:gap-5 transition-all duration-300"
-            href="#projects"
+          <button
+            type="button"
+            className="inline-flex items-center gap-3 border border-border-medium px-7 py-3.5 text-sm font-medium text-text-primary transition-all duration-300 hover:gap-5 hover:border-text-primary"
+            onClick={() => scrollToSection("contact", { offset: -80 })}
             data-cursor="magnetic"
           >
-            View Projects
-            <BsArrowRight className="text-lg" />
-          </a>
+            Discuss Your Project
+            <BsSend className="text-lg" />
+          </button>
         </MagneticButton>
       </div>
 
-      {/* Horizontal info line */}
-      <div className="hero-reveal mt-16 flex items-center gap-8 text-xs text-text-tertiary uppercase tracking-widest">
-        <span>Based in Algiers</span>
-        <span className="w-12 h-[1px] bg-border-medium" />
-        <span>3+ Years Experience</span>
-        <span className="w-12 h-[1px] bg-border-medium hidden sm:block" />
-        <span className="hidden sm:inline">20+ Projects</span>
+      <div className="hero-reveal mt-16 flex flex-wrap items-center gap-5 text-xs uppercase tracking-widest text-text-tertiary md:gap-8">
+        <span>Business-first UX/UI</span>
+        <span className="h-[1px] w-10 bg-border-medium" />
+        <span>White background ready</span>
+        <span className="hidden h-[1px] w-10 bg-border-medium sm:block" />
+        <span className="hidden sm:inline">Design plus frontend delivery</span>
       </div>
     </div>
   );

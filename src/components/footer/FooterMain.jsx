@@ -37,7 +37,7 @@ const FooterMain = () => {
             &copy; 2026 Ramy Bezriche. All rights reserved.
           </p>
           <ScrambleText
-            text="Crafted with precision."
+            text="Built for clarity and conversion."
             className="text-xs text-text-tertiary cursor-default"
           />
         </div>

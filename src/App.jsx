@@ -1,7 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import NavbarMain from "./components/navbar/NavbarMain";
 import HeroMain from "./components/heroSection/HeroMain";
-import MagneticCursor from "./components/MagneticCursor";
 import PageTransition from "./components/PageTransition";
 import ScrollProgress from "./components/ScrollProgress";
 import EasterEgg from "./components/EasterEgg";
@@ -170,7 +169,6 @@ function App() {
   return (
     <>
       <PageTransition onComplete={() => setIsIntroActive(false)} />
-      <MagneticCursor />
       <ScrollProgress />
       <EasterEgg />
       <BackToTop />
